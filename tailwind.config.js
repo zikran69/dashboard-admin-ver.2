@@ -9,6 +9,9 @@ export default {
       transitionProperty: {
         'display': 'display',
       },
+      backgroundImage: {
+        'loginBg' : "url('./src/image/bglogin.jpg')"
+      },
       colors: {
         'primary-blue': '#252b3b',
         'primary-red' : '#b91c1c',

@@ -24,7 +24,7 @@ export default function LoginPage(){
     }
 
     return(
-        <div className="flex items-center justify-center h-screen bg-[url('https://hips.hearstapps.com/hmg-prod/images/hoshinoya-tokyo-entrance-02-1550007340.jpg?crop=1xw:1xh;center,top&resize=980:*')] bg-cover">
+        <div className="flex items-center justify-center h-screen bg-loginBg bg-cover">
             <div className="backdrop-blur-sm bg-white/20 p-6 rounded-xl shadow-xl w-[300px] text-sm sm:mx-3">
                 <h1 className="text-3xl font-semibold mb-4 text-center font-roboto">
                     Log In
