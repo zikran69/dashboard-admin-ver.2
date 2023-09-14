@@ -1,11 +1,10 @@
-
 import React, { useState } from "react";
 import kategori from '../../kategori.json'
-import Search from "./Search.jsx";
-import Tambah from "./Tambah.jsx";
-import TabelKategori from "./TabelKategori.jsx";
+import Search from "../file-bahe/Search.jsx";
+import Tambah from "../file-bahe/Tambah.jsx";
+import TabelKategori from "../file-bahe/TabelKategori.jsx";
 
-const Kategori = (props)=>{
+export default function KategoiKamarPage(props){
     const [storage, setStorage] = useState(kategori);
     // const [postKategori, setPostKategori] = useState(storage);
     // let dataKategori = storage;
@@ -42,10 +41,7 @@ const Kategori = (props)=>{
             </div>
             <TabelKategori dataKategori={storage} menghapus={deleteKategori}/>
         </form>
-        {/* <HapusKategori deleteKategori={deleteKategori}/> */}
     </div>
     </div>
     )
 }   
-
-export default Kategori;

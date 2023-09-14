@@ -27,8 +27,8 @@ const TryTabel = (props)=>{
     if(dataKategori.length > 0 && dataKategori != undefined){
         return(
         <>
-            <table onClick={opsi} id="tabel" className="mb-4 text-zinc-600 w-full">
-                <thead>
+            <table onClick={opsi} id="tabel" className="mb-4 border-collapse  rounded-lg text-sm text-left text-gray-500 w-full">
+                <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                     <tr>
                         <th className="border border-b-2 border-opacity-10 border-secondary-blue p-4 text-left">No</th>
                         <th className="border border-b-2 border-opacity-10 border-secondary-blue p-4 text-left">Kategori</th>
