@@ -5,13 +5,15 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {
+    extend: {      
       transitionProperty: {
         'display': 'display',
       },
       colors: {
         'primary-blue': '#252b3b',
+        'primary-red' : '#b91c1c',
         'secondary-blue': '#78aed8',
+        'third-blue' : '#1d4ed8',
         'primary-gray': '#eff3f6',
         'secondary-gray': '#b4b6b9',
         'hover-blue': '#2563EB',
