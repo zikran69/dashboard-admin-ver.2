@@ -4,19 +4,32 @@ import { global } from "./assets/context";
 import { useEffect, useState } from "react";
 
 function App() {
-  const [db, setDb] = useState();
+  const [dataHotel, setDataHotel] = useState();
+  const [update, setUpdate] = useState(false);
+  const [dataID, setDataID] = useState("");
+
   useEffect(() => {
-    fetch("https://6507a74b3a38daf4803f9ee4.mockapi.io/kamar")
+    fetch("https://6507a74b3a38daf4803f9ee4.mockapi.io/api/v1/rooms")
       .then((res) => res.json())
-      .then(setDb);
-  }, []);
+      .then(setDataHotel);
+    setUpdate(false);
+  }, [update]);
+
   const store = {
-    database: db,
-    updateDb: (value) => {
-      setDb(value);
+    dataHotel: dataHotel,
+
+    dataID: dataID,
+    updateDataID: (value) => {
+      setDataID(value);
+    },
+
+    update: update,
+    loadUpdate: (value) => {
+      setUpdate(value);
     },
   };
-  if (db) {
+
+  if (dataHotel) {
     return (
       <BrowserRouter>
         <global.Provider value={store}>

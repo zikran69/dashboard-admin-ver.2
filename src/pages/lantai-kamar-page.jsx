@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { global } from "../assets/context";
 
 import LantaiTable from "../Components/lantai-table";
-import NewKamar from "../Components/new-kamar";
+import NewKamar from "../Components/tambah-kamar";
 
 export default function LantaiKamarPage() {
   const [database, setDatabase] = useState(useContext(global).database);

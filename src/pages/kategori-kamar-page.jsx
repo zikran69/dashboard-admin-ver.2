@@ -1,26 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { global } from "../assets/context";
 
 import KategoriTable from "../Components/kategori-table";
-import NewKamar from "../Components/new-kamar";
-import KategoriCari from "../Components/kategori-cari";
+import TambahKamar from "../Components/tambah-kamar";
+import Cari from "../Components/Cari";
 
 export default function KategoiKamarPage() {
-  const [database, setDatabase] = useState(useContext(global).database);
-  const updateDb = useContext(global).updateDb;
+  const loadUpdate = useContext(global).loadUpdate;
+  const dataHotel = useContext(global).dataHotel;
+  const [display, setDisplay] = useState(dataHotel);
 
-  const tambah = (value) => {
-    setDatabase(value.map((el) => el));
-    updateDb(value);
-  };
+  useEffect(() => {
+    setDisplay(dataHotel);
+  }, [dataHotel]);
 
   const cari = (value) => {
-    alert(value);
+    const url = new URL(
+      "https://6507a74b3a38daf4803f9ee4.mockapi.io/api/v1/rooms"
+    );
+    url.searchParams.append("kategori", value);
+    fetch(url)
+      .then((res) => res.json())
+      .then(setDisplay);
   };
   const hapus = (value) => {
-    setDatabase(value.map((el) => el));
-    updateDb(value);
+    fetch(`https://6507a74b3a38daf4803f9ee4.mockapi.io/api/v1/rooms/${value}`, {
+      method: "DELETE",
+    });
+    loadUpdate(true);
+    alert("berhasil dihapus!");
   };
 
   return (
@@ -30,11 +39,11 @@ export default function KategoiKamarPage() {
           Kategori Kamar
         </h1>
         <form className="font-roboto px-4 mx-4 border rounded-lg bg-white max-md:text-sm overflow-auto">
-          <div className="grid gap-5 place-items-start sm:flex justify-between m-4 ">
-            <NewKamar database={database} />
-            <KategoriCari database={database} cari={cari} />
+          <div className="grid gap-5 place-items-start sm:flex justify-between m-4">
+            <TambahKamar />
+            <Cari cari={cari} />
           </div>
-          <KategoriTable database={database} dbHapus={hapus} />
+          <KategoriTable dataHotel={display} hapus={hapus} />
         </form>
       </div>
     </div>

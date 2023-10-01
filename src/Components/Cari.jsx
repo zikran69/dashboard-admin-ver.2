@@ -1,11 +1,8 @@
 import PropType from "prop-types";
 
-export default function KategoriCari({ database, cari }) {
-  const searching = () => {
-    // const db_filtered = database.filter((item) =>
-    //   item.database.includes(e.target.value)
-    // );
-    cari(database);
+export default function Cari({ cari }) {
+  const searching = (e) => {
+    cari(e.target.value.toLowerCase());
   };
   return (
     <input
@@ -17,7 +14,6 @@ export default function KategoriCari({ database, cari }) {
   );
 }
 
-KategoriCari.propTypes = {
-  database: PropType.array,
+Cari.propTypes = {
   cari: PropType.func,
 };

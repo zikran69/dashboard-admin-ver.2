@@ -1,22 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { global } from "../assets/context";
 
 import ListTable from "../Components/list-table";
-import NewKamar from "../Components/new-kamar";
+import TambahKamar from "../Components/tambah-kamar";
+import Cari from "../Components/Cari";
 
 export default function ListKamarPage() {
-  const [database, setStorage] = useState(useContext(global).database);
-  const updateDb = useContext(global).updateDb;
+  const loadUpdate = useContext(global).loadUpdate;
+  const dataHotel = useContext(global).dataHotel;
+  const [display, setDisplay] = useState(dataHotel);
 
-  const tambah = (value) => {
-    setStorage(value.map((el) => el));
-    updateDb(value);
+  useEffect(() => {
+    setDisplay(dataHotel);
+  }, [dataHotel]);
+
+  const cari = (value) => {
+    setDisplay(dataHotel.filter((e) => e.nomorKamar.includes(value)));
   };
 
   const hapus = (value) => {
-    setStorage(value.map((el) => el));
-    updateDb(value);
+    fetch(`https://6507a74b3a38daf4803f9ee4.mockapi.io/api/v1/rooms/${value}`, {
+      method: "DELETE",
+    });
+    loadUpdate(true);
+    alert("berhasil dihapus!");
   };
 
   return (
@@ -25,10 +33,10 @@ export default function ListKamarPage() {
         <h1 className="p-4 font-raleway text-2xl font-semibold">List Kamar</h1>
         <form className="font-roboto px-4 mx-4 border rounded-lg bg-white max-md:text-sm overflow-auto">
           <div className="grid gap-5 place-items-start sm:flex justify-between m-4 ">
-            <NewKamar database={database} tambah={tambah} />
-            {/* <Search dataKategori={storage} mencariKategori={dataMencari} /> */}
+            <TambahKamar />
+            <Cari cari={cari} />
           </div>
-          <ListTable database={database} dbHapus={hapus} />
+          <ListTable dataHotel={display} hapus={hapus} />
         </form>
       </div>
     </div>

@@ -15,6 +15,8 @@ Currently, two official plugins are available:
 
 ## npm install --save prop-types
 
-## npm init @eslint/config
+## npm init @eslint/
 
-## https://6507a74b3a38daf4803f9ee4.mockapi.io/kamar
+## npm install --save chart.js react-chartjs-2
+
+## mocapi datakamar https://6507a74b3a38daf4803f9ee4.mockapi.io/api/v1/rooms
