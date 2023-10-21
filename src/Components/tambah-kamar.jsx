@@ -1,18 +1,17 @@
-import { layer } from "./opsi";
+import { Link } from "react-router-dom";
 
 export default function TambahKamar() {
-  const tambahKamar = (e) => {
-    e.preventDefault();
-    layer(document.getElementById("layerFormTambah"));
-  };
+  
   return (
     <>
+    <Link to="/tambah-kamar">
       <button
-        onClick={tambahKamar}
+        
         className="py-2 px-5 bg-blue-400 rounded-md text-sm text-white hover:bg-hover-blue"
       >
         <i className="ri-hotel-bed-line mr-2"></i>Tambah Kamar
       </button>
+    </Link>
     </>
   );
 }
