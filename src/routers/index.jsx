@@ -15,6 +15,12 @@ import CheckoutKamarpage from "../pages/checkout-kamar-page";
 import LaporanPage from "../pages/laporan-page";
 import AdministratorPage from "../Components/administrator/administrator-page";
 import ProfilAdmin from "../Components/ProfilAdmin/ProfilAdmin";
+import TambahKamarForm from "../pages/tambah-kamar";
+import UpdateKamarForm from "../pages/update-kamar";
+import DetailKamarForm from "../pages/detail-kamar";
+
+import AddCategory from "../Components/category/add-category";
+import DetailCategory from "../Components/category/detail-category";
 
 export default function Router() {
   return (
@@ -29,8 +35,13 @@ export default function Router() {
           <Route path="/administrator" element={<AdministratorPage />} />
           <Route path="profile" element={<ProfilePage />} />
           <Route path="/kategori-kamar" element={<KategoriKamarPage />} />
+          <Route path="/category-add" element={<AddCategory />} />
+          <Route path="/category-detail" element={<DetailCategory />} />
           <Route path="/lantai-kamar" element={<LantaiKamarPage />} />
-          <Route path="list-kamar" element={<ListKamarPage />} />
+          <Route path="/list-kamar" element={<ListKamarPage />} />
+          <Route path="/tambah-kamar" element={<TambahKamarForm />} />
+          <Route path="/update-kamar/:id" element={<UpdateKamarForm />} />
+          <Route path="/detail-kamar/:id" element={<DetailKamarForm />} />
           <Route path="/pesan-kamar" element={<PesanKamarPage />} />
           <Route path="/checkin-kamar" element={<CheckinKamarPage />} />
           <Route path="/checkout-kamar" element={<CheckoutKamarpage />} />

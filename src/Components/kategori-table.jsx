@@ -1,24 +1,28 @@
 import PropTypes from "prop-types";
 import { useContext } from "react";
 import { global } from "../assets/context";
-import { tombolOpsi, layer } from "./opsi";
-export default function KategoriTable({ dataHotel, hapus }) {
+import { optionButton } from "../Components/category/option-button";
+import { useNavigate } from "react-router-dom";
+export default function KategoriTable({ categories, deleteCategory }) {
   const updateDataID = useContext(global).updateDataID;
+  const navigate = useNavigate();
   let display;
-  if (dataHotel == undefined) {
+  if (categories == undefined) {
     display = [];
-  } else display = dataHotel;
+  } else display = categories;
 
   const opsi = (el) => {
     if (el.target.title == "detail" || el.target.title == "icon detail") {
-      updateDataID(tombolOpsi(display, el.target, "detail"));
-      layer(document.getElementById("layerFormDetail"));
+      updateDataID(optionButton(display, el.target, "detail"));
+      navigate("/category-detail");
     } else if (el.target.title == "edit" || el.target.title == "icon edit") {
-      updateDataID(tombolOpsi(display, el.target, "edit"));
-      layer(document.getElementById("layerFormEditKategori"));
-    } else if (el.target.title == "hapus" || el.target.title == "icon hapus") {
-      window.confirm("ingin menghapus?") &&
-        hapus(tombolOpsi(display, el.target, "hapus"));
+      // updateDataID(optionButton(display, el.target, "edit"));
+    } else if (
+      el.target.title == "delete" ||
+      el.target.title == "icon delete"
+    ) {
+      window.confirm("are you sure for delete this category?") &&
+        deleteCategory(optionButton(display, el.target, "delete"));
     }
   };
 
@@ -36,41 +40,35 @@ export default function KategoriTable({ dataHotel, hapus }) {
                 No
               </th>
               <th className="border border-b-2 border-opacity-10 border-secondary-blue p-4 text-left min-w-[150px]">
-                Kategori
+                Category
               </th>
               <th className="border border-b-2 border-opacity-10 border-secondary-blue p-4 text-left">
-                Harga
+                Price
               </th>
               <th className="border border-b-2 border-opacity-10 border-secondary-blue p-4 text-left min-w-[250px]">
-                Fasilitas
+                Facilities
               </th>
               <th className="border border-b-2 border-opacity-10 border-secondary-blue p-4 text-left">
-                Status
-              </th>
-              <th className="border border-b-2 border-opacity-10 border-secondary-blue p-4 text-left">
-                Opsi
+                Option
               </th>
             </tr>
           </thead>
           <tbody>
             {display.map(
-              ({ id, kategori, harga, fasilitas, status }, index) => {
+              ({ id, nameCategory, price, facilityCategory }, index) => {
                 return (
                   <tr key={id} className="capitalize">
                     <td className="p-4 border-secondary-gray border border-b-2 border-opacity-10">
                       {index + 1}
                     </td>
                     <td className="p-4 border-secondary-gray border border-b-2 border-opacity-10">
-                      {kategori}
+                      {nameCategory}
                     </td>
                     <td className="p-4 border-secondary-gray border border-b-2 border-opacity-10">
-                      ${harga}/night
+                      ${price}/night
                     </td>
                     <td className="p-4 border-secondary-gray border border-b-2 border-opacity-10">
-                      {fasilitas}
-                    </td>
-                    <td className="p-4 border-secondary-gray border border-b-2 border-opacity-10">
-                      {status}
+                      {facilityCategory}
                     </td>
                     <td className="p-4 border-secondary-gray border border-b-2 border-opacity-10">
                       <div className="flex justify-center items-center flex-nowrap">
@@ -86,11 +84,11 @@ export default function KategoriTable({ dataHotel, hapus }) {
                         </button>
                         <button
                           type="button"
-                          title="hapus"
-                          className="hapus mr-1 py-1 px-5 bg-red-400 rounded-md hover:bg-hover-red"
+                          title="delete"
+                          className="delete mr-1 py-1 px-5 bg-red-400 rounded-md hover:bg-hover-red"
                         >
                           <i
-                            title="icon hapus"
+                            title="icon delete"
                             className="ri-delete-bin-line text-white"
                           ></i>
                         </button>
@@ -118,6 +116,6 @@ export default function KategoriTable({ dataHotel, hapus }) {
 }
 
 KategoriTable.propTypes = {
-  dataHotel: PropTypes.array,
-  hapus: PropTypes.func,
+  categories: PropTypes.array,
+  deleteCategory: PropTypes.func,
 };
