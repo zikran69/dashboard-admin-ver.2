@@ -32,11 +32,11 @@ export default function LoginPage(){
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
                         <label className="block text-sm font-medium text-gray-700">Username</label>
-                        <input type="text" id="userName" name="username" placeholder="admin" className="mt-1 px-4 py-2 w-full border rounded-md focus:ring focus:ring-indigo-300"/>
+                        <input type="text" id="userName" name="username" placeholder="admin" className="bg-sky-100 text-slate-900 mt-1 px-4 py-2 w-full border rounded-md focus:ring focus:ring-indigo-300"/>
                     </div>
                     <div className="mb-4">
                         <label className="block text-sm font-medium text-gray-700">Password</label>
-                        <input type="password" id="passWord" name="password" className="mt-1 px-4 py-2 w-full border rounded-md focus:ring focus:ring-indigo-300"/>
+                        <input type="password" id="passWord" name="password" className="bg-sky-100 mt-1 px-4 py-2 w-full border rounded-md focus:ring focus:ring-indigo-300"/>
                     </div>
                     <div className="flex justify-between items-center my-4 p-2">
                         <div className="flex items-center">
