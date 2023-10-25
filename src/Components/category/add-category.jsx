@@ -6,7 +6,7 @@ export default function AddCategory() {
   const navigate = useNavigate();
   useEffect(() => {
     if (addCategory) {
-      fetch("http://localhost:2000/category-add", {
+      fetch("http://localhost:2000/category/add", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(addCategory),

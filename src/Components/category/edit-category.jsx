@@ -15,7 +15,7 @@ export default function EditCategory() {
 
   useEffect(() => {
     if (editCategory) {
-      fetch(`http://localhost:2000/category-update/${dataId}`, {
+      fetch(`http://localhost:2000/category/update/${dataId}`, {
         method: "PUT",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(editCategory),
