@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { global } from "../../assets/context";
+import { useNavigate } from "react-router-dom";
 
 export default function DetailCategory() {
   const [categoryId, setCategoryId] = useState(null);
+  const navigate = useNavigate();
   const dataId = useContext(global).dataId;
   useEffect(() => {
     fetch(`http://localhost:2000/category/${dataId}`)
@@ -52,6 +54,14 @@ export default function DetailCategory() {
                 </tr>
               </tbody>
             </table>
+            <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+              <button
+                className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                type="button"
+                onClick={() => navigate("/category-page")}>
+                Back
+              </button>
+            </div>
           </div>
         </main>
       </div>

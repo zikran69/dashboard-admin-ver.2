@@ -95,21 +95,12 @@ function PrivateRoute() {
                   <div className="pl-6">
                     <Link
                       onClick={popUp}
-                      to="/Kategori-kamar"
+                      to="/category-page"
                       className="hover:text-secondary-blue"
                     >
                       <i className="ri-hotel-bed-line mr-2"></i>Kategori Kamar
                     </Link>
                   </div>
-                  {/* <div className="pl-6">
-                    <Link
-                      onClick={popUp}
-                      to="/lantai-kamar"
-                      className="hover:text-secondary-blue"
-                    >
-                      <i className="ri-hotel-bed-line mr-2"></i>Lantai Kamar
-                    </Link>
-                  </div> */}
                   <div className="pl-6">
                     <Link
                       onClick={popUp}
