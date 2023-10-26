@@ -1,10 +1,6 @@
 import logo from "../assets/logo.png";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import auth from "../utils/auth";
-import FormTambah from "../utils/form-tambah";
-import FormDetail from "../utils/form-detail";
-import FormEditKategori from "../utils/form-edit-kategori";
-import FormEditList from "../utils/form-edit-list";
 
 function PrivateRoute() {
   const navigate = useNavigate();
@@ -99,21 +95,12 @@ function PrivateRoute() {
                   <div className="pl-6">
                     <Link
                       onClick={popUp}
-                      to="/Kategori-kamar"
+                      to="/category-page"
                       className="hover:text-secondary-blue"
                     >
                       <i className="ri-hotel-bed-line mr-2"></i>Kategori Kamar
                     </Link>
                   </div>
-                  {/* <div className="pl-6">
-                    <Link
-                      onClick={popUp}
-                      to="/lantai-kamar"
-                      className="hover:text-secondary-blue"
-                    >
-                      <i className="ri-hotel-bed-line mr-2"></i>Lantai Kamar
-                    </Link>
-                  </div> */}
                   <div className="pl-6">
                     <Link
                       onClick={popUp}
@@ -177,10 +164,6 @@ function PrivateRoute() {
             </button>
             <Outlet />
           </div>
-          <FormTambah />
-          <FormDetail />
-          <FormEditKategori />
-          <FormEditList />
         </div>
       </>
     );

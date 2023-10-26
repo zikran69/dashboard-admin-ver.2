@@ -1,13 +1,14 @@
 import { useState } from "react";
 
-import KategoriTable from "../Components/kategori-table";
+import TableCategory from "../Components/category/table-category";
 import SearchCategory from "../Components/category/search-category";
 import { useNavigate } from "react-router-dom";
 
-export default function KategoiKamarPage() {
+export default function CategoryPage() {
   const [categories, setCategories] = useState(null);
+  const [dataValue, setDataValue] = useState("all");
   useState(() => {
-    fetch("http://localhost:2000/categories")
+    fetch("http://localhost:2000/category")
       .then((res) => res.json())
       .then(setCategories)
       .catch((error) => {
@@ -17,26 +18,25 @@ export default function KategoiKamarPage() {
   const navigate = useNavigate();
 
   const search = (value) => {
+    setDataValue(value);
     if (value == "all") {
-      fetch(`http://localhost:2000/categories`)
+      fetch(`http://localhost:2000/category`)
         .then((res) => res.json())
         .then(setCategories);
     } else
-      fetch(`http://localhost:2000/category-search/${value}`)
+      fetch(`http://localhost:2000/category/search/${value}`)
         .then((res) => res.json())
         .then(setCategories);
   };
 
   const deleting = (value) => {
-    fetch(`http://localhost:2000/category-delete/${value}`, {
+    fetch(`http://localhost:2000/category/delete/${value}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
       .then((res) => alert(res.message));
     setTimeout(() => {
-      fetch(`http://localhost:2000/categories`)
-        .then((res) => res.json())
-        .then(setCategories);
+      search(dataValue);
     }, 1000);
   };
 
@@ -54,7 +54,7 @@ export default function KategoiKamarPage() {
             </button>
             <SearchCategory search={search} />
           </div>
-          <KategoriTable categories={categories} deleteCategory={deleting} />
+          <TableCategory categories={categories} deleteCategory={deleting} />
         </form>
       </div>
     </div>

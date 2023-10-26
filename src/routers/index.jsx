@@ -6,8 +6,6 @@ import PrivateRoute from "./private-route";
 import LoginPage from "../pages/login-page";
 import DashboardPage from "../pages/dashboard-page";
 import ProfilePage from "../pages/profile-page";
-import KategoriKamarPage from "../pages/kategori-kamar-page";
-import LantaiKamarPage from "../pages/lantai-kamar-page";
 import ListKamarPage from "../pages/list-kamar-page";
 import PesanKamarPage from "../pages/pesan-kamar-page";
 import CheckinKamarPage from "../pages/checkin-kamar-page";
@@ -15,10 +13,14 @@ import CheckoutKamarpage from "../pages/checkout-kamar-page";
 import LaporanPage from "../pages/laporan-page";
 import AdministratorPage from "../Components/administrator/administrator-page";
 import ProfilAdmin from "../Components/ProfilAdmin/ProfilAdmin";
-import TambahKamar from "../Components/tambah-kamar";
 import TambahKamarForm from "../pages/tambah-kamar";
 import UpdateKamarForm from "../pages/update-kamar";
 import DetailKamarForm from "../pages/detail-kamar";
+
+import CategoryPage from "../pages/category-page";
+import AddCategory from "../Components/category/add-category";
+import DetailCategory from "../Components/category/detail-category";
+import EditCategory from "../Components/category/edit-category";
 
 export default function Router() {
   return (
@@ -32,8 +34,10 @@ export default function Router() {
           <Route path="/profile-user" element={<ProfilAdmin />} />
           <Route path="/administrator" element={<AdministratorPage />} />
           <Route path="profile" element={<ProfilePage />} />
-          <Route path="/kategori-kamar" element={<KategoriKamarPage />} />
-          <Route path="/lantai-kamar" element={<LantaiKamarPage />} />
+          <Route path="/category-page" element={<CategoryPage />} />
+          <Route path="/category-add" element={<AddCategory />} />
+          <Route path="/category-detail" element={<DetailCategory />} />
+          <Route path="/category-edit" element={<EditCategory />} />
           <Route path="/list-kamar" element={<ListKamarPage />} />
           <Route path="/tambah-kamar" element={<TambahKamarForm />} />
           <Route path="/update-kamar/:id" element={<UpdateKamarForm />} />
