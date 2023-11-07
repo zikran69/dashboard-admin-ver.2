@@ -6,7 +6,7 @@ export default function AddCategory() {
   const navigate = useNavigate();
   useEffect(() => {
     if (addCategory) {
-      fetch("http://localhost:2000/category-add", {
+      fetch("http://localhost:2000/category/add", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(addCategory),
@@ -29,7 +29,7 @@ export default function AddCategory() {
       descCategory: descCategory,
     });
     setTimeout(() => {
-      navigate("/kategori-kamar");
+      navigate("/category-page");
     }, 1000);
   };
 
@@ -99,7 +99,10 @@ export default function AddCategory() {
                       <button
                         className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="button"
-                        onClick={() => navigate("/kategori-kamar")}>
+
+                        onClick={() => navigate("/category-page")}
+                      >
+
                         Close
                       </button>
                       <button
