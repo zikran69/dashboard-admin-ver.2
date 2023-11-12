@@ -16,6 +16,7 @@ import ProfilAdmin from "../Components/ProfilAdmin/ProfilAdmin";
 import TambahKamarForm from "../pages/tambah-kamar";
 import UpdateKamarForm from "../pages/update-kamar";
 import DetailKamarForm from "../pages/detail-kamar";
+import CustomerPage from "../pages/customer-page";
 
 import CategoryPage from "../pages/category-page";
 import AddCategory from "../Components/category/add-category";
@@ -42,6 +43,7 @@ export default function Router() {
           <Route path="/tambah-kamar" element={<TambahKamarForm />} />
           <Route path="/update-kamar/:id" element={<UpdateKamarForm />} />
           <Route path="/detail-kamar/:id" element={<DetailKamarForm />} />
+          <Route path="/customer-page" element={<CustomerPage />} />
           <Route path="/pesan-kamar" element={<PesanKamarPage />} />
           <Route path="/checkin-kamar" element={<CheckinKamarPage />} />
           <Route path="/checkout-kamar" element={<CheckoutKamarpage />} />
