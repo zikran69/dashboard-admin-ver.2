@@ -42,7 +42,8 @@ export default function TambahKamarForm() {
         <main className="bg-primary-gray grow overflow-y-auto">
           <div
             id="modal-overlay"
-            className="hidden bg-black h-full w-full absolute top-0 left-0 opacity-90"></div>
+            className="hidden bg-black h-full w-full absolute top-0 left-0 opacity-90"
+          ></div>
           <div className="p-4 h-[calc(100vh-67.33px)]">
             <div>
               <h1 className="text-2xl font-semibold">Form Add Room</h1>
@@ -57,10 +58,9 @@ export default function TambahKamarForm() {
                         <select
                           onChange={(e) => setCategory(e.target.value)}
                           required
-
                           className="h-10 border mt-1 rounded px-4 w-full bg-gray-0"
                         >
-         <option value={""}>--select--</option>
+                          <option value={""}>--select--</option>
                           <option value={1}>Admin</option>
                           <option value={2}>Superadmin</option>
                         </select>
@@ -69,10 +69,8 @@ export default function TambahKamarForm() {
                         <label>Floor</label>
                         <select
                           onChange={(e) => setFloor(e.target.value)}
-
                           className="h-10 border mt-1 rounded px-4 w-full bg-gray-0"
                         >
-
                           <option value={""}>--select--</option>
                           <option value={1}>1</option>
                           <option value={2}>2</option>
@@ -93,10 +91,8 @@ export default function TambahKamarForm() {
                         <select
                           onChange={(e) => setNumber(e.target.value)}
                           required
-
                           className="h-10 border mt-1 rounded px-4 w-full bg-gray-0"
                         >
-
                           <option value={""}>--select--</option>
                           <option value={1}>1</option>
                           <option value={2}>2</option>
@@ -118,10 +114,8 @@ export default function TambahKamarForm() {
                         <select
                           onChange={(e) => setStatus(e.target.value)}
                           required
-
                           className="h-10 border mt-1 rounded px-4 w-full bg-gray-0"
                         >
-
                           <option value={""}>--select--</option>
                           <option value={1}>Empty</option>
                           <option value={2}>Booked</option>
@@ -133,13 +127,15 @@ export default function TambahKamarForm() {
                       <Link to="/list-kamar">
                         <button
                           className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                          type="button">
+                          type="button"
+                        >
                           Close
                         </button>
                       </Link>
                       <button
                         className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                        type="submit">
+                        type="submit"
+                      >
                         Save
                       </button>
                     </div>

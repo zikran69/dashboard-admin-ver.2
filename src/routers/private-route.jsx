@@ -1,6 +1,7 @@
 import logo from "../assets/logo.png";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import auth from "../utils/auth";
+import "remixicon/fonts/remixicon.css";
 
 function PrivateRoute() {
   const navigate = useNavigate();
@@ -49,21 +50,21 @@ function PrivateRoute() {
             ></div>
             <aside
               id="sidebar"
-              className="p-4 hidden lg:block text-secondary-gray font-medium lg:w-[220px] h-screen lg:h-full absolute lg:static top-0 left-0 bg-white shrink-0 overflow-auto w-[300px] z-30"
+              className="p-4 hidden lg:block text-dark font-medium lg:w-[220px] h-screen lg:h-full absolute lg:static top-0 left-0 bg-white shrink-0 overflow-auto w-[300px] z-30"
             >
               <h4 className="mb-3 font-semibold">Menu</h4>
               <div className="mb-2">
                 <Link
                   onClick={popUp}
                   to="/"
-                  className="hover:text-secondary-blue"
+                  className="hover:text-secondary-blue bg-third-gray rounded-lg p-2 w-[150px] border-2 border-blue-500"
                 >
                   <i className="ri-home-2-line mr-2"></i>Dashboard
                 </Link>
               </div>
               <div className="space-y-2">
                 <details open className="space-y-2">
-                  <summary className="hover:text-secondary-blue cursor-pointer list-none space-y-2">
+                  <summary className="hover:text-secondary-blue cursor-pointer list-none space-y-2 bg-third-gray rounded-lg p-2 w-[150px] border-2 border-blue-500 mt-[15px]">
                     <i className="ri-settings-5-fill mr-2"></i>Pengaturan
                     <i className="ri-arrow-drop-down-line"></i>
                   </summary>
@@ -71,7 +72,7 @@ function PrivateRoute() {
                     <Link
                       onClick={popUp}
                       to="/administrator"
-                      className="hover:text-secondary-blue"
+                      className="hover:text-secondary-blue bg-fourth-gray rounded-lg p-1 border-2 border-red-400 "
                     >
                       <i className="ri-user-settings-line mr-2"></i>
                       Administrator
@@ -81,14 +82,14 @@ function PrivateRoute() {
                     <Link
                       onClick={popUp}
                       to="/profile"
-                      className="hover:text-secondary-blue"
+                      className="hover:text-secondary-blue bg-fourth-gray rounded-lg p-1 px-[14px] border-2 border-red-400"
                     >
                       <i className="ri-profile-line mr-2"></i>Profil Hotel
                     </Link>
                   </div>
                 </details>
                 <details open className="space-y-2">
-                  <summary className="hover:text-secondary-blue cursor-pointer list-none space-y-2">
+                  <summary className="hover:text-secondary-blue cursor-pointer list-none space-y-2 bg-third-gray rounded-lg p-2 w-[150px] border-2 border-blue-500">
                     <i className="ri-building-4-line mr-2"></i>Data Kamar
                     <i className="ri-arrow-drop-down-line"></i>
                   </summary>
@@ -96,7 +97,7 @@ function PrivateRoute() {
                     <Link
                       onClick={popUp}
                       to="/category-page"
-                      className="hover:text-secondary-blue"
+                      className="hover:text-secondary-blue bg-fourth-gray rounded-lg p-1 px-[10px] border-2 border-red-400"
                     >
                       <i className="ri-hotel-bed-line mr-2"></i>Kategori Kamar
                     </Link>
@@ -105,42 +106,53 @@ function PrivateRoute() {
                     <Link
                       onClick={popUp}
                       to="/list-kamar"
-                      className="hover:text-secondary-blue"
+                      className="hover:text-secondary-blue bg-fourth-gray rounded-lg p-1 px-[28px] border-2 border-red-400"
                     >
-                      <i className="ri-hotel-bed-line mr-2"></i>List Kamar
+                      <i className="ri-list-indefinite mr-2"></i>List Kamar
                     </Link>
                   </div>
                 </details>
-                <details open className="space-y-2">
-                  <summary className="hover:text-secondary-blue cursor-pointer list-none space-y-2">
-                    <i className="ri-wallet-2-fill mr-2"></i>Transaksi
+                <details open className="space-y-2 ">
+                  <summary className="hover:text-secondary-blue cursor-pointer list-none space-y-2 bg-third-gray rounded-lg p-2 w-[150px] border-2 border-blue-500 mb-[10px]">
+                    <i className="ri-currency-fill mr-2"></i>Transaksi
                     <i className="ri-arrow-drop-down-line"></i>
                   </summary>
                   <div className="pl-6">
                     <Link
                       onClick={popUp}
                       to="/pesan-kamar"
-                      className="hover:text-secondary-blue"
+                      className="hover:text-secondary-blue bg-fourth-gray rounded-lg p-1 px-[14px] border-2 border-red-400"
                     >
-                      <i className="ri-notification-3-fill mr-2"></i>Pesan Kamar
+                      <i className="ri-survey-line mr-2"></i>Pesan Kamar
+                    </Link>
+                  </div>
+                  <div className="pl-6">
+                    <Link
+                      onClick={popUp}
+                      to="/customer-page"
+                      className="hover:text-secondary-blue bg-fourth-gray rounded-lg p-1 px-[14px] border-2 border-red-400"
+                    >
+                      <i className="ri-account-pin-circle-fill mr-2"></i>
+                      Customer
                     </Link>
                   </div>
                   <div className="pl-6">
                     <Link
                       onClick={popUp}
                       to="/checkin-kamar"
-                      className="hover:text-secondary-blue"
+                      className="hover:text-secondary-blue bg-fourth-gray rounded-lg p-1 px-[29px] border-2 border-red-400"
                     >
-                      <i className="ri-notification-3-fill mr-2"></i>Check In
+                      <i className="ri-logout-box-r-line mr-2"></i>
+                      Check In
                     </Link>
                   </div>
                   <div className="pl-6">
                     <Link
                       onClick={popUp}
                       to="/checkout-kamar"
-                      className="hover:text-secondary-blue"
+                      className="hover:text-secondary-blue bg-fourth-gray rounded-lg p-1 px-[23px] border-2 border-red-400"
                     >
-                      <i className="ri-notification-3-fill mr-2"></i>Check Out
+                      <i className="ri-safe-2-fill mr-2"></i>Check Out
                     </Link>
                   </div>
                 </details>
@@ -149,7 +161,7 @@ function PrivateRoute() {
                 <Link
                   onClick={popUp}
                   to="/laporan"
-                  className="hover:text-secondary-blue"
+                  className="hover:text-secondary-blue bg-third-gray rounded-lg p-2 w-[150px] border-2 border-blue-500"
                 >
                   <i className="ri-folder-2-line mr-2"></i>Laporan
                 </Link>
