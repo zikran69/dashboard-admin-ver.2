@@ -72,7 +72,7 @@ function PrivateRoute() {
                     <Link
                       onClick={popUp}
                       to="/administrator"
-                      className="hover:text-secondary-blue bg-fourth-gray rounded-lg p-1 border-2 border-red-400 "
+                      className="hover:text-secondary-blue bg-fourth-gray rounded-lg p-1 px-2 border border-blue-400 "
                     >
                       <i className="ri-user-settings-line mr-2"></i>
                       Administrator
@@ -82,7 +82,7 @@ function PrivateRoute() {
                     <Link
                       onClick={popUp}
                       to="/profile"
-                      className="hover:text-secondary-blue bg-fourth-gray rounded-lg p-1 px-[14px] border-2 border-red-400"
+                      className="hover:text-secondary-blue bg-fourth-gray rounded-lg p-1 px-2 border border-blue-400"
                     >
                       <i className="ri-profile-line mr-2"></i>Profil Hotel
                     </Link>
@@ -97,7 +97,7 @@ function PrivateRoute() {
                     <Link
                       onClick={popUp}
                       to="/category-page"
-                      className="hover:text-secondary-blue bg-fourth-gray rounded-lg p-1 px-[10px] border-2 border-red-400"
+                      className="hover:text-secondary-blue bg-fourth-gray rounded-lg p-1 px-2 border border-blue-400"
                     >
                       <i className="ri-hotel-bed-line mr-2"></i>Kategori Kamar
                     </Link>
@@ -106,7 +106,7 @@ function PrivateRoute() {
                     <Link
                       onClick={popUp}
                       to="/list-kamar"
-                      className="hover:text-secondary-blue bg-fourth-gray rounded-lg p-1 px-[28px] border-2 border-red-400"
+                      className="hover:text-secondary-blue bg-fourth-gray rounded-lg p-1 px-2 border border-blue-400"
                     >
                       <i className="ri-list-indefinite mr-2"></i>List Kamar
                     </Link>
@@ -121,7 +121,7 @@ function PrivateRoute() {
                     <Link
                       onClick={popUp}
                       to="/pesan-kamar"
-                      className="hover:text-secondary-blue bg-fourth-gray rounded-lg p-1 px-[14px] border-2 border-red-400"
+                      className="hover:text-secondary-blue bg-fourth-gray rounded-lg p-1 px-2 border border-blue-400"
                     >
                       <i className="ri-survey-line mr-2"></i>Pesan Kamar
                     </Link>
@@ -130,7 +130,7 @@ function PrivateRoute() {
                     <Link
                       onClick={popUp}
                       to="/customer-page"
-                      className="hover:text-secondary-blue bg-fourth-gray rounded-lg p-1 px-[14px] border-2 border-red-400"
+                      className="hover:text-secondary-blue bg-fourth-gray rounded-lg p-1 px-2 border border-blue-400"
                     >
                       <i className="ri-account-pin-circle-fill mr-2"></i>
                       Customer
@@ -140,7 +140,7 @@ function PrivateRoute() {
                     <Link
                       onClick={popUp}
                       to="/checkin-kamar"
-                      className="hover:text-secondary-blue bg-fourth-gray rounded-lg p-1 px-[29px] border-2 border-red-400"
+                      className="hover:text-secondary-blue bg-fourth-gray rounded-lg p-1 px-2 border border-blue-400"
                     >
                       <i className="ri-logout-box-r-line mr-2"></i>
                       Check In
@@ -150,7 +150,7 @@ function PrivateRoute() {
                     <Link
                       onClick={popUp}
                       to="/checkout-kamar"
-                      className="hover:text-secondary-blue bg-fourth-gray rounded-lg p-1 px-[23px] border-2 border-red-400"
+                      className="hover:text-secondary-blue bg-fourth-gray rounded-lg p-1 px-2 border border-blue-400"
                     >
                       <i className="ri-safe-2-fill mr-2"></i>Check Out
                     </Link>
