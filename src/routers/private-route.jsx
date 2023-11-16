@@ -43,7 +43,7 @@ function PrivateRoute() {
               </button>
             </div>
           </header>
-          <div className="flex h-[calc(100vh-67.33px)] min-w-[270px]">
+          <div className="text-[12px] flex h-[calc(100vh-67.33px)] min-w-[270px]">
             <div
               id="sidebar-overlay"
               className="hidden lg:hidden bg-black h-screen w-screen absolute top-0 left-0 opacity-90 z-20"
@@ -68,7 +68,7 @@ function PrivateRoute() {
                     <i className="ri-settings-5-fill mr-2"></i>Pengaturan
                     <i className="ri-arrow-drop-down-line"></i>
                   </summary>
-                  <div className="pl-6">
+                  <div className="pl-6 py-[3px]">
                     <Link
                       onClick={popUp}
                       to="/administrator"
@@ -78,7 +78,7 @@ function PrivateRoute() {
                       Administrator
                     </Link>
                   </div>
-                  <div className="pl-6">
+                  <div className="pl-6 py-[3px]">
                     <Link
                       onClick={popUp}
                       to="/profile"
@@ -93,7 +93,7 @@ function PrivateRoute() {
                     <i className="ri-building-4-line mr-2"></i>Data Kamar
                     <i className="ri-arrow-drop-down-line"></i>
                   </summary>
-                  <div className="pl-6">
+                  <div className="pl-6 py-[3px]">
                     <Link
                       onClick={popUp}
                       to="/category-page"
@@ -102,7 +102,7 @@ function PrivateRoute() {
                       <i className="ri-hotel-bed-line mr-2"></i>Kategori Kamar
                     </Link>
                   </div>
-                  <div className="pl-6">
+                  <div className="pl-6 py-[3px]">
                     <Link
                       onClick={popUp}
                       to="/list-kamar"
@@ -117,7 +117,7 @@ function PrivateRoute() {
                     <i className="ri-currency-fill mr-2"></i>Transaksi
                     <i className="ri-arrow-drop-down-line"></i>
                   </summary>
-                  <div className="pl-6">
+                  <div className="pl-6 py-[3px]">
                     <Link
                       onClick={popUp}
                       to="/pesan-kamar"
@@ -126,7 +126,7 @@ function PrivateRoute() {
                       <i className="ri-survey-line mr-2"></i>Pesan Kamar
                     </Link>
                   </div>
-                  <div className="pl-6">
+                  <div className="pl-6 py-[3px]">
                     <Link
                       onClick={popUp}
                       to="/customer-page"
@@ -136,7 +136,7 @@ function PrivateRoute() {
                       Customer
                     </Link>
                   </div>
-                  <div className="pl-6">
+                  <div className="pl-6 py-[3px]">
                     <Link
                       onClick={popUp}
                       to="/checkin-kamar"
@@ -146,7 +146,7 @@ function PrivateRoute() {
                       Check In
                     </Link>
                   </div>
-                  <div className="pl-6">
+                  <div className="pl-6 py-[3px]">
                     <Link
                       onClick={popUp}
                       to="/checkout-kamar"
@@ -157,7 +157,7 @@ function PrivateRoute() {
                   </div>
                 </details>
               </div>
-              <div className="mt-2">
+              <div className="mt-2 py-[7px]">
                 <Link
                   onClick={popUp}
                   to="/laporan"
