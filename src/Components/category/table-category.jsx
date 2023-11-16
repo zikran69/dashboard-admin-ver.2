@@ -51,6 +51,9 @@ export default function TableCategory({ categories, deleteCategory }) {
               <th className="border border-b-2 border-opacity-10 border-secondary-blue p-4 text-left min-w-[250px]">
                 Facilities
               </th>
+              <th className="border border-b-2 border-opacity-10 border-secondary-blue p-4 text-left min-w-[250px]">
+                Image
+              </th>
               <th className="border border-b-2 border-opacity-10 border-secondary-blue p-4 text-left">
                 Option
               </th>
@@ -58,7 +61,7 @@ export default function TableCategory({ categories, deleteCategory }) {
           </thead>
           <tbody>
             {display.map(
-              ({ id, nameCategory, price, facilityCategory }, index) => {
+              ({ nameCategory, price, facilityCategory, image }, index) => {
                 return (
                   <tr key={index} className="capitalize">
                     <td className="p-4 border-secondary-gray border border-b-2 border-opacity-10">
@@ -72,6 +75,9 @@ export default function TableCategory({ categories, deleteCategory }) {
                     </td>
                     <td className="p-4 border-secondary-gray border border-b-2 border-opacity-10">
                       {facilityCategory}
+                    </td>
+                    <td className="p-4 border-secondary-gray border border-b-2 border-opacity-10">
+                      <img src={image} className="h-32" />
                     </td>
                     <td className="p-4 border-secondary-gray border border-b-2 border-opacity-10">
                       <div className="flex justify-center items-center flex-nowrap">

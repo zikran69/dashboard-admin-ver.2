@@ -3,7 +3,10 @@ import { useNavigate } from "react-router-dom";
 
 export default function AddCategory() {
   const [addCategory, setAddCategory] = useState(null);
+  const [upload, setUpload] = useState(null);
   const navigate = useNavigate();
+  const reader = new FileReader();
+
   useEffect(() => {
     if (addCategory) {
       fetch("http://localhost:2000/category/add", {
@@ -17,20 +20,36 @@ export default function AddCategory() {
     }
   }, [addCategory]);
 
+  useEffect(() => {
+    setUpload(document.getElementById("upload"));
+    if (upload) {
+      upload.addEventListener("change", (e) => {
+        reader.addEventListener("load", () => {
+          localStorage.setItem("recent-image", reader.result);
+          console.log(reader.result);
+        });
+        reader.readAsDataURL(e.target.files[0]);
+      });
+    }
+  });
+
   const handlesubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    const { nameCategory, price, facilityCategory, descCategory, upload } =
+    const { nameCategory, price, facilityCategory, descCategory } =
       Object.fromEntries(formData);
-    console.log(upload);
-    // setAddCategory({
-    //   nameCategory: nameCategory,
-    //   price: price,
-    //   facilityCategory: facilityCategory,
-    //   descCategory: descCategory,
-    // });
+
+    setAddCategory({
+      nameCategory: nameCategory,
+      price: price,
+      facilityCategory: facilityCategory,
+      descCategory: descCategory,
+      image: localStorage.getItem("recent-image"),
+    });
+
     setTimeout(() => {
       navigate("/category-page");
+      localStorage.clear();
     }, 1000);
   };
 
@@ -99,7 +118,8 @@ export default function AddCategory() {
                       <div className="md:col-span-3">
                         <label>Foto</label>
                         <input
-                          name="upload"
+                          id="upload"
+                          name="image"
                           required
                           type="file"
                           className="py-[7px] h-10 pl-4 border rounded-sm bg-gray-50 md:w-[500px] lg:w-full"
