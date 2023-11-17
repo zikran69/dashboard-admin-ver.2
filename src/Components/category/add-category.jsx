@@ -24,11 +24,16 @@ export default function AddCategory() {
     setUpload(document.getElementById("upload"));
     if (upload) {
       upload.addEventListener("change", (e) => {
-        reader.addEventListener("load", () => {
-          localStorage.setItem("recent-image", reader.result);
-          console.log(reader.result);
-        });
-        reader.readAsDataURL(e.target.files[0]);
+        if (e.target.files[0].size > 50000) {
+          alert("image size must not over 50kb");
+          localStorage.clear();
+          e.target.value = "";
+        } else {
+          reader.addEventListener("load", () => {
+            localStorage.setItem("recent-image", reader.result);
+          });
+          reader.readAsDataURL(e.target.files[0]);
+        }
       });
     }
   });
@@ -116,15 +121,27 @@ export default function AddCategory() {
                         />
                       </div>
                       <div className="md:col-span-3">
-                        <label>Foto</label>
+                        <label>
+                          image <span className="text-[12px]">(max 50kb)</span>
+                        </label>
                         <input
                           id="upload"
-                          name="image"
                           required
                           type="file"
                           className="py-[7px] h-10 pl-4 border rounded-sm bg-gray-50 md:w-[500px] lg:w-full"
                         />
                       </div>
+                      {/* <div className="md:col-span-3 hidden" id="image2">
+                        <label>
+                          image <span className="text-[12px]">(max 50kb)</span>
+                        </label>
+                        <input
+                          id="upload2"
+                          required
+                          type="file"
+                          className="py-[7px] h-10 pl-4 border rounded-sm bg-gray-50 md:w-[500px] lg:w-full"
+                        />
+                      </div> */}
                     </div>
                     {/*footer*/}
                     <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">

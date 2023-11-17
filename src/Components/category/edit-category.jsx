@@ -6,6 +6,7 @@ export default function EditCategory() {
   const [getCategory, setGetCategory] = useState(null);
   const [editCategory, setEditCategory] = useState(null);
   const [upload, setUpload] = useState(null);
+  const [upload2, setUpload2] = useState(null);
   const reader = new FileReader();
   const navigate = useNavigate();
   const dataId = useContext(global).dataId;
@@ -32,11 +33,16 @@ export default function EditCategory() {
     setUpload(document.getElementById("upload"));
     if (upload) {
       upload.addEventListener("change", (e) => {
-        reader.addEventListener("load", () => {
-          localStorage.setItem("recent-image", reader.result);
-          console.log(reader.result);
-        });
-        reader.readAsDataURL(e.target.files[0]);
+        if (e.target.files[0].size > 50000) {
+          alert("image size must not over 50kb");
+          localStorage.clear();
+          e.target.value = "";
+        } else {
+          reader.addEventListener("load", () => {
+            localStorage.setItem("recent-image", reader.result);
+          });
+          reader.readAsDataURL(e.target.files[0]);
+        }
       });
     }
   });
@@ -122,10 +128,11 @@ export default function EditCategory() {
                         />
                       </div>
                       <div className="md:col-span-3">
-                        <label>Foto</label>
+                        <label>
+                          image <span className="text-[12px]">(max 50kb)</span>
+                        </label>
                         <input
                           id="upload"
-                          name="image"
                           required
                           type="file"
                           className="py-[7px] h-10 pl-4 border rounded-sm bg-gray-50 md:w-[500px] lg:w-full"
