@@ -24,15 +24,19 @@ export default function AddCategory() {
     setUpload(document.getElementById("upload"));
     if (upload) {
       upload.addEventListener("change", (e) => {
-        if (e.target.files[0].size > 50000) {
-          alert("image size must not over 50kb");
-          localStorage.clear();
-          e.target.value = "";
-        } else {
+        console.log(e.target.files[0].type);
+        if (
+          e.target.files[0].size < 50000 &&
+          e.target.files[0].type == "image/jpeg"
+        ) {
           reader.addEventListener("load", () => {
             localStorage.setItem("recent-image", reader.result);
           });
           reader.readAsDataURL(e.target.files[0]);
+        } else {
+          alert("image size must not over 50kb or file must be jpeg/jpg");
+          localStorage.clear();
+          e.target.value = "";
         }
       });
     }
@@ -128,6 +132,7 @@ export default function AddCategory() {
                           id="upload"
                           required
                           type="file"
+                          accept=".jpg, .jpeg"
                           className="py-[7px] h-10 pl-4 border rounded-sm bg-gray-50 md:w-[500px] lg:w-full"
                         />
                       </div>
