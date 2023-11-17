@@ -3,7 +3,10 @@ import { useNavigate } from "react-router-dom";
 
 export default function AddCategory() {
   const [addCategory, setAddCategory] = useState(null);
+  const [upload, setUpload] = useState(null);
   const navigate = useNavigate();
+  const reader = new FileReader();
+
   useEffect(() => {
     if (addCategory) {
       fetch("http://localhost:2000/category/add", {
@@ -17,19 +20,45 @@ export default function AddCategory() {
     }
   }, [addCategory]);
 
+  useEffect(() => {
+    setUpload(document.getElementById("upload"));
+    if (upload) {
+      upload.addEventListener("change", (e) => {
+        console.log(e.target.files[0].type);
+        if (
+          e.target.files[0].size < 50000 &&
+          e.target.files[0].type == "image/jpeg"
+        ) {
+          reader.addEventListener("load", () => {
+            localStorage.setItem("recent-image", reader.result);
+          });
+          reader.readAsDataURL(e.target.files[0]);
+        } else {
+          alert("image size must not over 50kb or file must be jpeg/jpg");
+          localStorage.clear();
+          e.target.value = "";
+        }
+      });
+    }
+  });
+
   const handlesubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const { nameCategory, price, facilityCategory, descCategory } =
       Object.fromEntries(formData);
+
     setAddCategory({
       nameCategory: nameCategory,
       price: price,
       facilityCategory: facilityCategory,
       descCategory: descCategory,
+      image: localStorage.getItem("recent-image"),
     });
+
     setTimeout(() => {
       navigate("/category-page");
+      localStorage.clear();
     }, 1000);
   };
 
@@ -39,7 +68,8 @@ export default function AddCategory() {
         <main className="bg-primary-gray grow overflow-y-auto">
           <div
             id="modal-overlay"
-            className="hidden bg-black h-full w-full absolute top-0 left-0 opacity-90"></div>
+            className="hidden bg-black h-full w-full absolute top-0 left-0 opacity-90"
+          ></div>
           <div className="p-4 h-[calc(100vh-67.33px)]">
             <div>
               <h1 className="text-2xl font-semibold">Form Add Category</h1>
@@ -54,7 +84,8 @@ export default function AddCategory() {
                         <select
                           name="nameCategory"
                           required
-                          className="h-10 border mt-1 rounded px-4 w-full bg-gray-0">
+                          className="h-10 border mt-1 rounded px-4 w-full bg-gray-0"
+                        >
                           <option value={""}>--select--</option>
                           <option value={"Junior Suite"}>Junior Suite</option>
                           <option value={"Executive Suite"}>
@@ -93,21 +124,43 @@ export default function AddCategory() {
                           placeholder="description"
                         />
                       </div>
+                      <div className="md:col-span-3">
+                        <label>
+                          image <span className="text-[12px]">(max 50kb)</span>
+                        </label>
+                        <input
+                          id="upload"
+                          required
+                          type="file"
+                          accept=".jpg, .jpeg"
+                          className="py-[7px] h-10 pl-4 border rounded-sm bg-gray-50 md:w-[500px] lg:w-full"
+                        />
+                      </div>
+                      {/* <div className="md:col-span-3 hidden" id="image2">
+                        <label>
+                          image <span className="text-[12px]">(max 50kb)</span>
+                        </label>
+                        <input
+                          id="upload2"
+                          required
+                          type="file"
+                          className="py-[7px] h-10 pl-4 border rounded-sm bg-gray-50 md:w-[500px] lg:w-full"
+                        />
+                      </div> */}
                     </div>
                     {/*footer*/}
                     <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
                       <button
                         className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="button"
-
                         onClick={() => navigate("/category-page")}
                       >
-
                         Close
                       </button>
                       <button
                         className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                        type="submit">
+                        type="submit"
+                      >
                         Save
                       </button>
                     </div>

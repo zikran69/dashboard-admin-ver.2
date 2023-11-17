@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import TableCategory from "../Components/category/table-category";
 import SearchCategory from "../Components/category/search-category";
 import { useNavigate } from "react-router-dom";
@@ -8,7 +7,7 @@ export default function CategoryPage() {
   const [categories, setCategories] = useState(null);
   const [dataValue, setDataValue] = useState("all");
   useState(() => {
-    fetch("http://localhost:2000/category")
+    fetch(`http://localhost:2000/category`)
       .then((res) => res.json())
       .then(setCategories)
       .catch((error) => {
