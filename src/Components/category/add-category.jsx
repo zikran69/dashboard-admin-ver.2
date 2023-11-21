@@ -25,17 +25,19 @@ export default function AddCategory() {
     setUpload(document.getElementById("upload"));
     if (upload) {
       upload.addEventListener("change", (e) => {
-        console.log(e.target.files[0].type);
         if (
-          e.target.files[0].size < 50000 &&
-          e.target.files[0].type == "image/jpeg"
+          (e.target.files[0].size < 50000 &&
+            e.target.files[0].type == "image/jpeg") ||
+          e.target.files[0].type == "image/jpg"
         ) {
+          setPreview(URL.createObjectURL(e.target.files[0]));
           reader.addEventListener("load", () => {
             localStorage.setItem("recent-image", reader.result);
           });
           reader.readAsDataURL(e.target.files[0]);
         } else {
           alert("image size must not over 50kb or file must be jpeg/jpg");
+          setPreview(null);
           localStorage.clear();
           e.target.value = "";
         }
@@ -50,7 +52,6 @@ export default function AddCategory() {
     // setAddCategory(formData);
 
     const formData = new FormData(e.target);
-    formData.append("image2", localStorage.getItem("recent-image"));
     setAddCategory(formData);
     // const {
     //   nameCategory,
@@ -142,6 +143,7 @@ export default function AddCategory() {
                         </label>
                         <input
                           id="upload"
+                          name="image"
                           required
                           type="file"
                           accept=".jpg, .jpeg"
