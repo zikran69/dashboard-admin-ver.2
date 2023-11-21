@@ -5,8 +5,12 @@ import { global } from "../../assets/context";
 export default function EditCategory() {
   const [getCategory, setGetCategory] = useState(null);
   const [editCategory, setEditCategory] = useState(null);
+  const [upload, setUpload] = useState(null);
+  const [upload2, setUpload2] = useState(null);
+  const reader = new FileReader();
   const navigate = useNavigate();
   const dataId = useContext(global).dataId;
+
   useEffect(() => {
     fetch(`http://localhost:2000/category/${dataId}`)
       .then((res) => res.json())
@@ -25,6 +29,28 @@ export default function EditCategory() {
     }
   }, [editCategory]);
 
+  useEffect(() => {
+    setUpload(document.getElementById("upload"));
+    if (upload) {
+      upload.addEventListener("change", (e) => {
+        console.log(e.target.files[0].type);
+        if (
+          e.target.files[0].size < 50000 &&
+          e.target.files[0].type == "image/jpeg"
+        ) {
+          reader.addEventListener("load", () => {
+            localStorage.setItem("recent-image", reader.result);
+          });
+          reader.readAsDataURL(e.target.files[0]);
+        } else {
+          alert("image size must not over 50kb or file must be jpeg/jpg");
+          localStorage.clear();
+          e.target.value = "";
+        }
+      });
+    }
+  });
+
   const handlesubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -35,6 +61,7 @@ export default function EditCategory() {
       price: price,
       facilityCategory: facilityCategory,
       descCategory: descCategory,
+      image: localStorage.getItem("recent-image"),
     });
     setTimeout(() => {
       navigate("/category-page");
@@ -102,6 +129,18 @@ export default function EditCategory() {
                           type="text"
                           className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                           placeholder={getCategory.descCategory}
+                        />
+                      </div>
+                      <div className="md:col-span-3">
+                        <label>
+                          image <span className="text-[12px]">(max 50kb)</span>
+                        </label>
+                        <input
+                          id="upload"
+                          required
+                          type="file"
+                          accept=".jpg, .jpeg"
+                          className="py-[7px] h-10 pl-4 border rounded-sm bg-gray-50 md:w-[500px] lg:w-full"
                         />
                       </div>
                     </div>

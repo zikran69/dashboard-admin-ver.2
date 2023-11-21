@@ -25,11 +25,20 @@ export default function AddCategory() {
     setUpload(document.getElementById("upload"));
     if (upload) {
       upload.addEventListener("change", (e) => {
-        setPreview(URL.createObjectURL(e.target.files[0]));
-        reader.addEventListener("load", () => {
-          localStorage.setItem("recent-image", reader.result);
-        });
-        reader.readAsDataURL(e.target.files[0]);
+        console.log(e.target.files[0].type);
+        if (
+          e.target.files[0].size < 50000 &&
+          e.target.files[0].type == "image/jpeg"
+        ) {
+          reader.addEventListener("load", () => {
+            localStorage.setItem("recent-image", reader.result);
+          });
+          reader.readAsDataURL(e.target.files[0]);
+        } else {
+          alert("image size must not over 50kb or file must be jpeg/jpg");
+          localStorage.clear();
+          e.target.value = "";
+        }
       });
     }
   });
@@ -128,16 +137,29 @@ export default function AddCategory() {
                         />
                       </div>
                       <div className="md:col-span-3">
-                        <label>Foto</label>
+                        <label>
+                          image <span className="text-[12px]">(max 50kb)</span>
+                        </label>
                         <input
                           id="upload"
-                          name="image"
                           required
                           type="file"
+                          accept=".jpg, .jpeg"
                           className="py-[7px] h-10 pl-4 border rounded-sm bg-gray-50 md:w-[500px] lg:w-full"
                         />
                         <img src={preview} className="mt-2 mb-[-10px] w-56" />
                       </div>
+                      {/* <div className="md:col-span-3 hidden" id="image2">
+                        <label>
+                          image <span className="text-[12px]">(max 50kb)</span>
+                        </label>
+                        <input
+                          id="upload2"
+                          required
+                          type="file"
+                          className="py-[7px] h-10 pl-4 border rounded-sm bg-gray-50 md:w-[500px] lg:w-full"
+                        />
+                      </div> */}
                     </div>
                     {/*footer*/}
                     <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
