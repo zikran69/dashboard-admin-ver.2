@@ -13,7 +13,6 @@ export default function AddCategory() {
       console.log(addCategory);
       fetch("http://localhost:2000/category/add", {
         method: "POST",
-        // headers: { "content-type": "application/json" },
         body: addCategory,
       })
         .then((res) => res.json())
@@ -26,7 +25,7 @@ export default function AddCategory() {
     if (upload) {
       upload.addEventListener("change", (e) => {
         if (
-          (e.target.files[0].size < 50000 &&
+          (e.target.files[0].size < 1000000 &&
             e.target.files[0].type == "image/jpeg") ||
           e.target.files[0].type == "image/jpg"
         ) {
@@ -36,7 +35,7 @@ export default function AddCategory() {
           });
           reader.readAsDataURL(e.target.files[0]);
         } else {
-          alert("image size must not over 50kb or file must be jpeg/jpg");
+          alert("image size must not over 1mb or file must be jpeg/jpg");
           setPreview(null);
           localStorage.clear();
           e.target.value = "";
@@ -47,28 +46,8 @@ export default function AddCategory() {
 
   const handlesubmit = (e) => {
     e.preventDefault();
-    // const formData = new FormData();
-    // formData.append("image", read_image);
-    // setAddCategory(formData);
-
     const formData = new FormData(e.target);
     setAddCategory(formData);
-    // const {
-    //   nameCategory,
-    //   price,
-    //   facilityCategory,
-    //   descCategory,
-    //   image_upload,
-    // } = Object.fromEntries(formData);
-
-    // setAddCategory({
-    //   nameCategory: nameCategory,
-    //   price: price,
-    //   facilityCategory: facilityCategory,
-    //   descCategory: descCategory,
-    //   image: localStorage.getItem("recent-image"),
-    // });
-
     setTimeout(() => {
       navigate("/category-page");
       localStorage.clear();
@@ -139,7 +118,7 @@ export default function AddCategory() {
                       </div>
                       <div className="md:col-span-3">
                         <label>
-                          image <span className="text-[12px]">(max 50kb)</span>
+                          image <span className="text-[12px]">(max 1mb)</span>
                         </label>
                         <input
                           id="upload"
