@@ -4,19 +4,19 @@ import { useNavigate } from "react-router-dom";
 export default function AddCategory() {
   const [addCategory, setAddCategory] = useState(null);
   const [upload, setUpload] = useState(null);
+  const [preview, setPreview] = useState(null);
   const navigate = useNavigate();
   const reader = new FileReader();
 
   useEffect(() => {
     if (addCategory) {
+      console.log(addCategory);
       fetch("http://localhost:2000/category/add", {
         method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(addCategory),
+        body: addCategory,
       })
         .then((res) => res.json())
-        .then((res) => alert(res.message))
-        .catch((error) => console.log(error.message));
+        .then((res) => alert(res.message));
     }
   }, [addCategory]);
 
@@ -24,17 +24,19 @@ export default function AddCategory() {
     setUpload(document.getElementById("upload"));
     if (upload) {
       upload.addEventListener("change", (e) => {
-        console.log(e.target.files[0].type);
         if (
-          e.target.files[0].size < 50000 &&
-          e.target.files[0].type == "image/jpeg"
+          (e.target.files[0].size < 1000000 &&
+            e.target.files[0].type == "image/jpeg") ||
+          e.target.files[0].type == "image/jpg"
         ) {
+          setPreview(URL.createObjectURL(e.target.files[0]));
           reader.addEventListener("load", () => {
             localStorage.setItem("recent-image", reader.result);
           });
           reader.readAsDataURL(e.target.files[0]);
         } else {
-          alert("image size must not over 50kb or file must be jpeg/jpg");
+          alert("image size must not over 1mb or file must be jpeg/jpg");
+          setPreview(null);
           localStorage.clear();
           e.target.value = "";
         }
@@ -45,17 +47,7 @@ export default function AddCategory() {
   const handlesubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    const { nameCategory, price, facilityCategory, descCategory } =
-      Object.fromEntries(formData);
-
-    setAddCategory({
-      nameCategory: nameCategory,
-      price: price,
-      facilityCategory: facilityCategory,
-      descCategory: descCategory,
-      image: localStorage.getItem("recent-image"),
-    });
-
+    setAddCategory(formData);
     setTimeout(() => {
       navigate("/category-page");
       localStorage.clear();
@@ -126,15 +118,17 @@ export default function AddCategory() {
                       </div>
                       <div className="md:col-span-3">
                         <label>
-                          image <span className="text-[12px]">(max 50kb)</span>
+                          image <span className="text-[12px]">(max 1mb)</span>
                         </label>
                         <input
                           id="upload"
+                          name="image"
                           required
                           type="file"
                           accept=".jpg, .jpeg"
                           className="py-[7px] h-10 pl-4 border rounded-sm bg-gray-50 md:w-[500px] lg:w-full"
                         />
+                        <img src={preview} className="mt-2 mb-[-10px] w-56" />
                       </div>
                       {/* <div className="md:col-span-3 hidden" id="image2">
                         <label>
