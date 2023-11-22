@@ -54,14 +54,24 @@ export default function DetailCategory() {
                 </tr>
               </tbody>
             </table>
+            <div className="w-full flex mx-2 bg-primary-gray">
+              <img
+                src={`http://localhost:2000/${categoryId.image}`}
+                className="w-72 mx-4"
+              />
+              {categoryId.image2 && (
+                <img
+                  src={`http://localhost:2000/${categoryId.image2}`}
+                  className="w-72 mx-4"
+                />
+              )}
+            </div>
             <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
               <button
                 className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 type="button"
-
                 onClick={() => navigate("/category-page")}
               >
-
                 Back
               </button>
             </div>
