@@ -7,7 +7,7 @@ export default function CategoryPage() {
   const [categories, setCategories] = useState(null);
   const [dataValue, setDataValue] = useState("all");
   useState(() => {
-    fetch(`http://localhost:2000/category`)
+    fetch(`${import.meta.env.VITE_ADDR_API}/category`)
       .then((res) => res.json())
       .then(setCategories)
       .catch((error) => {
@@ -19,17 +19,17 @@ export default function CategoryPage() {
   const search = (value) => {
     setDataValue(value);
     if (value == "all") {
-      fetch(`http://localhost:2000/category`)
+      fetch(`${import.meta.env.VITE_ADDR_API}/category`)
         .then((res) => res.json())
         .then(setCategories);
     } else
-      fetch(`http://localhost:2000/category/search/${value}`)
+      fetch(`${import.meta.env.VITE_ADDR_API}/category/search/${value}`)
         .then((res) => res.json())
         .then(setCategories);
   };
 
   const deleting = (value) => {
-    fetch(`http://localhost:2000/category/delete/${value}`, {
+    fetch(`${import.meta.env.VITE_ADDR_API}/category/delete/${value}`, {
       method: "DELETE",
     })
       .then((res) => res.json())

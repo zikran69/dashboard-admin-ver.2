@@ -11,14 +11,14 @@ export default function EditCategory() {
   const dataId = useContext(global).dataId;
 
   useEffect(() => {
-    fetch(`http://localhost:2000/category/${dataId}`)
+    fetch(`${import.meta.env.VITE_ADDR_API}/category/${dataId}`)
       .then((res) => res.json())
       .then(setGetCategory);
   }, []);
 
   useEffect(() => {
     if (editCategory) {
-      fetch(`http://localhost:2000/category/update/${dataId}`, {
+      fetch(`${import.meta.env.VITE_ADDR_API}/category/update/${dataId}`, {
         method: "PUT",
         body: editCategory,
       })
@@ -74,7 +74,7 @@ export default function EditCategory() {
     const formData = new FormData(e.target);
     setEditCategory(formData);
     setTimeout(() => {
-      navigate("/category-page");
+      navigate("/category");
     }, 1000);
   };
   return (
@@ -182,7 +182,7 @@ export default function EditCategory() {
                       <button
                         className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="button"
-                        onClick={() => navigate("/category-page")}
+                        onClick={() => navigate("/category")}
                       >
                         Close
                       </button>

@@ -8,7 +8,7 @@ export default function DetailCategory() {
   const navigate = useNavigate();
   const dataId = useContext(global).dataId;
   useEffect(() => {
-    fetch(`http://localhost:2000/category/${dataId}`)
+    fetch(`${import.meta.env.VITE_ADDR_API}/category/${dataId}`)
       .then((res) => res.json())
       .then(setCategoryId);
   }, []);
@@ -56,12 +56,12 @@ export default function DetailCategory() {
             </table>
             <div className="w-full flex mx-2 bg-primary-gray">
               <img
-                src={`http://localhost:2000/${categoryId.image}`}
+                src={`${import.meta.env.VITE_ADDR_API}/${categoryId.image}`}
                 className="h-80 mx-4"
               />
               {categoryId.image2 && (
                 <img
-                  src={`http://localhost:2000/${categoryId.image2}`}
+                  src={`${import.meta.env.VITE_ADDR_API}/${categoryId.image2}`}
                   className="h-80 mx-4"
                 />
               )}
@@ -70,7 +70,7 @@ export default function DetailCategory() {
               <button
                 className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 absolute top-20 right-12"
                 type="button"
-                onClick={() => navigate("/category-page")}
+                onClick={() => navigate("/category")}
               >
                 Back
               </button>
