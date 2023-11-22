@@ -30,12 +30,12 @@ export default function AdministratorPage() {
                       type="button"
                       className="py-1 px-5 bg-blue-400 rounded-md text-sm text-white hover:bg-hover-blue"
                     >
-                      <i className="ri-hotel-bed-line mr-2"></i>Tambah
+                      <i className="ri-hotel-bed-line mr-2"></i>Add Admin
                     </button>
                   </Link>
                   <input
                     type="search"
-                    placeholder="cari..."
+                    placeholder="search..."
                     className="pl-4 border border-secondary-gray rounded-[20px] focus:outline-none focus:border-gray-500"
                   />
                 </div>
@@ -46,7 +46,7 @@ export default function AdministratorPage() {
                         No
                       </th>
                       <th className="border border-b-2 border-opacity-10 border-secondary-gray p-4 text-left">
-                        Nama Admin
+                        Admin Name
                       </th>
                       <th className="border border-b-2 border-opacity-10 border-secondary-gray p-4 text-left">
                         Username
@@ -58,7 +58,7 @@ export default function AdministratorPage() {
                         Status
                       </th>
                       <th className="border border-b-2 border-opacity-10 border-secondary-gray p-4 text-left">
-                        Opsi
+                        Option
                       </th>
                     </tr>
                   </thead>

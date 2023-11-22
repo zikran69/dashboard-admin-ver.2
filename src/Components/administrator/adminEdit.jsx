@@ -36,7 +36,7 @@ export default function AdminEdit() {
                       <div className="md:col-span-3">
                         <label>Level</label>
                         <select className="h-10 border mt-1 rounded px-4 w-full bg-gray-0">
-                          <option value="0">--pilih level--</option>
+                          <option value="0">--select level--</option>
                           <option selected>Admin</option>
                           <option>Superadmin</option>
                         </select>
@@ -51,31 +51,31 @@ export default function AdminEdit() {
                         />
                       </div>
                       <div className="md:col-span-3">
-                        <label>Nama Lengkap</label>
+                        <label>Full Name</label>
                         <input
                           type="text"
                           value="Admin"
                           className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                          placeholder="Nama Lengkap"
+                          placeholder="Full Name"
                           required
                         />
                       </div>
                       <div className="md:col-span-3">
-                        <label>Nomor Telepon</label>
+                        <label>Phone Number</label>
                         <input
                           type="text"
                           value={"+6281514566915"}
                           className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                          placeholder="Nomor Telepon"
+                          placeholder="Phone Number"
                         />
                       </div>
                       <div className="md:col-span-6">
-                        <label>Alamat</label>
+                        <label>Address</label>
                         <input
                           type="text"
                           value={"Jl.Sukses Selalu - Indonesia"}
                           className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                          placeholder="Alamat"
+                          placeholder="Address"
                         />
                       </div>
                       <div className="md:col-span-3">
@@ -96,7 +96,7 @@ export default function AdminEdit() {
                         />
                       </div>
                       <div className="md:col-span-3">
-                        <label>Foto</label>
+                        <label>Photo</label>
                         <input
                           type="file"
                           className="py-[7px] h-10 pl-4 border rounded-sm bg-gray-50 md:w-[500px] lg:w-full"
