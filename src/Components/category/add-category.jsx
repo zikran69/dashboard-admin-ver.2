@@ -10,7 +10,7 @@ export default function AddCategory() {
   useEffect(() => {
     if (addCategory) {
       console.log(addCategory);
-      fetch("http://localhost:2000/category/add", {
+      fetch(`${import.meta.env.VITE_ADDR_API}/category/add`, {
         method: "POST",
         body: addCategory,
       })

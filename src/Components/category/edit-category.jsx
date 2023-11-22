@@ -11,14 +11,14 @@ export default function EditCategory() {
   const dataId = useContext(global).dataId;
 
   useEffect(() => {
-    fetch(`http://localhost:2000/category/${dataId}`)
+    fetch(`${import.meta.env.VITE_ADDR_API}/${dataId}`)
       .then((res) => res.json())
       .then(setGetCategory);
   }, []);
 
   useEffect(() => {
     if (editCategory) {
-      fetch(`http://localhost:2000/category/update/${dataId}`, {
+      fetch(`${import.meta.env.VITE_ADDR_API}/category/update/${dataId}`, {
         method: "PUT",
         body: editCategory,
       })
