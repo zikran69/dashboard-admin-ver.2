@@ -22,6 +22,8 @@ import CategoryPage from "../pages/category-page";
 import AddCategory from "../Components/category/add-category";
 import DetailCategory from "../Components/category/detail-category";
 import EditCategory from "../Components/category/edit-category";
+import AdminAdd from "../Components/administrator/adminAdd";
+import AdminEdit from "../Components/administrator/adminEdit";
 
 export default function Router() {
   return (
@@ -34,6 +36,8 @@ export default function Router() {
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/profile-user" element={<ProfilAdmin />} />
           <Route path="/administrator" element={<AdministratorPage />} />
+          <Route path="/add-admin" element={<AdminAdd />} />
+          <Route path="/update-admin/:id" element={<AdminEdit />} />
           <Route path="profile" element={<ProfilePage />} />
           <Route path="/category-page" element={<CategoryPage />} />
           <Route path="/category-add" element={<AddCategory />} />

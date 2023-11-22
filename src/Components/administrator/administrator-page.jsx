@@ -1,20 +1,15 @@
 import Modal from "./modal";
 import DataAdmin from "./dataAdmin";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function AdministratorPage() {
   const [state, setState] = useState();
-  const [showModal, setShowModal] = useState(false);
   useEffect(() => {
-    fetch("https://651107013ce5d181df5da09e.mockapi.io/admin")
+    fetch("http://localhost:2000/users/")
       .then((res) => res.json())
       .then(setState);
   }, []);
-  useEffect(() => {
-    fetch("https://651107013ce5d181df5da09e.mockapi.io/admin")
-      .then((res) => res.json())
-      .then(setState);
-  }, [showModal]);
   return (
     <div className="w-full">
       <main className="bg-primary-gray grow overflow-y-auto">
@@ -30,7 +25,14 @@ export default function AdministratorPage() {
             <div className="p-6 bg-white border border-gray-200 rounded-lg shadow">
               <div className="relative overflow-x-auto">
                 <div className="flex justify-between m-4">
-                  <Modal showModal={showModal} setShowModal={setShowModal} />
+                  <Link to={"/add-admin"}>
+                    <button
+                      type="button"
+                      className="py-1 px-5 bg-blue-400 rounded-md text-sm text-white hover:bg-hover-blue"
+                    >
+                      <i className="ri-hotel-bed-line mr-2"></i>Tambah
+                    </button>
+                  </Link>
                   <input
                     type="search"
                     placeholder="cari..."
@@ -51,9 +53,6 @@ export default function AdministratorPage() {
                       </th>
                       <th className="border border-b-2 border-opacity-10 border-secondary-gray p-4 text-left">
                         Level
-                      </th>
-                      <th className="border border-b-2 border-opacity-10 border-secondary-gray p-4 text-left">
-                        Last Login
                       </th>
                       <th className="border border-b-2 border-opacity-10 border-secondary-gray p-4 text-left">
                         Status
