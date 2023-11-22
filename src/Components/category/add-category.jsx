@@ -3,40 +3,59 @@ import { useNavigate } from "react-router-dom";
 
 export default function AddCategory() {
   const [addCategory, setAddCategory] = useState(null);
-  const [upload, setUpload] = useState(null);
+  const [preview, setPreview] = useState(null);
+  const [preview2, setPreview2] = useState(null);
   const navigate = useNavigate();
-  const reader = new FileReader();
 
   useEffect(() => {
     if (addCategory) {
+      console.log(addCategory);
       fetch("http://localhost:2000/category/add", {
         method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(addCategory),
+        body: addCategory,
       })
         .then((res) => res.json())
-        .then((res) => alert(res.message))
-        .catch((error) => console.log(error.message));
+        .then((res) => alert(res.message));
     }
   }, [addCategory]);
 
   useEffect(() => {
-    setUpload(document.getElementById("upload"));
+    const upload = document.getElementById("upload");
+    const upload2 = document.getElementById("upload2");
+    const show = document.getElementById("show");
     if (upload) {
       upload.addEventListener("change", (e) => {
-        console.log(e.target.files[0].type);
         if (
-          e.target.files[0].size < 50000 &&
-          e.target.files[0].type == "image/jpeg"
+          e.target.files[0].size < 5000000 &&
+          upload.value != upload2.value &&
+          (e.target.files[0].type == "image/jpeg" ||
+            e.target.files[0].type == "image/jpg")
         ) {
-          reader.addEventListener("load", () => {
-            localStorage.setItem("recent-image", reader.result);
-          });
-          reader.readAsDataURL(e.target.files[0]);
+          setPreview(URL.createObjectURL(e.target.files[0]));
+          show.classList.remove("hidden");
+          if (upload2) {
+            upload2.addEventListener("change", (e) => {
+              if (
+                e.target.files[0].size < 5000000 &&
+                upload.value != upload2.value &&
+                (e.target.files[0].type == "image/jpeg" ||
+                  e.target.files[0].type == "image/jpg")
+              ) {
+                setPreview2(URL.createObjectURL(e.target.files[0]));
+              } else {
+                alert("image not valid, select another image");
+                setPreview2(null);
+                e.target.value = "";
+              }
+            });
+          }
         } else {
-          alert("image size must not over 50kb or file must be jpeg/jpg");
-          localStorage.clear();
+          alert("image not valid, select another image");
+          show.classList.add("hidden");
+          setPreview(null);
+          setPreview2(null);
           e.target.value = "";
+          upload2.value = "";
         }
       });
     }
@@ -45,20 +64,9 @@ export default function AddCategory() {
   const handlesubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    const { nameCategory, price, facilityCategory, descCategory } =
-      Object.fromEntries(formData);
-
-    setAddCategory({
-      nameCategory: nameCategory,
-      price: price,
-      facilityCategory: facilityCategory,
-      descCategory: descCategory,
-      image: localStorage.getItem("recent-image"),
-    });
-
+    setAddCategory(formData);
     setTimeout(() => {
       navigate("/category-page");
-      localStorage.clear();
     }, 1000);
   };
 
@@ -126,27 +134,39 @@ export default function AddCategory() {
                       </div>
                       <div className="md:col-span-3">
                         <label>
-                          image <span className="text-[12px]">(max 50kb)</span>
+                          image <span className="text-[12px]">(max 5mb)</span>
                         </label>
                         <input
                           id="upload"
+                          name="image"
                           required
                           type="file"
                           accept=".jpg, .jpeg"
-                          className="py-[7px] h-10 pl-4 border rounded-sm bg-gray-50 md:w-[500px] lg:w-full"
+                          className="py-[7px] h-10 pl-4 border mt-1 rounded px-4 w-full bg-gray-50"
+                        />
+
+                        <img
+                          src={preview}
+                          className="mx-2 mt-2 mb-[-10px] w-56"
                         />
                       </div>
-                      {/* <div className="md:col-span-3 hidden" id="image2">
+                      <div className="md:col-span-3 hidden" id="show">
                         <label>
-                          image <span className="text-[12px]">(max 50kb)</span>
+                          image <span className="text-[12px]">(max 5mb)</span>
                         </label>
                         <input
                           id="upload2"
-                          required
+                          name="image2"
                           type="file"
-                          className="py-[7px] h-10 pl-4 border rounded-sm bg-gray-50 md:w-[500px] lg:w-full"
+                          accept=".jpg, .jpeg"
+                          className="py-[7px] h-10 pl-4 border mt-1 rounded px-4 w-full bg-gray-50"
                         />
-                      </div> */}
+
+                        <img
+                          src={preview2}
+                          className="mx-2 mt-2 mb-[-10px] w-56"
+                        />
+                      </div>
                     </div>
                     {/*footer*/}
                     <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
