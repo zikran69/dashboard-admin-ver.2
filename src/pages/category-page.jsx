@@ -1,4 +1,5 @@
 import { useState } from "react";
+import auth from "../utils/auth";
 import TableCategory from "../Components/category/table-category";
 import SearchCategory from "../Components/category/search-category";
 import { useNavigate } from "react-router-dom";
@@ -6,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 export default function CategoryPage() {
   const [categories, setCategories] = useState(null);
   const [dataValue, setDataValue] = useState("all");
+  console.log(auth.isAuthenticated());
   useState(() => {
     fetch(`${import.meta.env.VITE_ADDR_API}/category`)
       .then((res) => res.json())
