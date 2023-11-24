@@ -7,6 +7,9 @@ export default function DetailCategory() {
   const [categoryId, setCategoryId] = useState(null);
   const navigate = useNavigate();
   const dataId = useContext(global).dataId;
+  if (!dataId) {
+    navigate("/category");
+  }
   useEffect(() => {
     fetch(`${import.meta.env.VITE_ADDR_API}/category/${dataId}`)
       .then((res) => res.json())
