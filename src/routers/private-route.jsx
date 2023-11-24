@@ -82,7 +82,6 @@ function PrivateRoute() {
                     <Link
                       onClick={popUp}
                       to="/profile"
-                      // className="hover:text-secondary-blue bg-fourth-gray rounded-lg p-1 px-2 border border-blue-400"
                       className="px-2 py-2 rounded-md focus:bg-blue-200 hover:border hover:border-blue-300 active:bg-blue-300"
                     >
                       <i className="ri-profile-line mr-2"></i>Profile
@@ -90,10 +89,7 @@ function PrivateRoute() {
                   </div>
                 </details>
                 <details open className="space-y-2">
-                  <summary
-                    // className="hover:text-secondary-blue cursor-pointer list-none space-y-2 bg-third-gray rounded-lg p-2 w-[150px] border-2 border-blue-500"
-                    className="cursor-pointer list-none px-2 py-2"
-                  >
+                  <summary className="cursor-pointer list-none px-2 py-2">
                     <i className="ri-building-4-line mr-2"></i>Rooms
                     <i className="ri-arrow-drop-down-line"></i>
                   </summary>
@@ -101,7 +97,6 @@ function PrivateRoute() {
                     <Link
                       onClick={popUp}
                       to="/category"
-                      // className="hover:text-secondary-blue bg-fourth-gray rounded-lg p-1 px-2 border border-blue-400"
                       className="px-2 py-2 rounded-md focus:bg-blue-200 hover:border hover:border-blue-300 active:bg-blue-300"
                     >
                       <i className="ri-hotel-bed-line mr-2"></i>Category
@@ -111,7 +106,6 @@ function PrivateRoute() {
                     <Link
                       onClick={popUp}
                       to="/list-rooms"
-                      // className="hover:text-secondary-blue bg-fourth-gray rounded-lg p-1 px-2 border border-blue-400"
                       className="px-2 py-2 rounded-md focus:bg-blue-200 hover:border hover:border-blue-300 active:bg-blue-300"
                     >
                       <i className="ri-list-indefinite mr-2"></i>List Rooms
@@ -119,10 +113,7 @@ function PrivateRoute() {
                   </div>
                 </details>
                 <details open className="space-y-2 ">
-                  <summary
-                    // className="hover:text-secondary-blue cursor-pointer list-none space-y-2 bg-third-gray rounded-lg p-2 w-[150px] border-2 border-blue-500 mb-[10px]"
-                    className="cursor-pointer list-none px-2 py-2"
-                  >
+                  <summary className="cursor-pointer list-none px-2 py-2">
                     <i className="ri-currency-fill mr-2"></i>Transaction
                     <i className="ri-arrow-drop-down-line"></i>
                   </summary>
@@ -130,7 +121,6 @@ function PrivateRoute() {
                     <Link
                       onClick={popUp}
                       to="/order"
-                      // className="hover:text-secondary-blue bg-fourth-gray rounded-lg p-1 px-2 border border-blue-400"
                       className="px-2 py-2 rounded-md focus:bg-blue-200 hover:border hover:border-blue-300 active:bg-blue-300"
                     >
                       <i className="ri-survey-line mr-2"></i>Order
