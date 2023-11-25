@@ -1,6 +1,7 @@
 import logo from "../assets/logo.png";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import auth from "../utils/auth";
+import "remixicon/fonts/remixicon.css";
 
 function PrivateRoute() {
   const navigate = useNavigate();
@@ -42,116 +43,127 @@ function PrivateRoute() {
               </button>
             </div>
           </header>
-          <div className="flex h-[calc(100vh-67.33px)] min-w-[270px]">
+          <div className="text-[12px] flex h-[calc(100vh-67.33px)] min-w-[270px]">
             <div
               id="sidebar-overlay"
               className="hidden lg:hidden bg-black h-screen w-screen absolute top-0 left-0 opacity-90 z-20"
             ></div>
             <aside
               id="sidebar"
-              className="p-4 hidden lg:block text-secondary-gray font-medium lg:w-[220px] h-screen lg:h-full absolute lg:static top-0 left-0 bg-white shrink-0 overflow-auto w-[300px] z-30"
+              className="p-4 hidden lg:block text-dark font-medium lg:w-[220px] h-screen lg:h-full absolute lg:static top-0 left-0 bg-white shrink-0 overflow-auto w-[300px] z-30"
             >
               <h4 className="mb-3 font-semibold">Menu</h4>
               <div className="mb-2">
                 <Link
                   onClick={popUp}
                   to="/"
-                  className="hover:text-secondary-blue"
+                  className="px-2 py-2 rounded-md focus:bg-blue-200 hover:border hover:border-blue-300 active:bg-blue-300"
                 >
                   <i className="ri-home-2-line mr-2"></i>Dashboard
                 </Link>
               </div>
               <div className="space-y-2">
                 <details open className="space-y-2">
-                  <summary className="hover:text-secondary-blue cursor-pointer list-none space-y-2">
-                    <i className="ri-settings-5-fill mr-2"></i>Pengaturan
+                  <summary className="cursor-pointer list-none px-2 py-2">
+                    <i className="ri-settings-5-fill mr-2"></i>Settings
                     <i className="ri-arrow-drop-down-line"></i>
                   </summary>
-                  <div className="pl-6">
+                  <div className="pl-6 py-[3px]">
                     <Link
                       onClick={popUp}
                       to="/administrator"
-                      className="hover:text-secondary-blue"
+                      className="px-2 py-2 rounded-md focus:bg-blue-200 hover:border hover:border-blue-300 active:bg-blue-300"
                     >
                       <i className="ri-user-settings-line mr-2"></i>
                       Administrator
                     </Link>
                   </div>
-                  <div className="pl-6">
+                  <div className="pl-6 py-[3px]">
                     <Link
                       onClick={popUp}
                       to="/profile"
-                      className="hover:text-secondary-blue"
+                      className="px-2 py-2 rounded-md focus:bg-blue-200 hover:border hover:border-blue-300 active:bg-blue-300"
                     >
-                      <i className="ri-profile-line mr-2"></i>Profil Hotel
+                      <i className="ri-profile-line mr-2"></i>Profile
                     </Link>
                   </div>
                 </details>
                 <details open className="space-y-2">
-                  <summary className="hover:text-secondary-blue cursor-pointer list-none space-y-2">
-                    <i className="ri-building-4-line mr-2"></i>Data Kamar
+                  <summary className="cursor-pointer list-none px-2 py-2">
+                    <i className="ri-building-4-line mr-2"></i>Rooms
                     <i className="ri-arrow-drop-down-line"></i>
                   </summary>
-                  <div className="pl-6">
+                  <div className="pl-6 py-[3px]">
                     <Link
                       onClick={popUp}
-                      to="/category-page"
-                      className="hover:text-secondary-blue"
+                      to="/category"
+                      className="px-2 py-2 rounded-md focus:bg-blue-200 hover:border hover:border-blue-300 active:bg-blue-300"
                     >
-                      <i className="ri-hotel-bed-line mr-2"></i>Kategori Kamar
+                      <i className="ri-hotel-bed-line mr-2"></i>Category
                     </Link>
                   </div>
-                  <div className="pl-6">
+                  <div className="pl-6 py-[3px]">
                     <Link
                       onClick={popUp}
-                      to="/list-kamar"
-                      className="hover:text-secondary-blue"
+                      to="/list-rooms"
+                      className="px-2 py-2 rounded-md focus:bg-blue-200 hover:border hover:border-blue-300 active:bg-blue-300"
                     >
-                      <i className="ri-hotel-bed-line mr-2"></i>List Kamar
+                      <i className="ri-list-indefinite mr-2"></i>List Rooms
                     </Link>
                   </div>
                 </details>
-                <details open className="space-y-2">
-                  <summary className="hover:text-secondary-blue cursor-pointer list-none space-y-2">
-                    <i className="ri-wallet-2-fill mr-2"></i>Transaksi
+                <details open className="space-y-2 ">
+                  <summary className="cursor-pointer list-none px-2 py-2">
+                    <i className="ri-currency-fill mr-2"></i>Transaction
                     <i className="ri-arrow-drop-down-line"></i>
                   </summary>
-                  <div className="pl-6">
+                  <div className="pl-6 py-[3px]">
                     <Link
                       onClick={popUp}
-                      to="/pesan-kamar"
-                      className="hover:text-secondary-blue"
+                      to="/order"
+                      className="px-2 py-2 rounded-md focus:bg-blue-200 hover:border hover:border-blue-300 active:bg-blue-300"
                     >
-                      <i className="ri-notification-3-fill mr-2"></i>Pesan Kamar
+                      <i className="ri-survey-line mr-2"></i>Order
                     </Link>
                   </div>
-                  <div className="pl-6">
+                  <div className="pl-6 py-[3px]">
                     <Link
                       onClick={popUp}
-                      to="/checkin-kamar"
-                      className="hover:text-secondary-blue"
+                      to="/customer"
+                      className="px-2 py-2 rounded-md focus:bg-blue-200 hover:border hover:border-blue-300 active:bg-blue-300"
                     >
-                      <i className="ri-notification-3-fill mr-2"></i>Check In
+                      <i className="ri-account-pin-circle-fill mr-2"></i>
+                      Customer
                     </Link>
                   </div>
-                  <div className="pl-6">
+                  <div className="pl-6 py-[3px]">
                     <Link
                       onClick={popUp}
-                      to="/checkout-kamar"
-                      className="hover:text-secondary-blue"
+                      to="/checkin"
+                      className="px-2 py-2 rounded-md focus:bg-blue-200 hover:border hover:border-blue-300 active:bg-blue-300"
                     >
-                      <i className="ri-notification-3-fill mr-2"></i>Check Out
+                      <i className="ri-logout-box-r-line mr-2"></i>
+                      Check In
+                    </Link>
+                  </div>
+                  <div className="pl-6 py-[3px]">
+                    <Link
+                      onClick={popUp}
+                      to="/checkout"
+                      className="px-2 py-2 rounded-md focus:bg-blue-200 hover:border hover:border-blue-300 active:bg-blue-300"
+                    >
+                      <i className="ri-safe-2-fill mr-2"></i>Check Out
                     </Link>
                   </div>
                 </details>
               </div>
-              <div className="mt-2">
+              <div className="mt-2 py-[7px]">
                 <Link
                   onClick={popUp}
-                  to="/laporan"
-                  className="hover:text-secondary-blue"
+                  to="/report"
+                  className="px-2 py-2 rounded-md focus:bg-blue-200 hover:border hover:border-blue-300 active:bg-blue-300"
                 >
-                  <i className="ri-folder-2-line mr-2"></i>Laporan
+                  <i className="ri-folder-2-line mr-2"></i>Report
                 </Link>
               </div>
             </aside>
