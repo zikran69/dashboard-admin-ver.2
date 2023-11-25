@@ -17,8 +17,8 @@ export default function CategoryPage() {
     })
       .then((res) => res.json())
       .then(setResponse)
-      .catch((error) => {
-        console.log(error.message);
+      .catch(() => {
+        alert("database not conected...");
       });
   }, [response]);
 
