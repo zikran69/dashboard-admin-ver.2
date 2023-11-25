@@ -1,23 +1,38 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import auth from "../../utils/auth";
 
 export default function AddCategory() {
   const [addCategory, setAddCategory] = useState(null);
+  const [response, setResponse] = useState([]);
   const [preview, setPreview] = useState(null);
   const [preview2, setPreview2] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (addCategory) {
-      console.log(addCategory);
       fetch(`${import.meta.env.VITE_ADDR_API}/category/add`, {
         method: "POST",
+        headers: {
+          Authorization: `Bearer ${auth.isAuthenticated()}`,
+        },
         body: addCategory,
       })
         .then((res) => res.json())
-        .then((res) => alert(res.message));
+        .then(setResponse);
     }
   }, [addCategory]);
+
+  useEffect(() => {
+    if (response.success) {
+      alert(response.success);
+    }
+    if (response.message) {
+      alert(response.message);
+      auth.logout();
+      navigate("/");
+    }
+  }, [response.success, response.message]);
 
   useEffect(() => {
     const upload = document.getElementById("upload");
