@@ -5,6 +5,7 @@ import auth from "../../utils/auth";
 export default function AddCategory() {
   const [addCategory, setAddCategory] = useState(null);
   const [response, setResponse] = useState([]);
+  const [connected, setConnected] = useState(true);
   const [preview, setPreview] = useState(null);
   const [preview2, setPreview2] = useState(null);
   const navigate = useNavigate();
@@ -19,7 +20,10 @@ export default function AddCategory() {
         body: addCategory,
       })
         .then((res) => res.json())
-        .then(setResponse);
+        .then(setResponse)
+        .catch(() => {
+          setConnected(false);
+        });
     }
   }, [addCategory]);
 
@@ -32,7 +36,11 @@ export default function AddCategory() {
       auth.logout();
       navigate("/");
     }
-  }, [response.success, response.message]);
+    if (!connected) {
+      alert("database not conected...");
+      setConnected(true);
+    }
+  }, [response.success, response.message, connected]);
 
   useEffect(() => {
     const upload = document.getElementById("upload");
@@ -172,6 +180,7 @@ export default function AddCategory() {
                         <input
                           id="upload2"
                           name="image2"
+                          required
                           type="file"
                           accept=".jpg, .jpeg"
                           className="py-[7px] h-10 pl-4 border mt-1 rounded px-4 w-full bg-gray-50"

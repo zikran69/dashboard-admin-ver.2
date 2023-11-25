@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 export default function CategoryPage() {
   const [response, setResponse] = useState([]);
   const [dataValue, setDataValue] = useState("all");
+  const [connected, setConnected] = useState(true);
   const navigate = useNavigate();
 
   useState(() => {
@@ -18,7 +19,7 @@ export default function CategoryPage() {
       .then((res) => res.json())
       .then(setResponse)
       .catch(() => {
-        alert("database not conected...");
+        setConnected(false);
       });
   }, [response]);
 
@@ -66,7 +67,11 @@ export default function CategoryPage() {
     if (response.success) {
       alert(response.success);
     }
-  }, [response.message, response.success]);
+    if (!connected) {
+      alert("database not conected...");
+      setConnected(true);
+    }
+  }, [response.message, response.success, connected]);
 
   return (
     <div className="w-full lg:w-[calc(100vw-220px)]">

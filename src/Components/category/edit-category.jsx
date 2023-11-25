@@ -196,6 +196,7 @@ export default function EditCategory() {
                         <input
                           id="upload2"
                           name="image2"
+                          required
                           type="file"
                           accept=".jpg, .jpeg"
                           className="py-[7px] h-10 pl-4 border mt-1 rounded px-4 w-full bg-gray-50"
