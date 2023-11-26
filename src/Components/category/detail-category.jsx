@@ -2,18 +2,35 @@ import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { global } from "../../assets/context";
 import { useNavigate } from "react-router-dom";
+import auth from "../../utils/auth";
 
 export default function DetailCategory() {
-  const [categoryId, setCategoryId] = useState(null);
+  const [response, setResponse] = useState([]);
   const navigate = useNavigate();
   const dataId = useContext(global).dataId;
+  if (!dataId) {
+    navigate("/category");
+  }
   useEffect(() => {
-    fetch(`http://localhost:2000/category/${dataId}`)
+    fetch(`${import.meta.env.VITE_ADDR_API}/category/${dataId}`, {
+      headers: {
+        Authorization: `Bearer ${auth.isAuthenticated()}`,
+      },
+    })
       .then((res) => res.json())
-      .then(setCategoryId);
+      .then(setResponse);
   }, []);
+
+  useEffect(() => {
+    if (response.message) {
+      alert(response.message);
+      auth.logout();
+      navigate("/");
+    }
+  }, [response.message]);
+
   return (
-    categoryId && (
+    response.category && (
       <div className="w-full">
         <main className="bg-primary-gray grow overflow-y-auto">
           <div className="p-4 h-[calc(100vh-67.33px)]">
@@ -40,28 +57,42 @@ export default function DetailCategory() {
               <tbody className="capitalize text-sm text-gray-700 bg-gray-50">
                 <tr>
                   <td className="p-4 border-secondary-gray border border-b-2 border-opacity-10">
-                    {categoryId.nameCategory}
+                    {response.category.nameCategory}
                   </td>
                   <td className="p-4 border-secondary-gray border border-b-2 border-opacity-10">
-                    ${categoryId.price}/night
+                    ${response.category.price}/night
                   </td>
                   <td className="p-4 border-secondary-gray border border-b-2 border-opacity-10">
-                    {categoryId.facilityCategory}
+                    {response.category.facilityCategory}
                   </td>
                   <td className="p-4 border-secondary-gray border border-b-2 border-opacity-10">
-                    {categoryId.descCategory}
+                    {response.category.descCategory}
                   </td>
                 </tr>
               </tbody>
             </table>
+            <div className="w-full flex mx-2 bg-primary-gray">
+              <img
+                src={`${import.meta.env.VITE_ADDR_API}/${
+                  response.category.image
+                }`}
+                className="h-80 mx-4"
+              />
+              {response.category.image2 && (
+                <img
+                  src={`${import.meta.env.VITE_ADDR_API}/${
+                    response.category.image2
+                  }`}
+                  className="h-80 mx-4"
+                />
+              )}
+            </div>
             <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
               <button
-                className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 absolute top-20 right-12"
                 type="button"
-
-                onClick={() => navigate("/category-page")}
+                onClick={() => navigate("/category")}
               >
-
                 Back
               </button>
             </div>

@@ -1,44 +1,77 @@
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+import auth from "../utils/auth";
 import TableCategory from "../Components/category/table-category";
 import SearchCategory from "../Components/category/search-category";
 import { useNavigate } from "react-router-dom";
 
 export default function CategoryPage() {
-  const [categories, setCategories] = useState(null);
+  const [response, setResponse] = useState([]);
   const [dataValue, setDataValue] = useState("all");
-  useState(() => {
-    fetch("http://localhost:2000/category")
-      .then((res) => res.json())
-      .then(setCategories)
-      .catch((error) => {
-        console.log(error.message);
-      });
-  }, [categories]);
+  const [connected, setConnected] = useState(true);
   const navigate = useNavigate();
+
+  useState(() => {
+    fetch(`${import.meta.env.VITE_ADDR_API}/category`, {
+      headers: {
+        Authorization: `Bearer ${auth.isAuthenticated()}`,
+      },
+    })
+      .then((res) => res.json())
+      .then(setResponse)
+      .catch(() => {
+        setConnected(false);
+      });
+  }, [response]);
 
   const search = (value) => {
     setDataValue(value);
     if (value == "all") {
-      fetch(`http://localhost:2000/category`)
+      fetch(`${import.meta.env.VITE_ADDR_API}/category`, {
+        headers: {
+          Authorization: `Bearer ${auth.isAuthenticated()}`,
+        },
+      })
         .then((res) => res.json())
-        .then(setCategories);
-    } else
-      fetch(`http://localhost:2000/category/search/${value}`)
+        .then(setResponse);
+    } else {
+      fetch(`${import.meta.env.VITE_ADDR_API}/category/search/${value}`, {
+        headers: {
+          Authorization: `Bearer ${auth.isAuthenticated()}`,
+        },
+      })
         .then((res) => res.json())
-        .then(setCategories);
+        .then(setResponse);
+    }
   };
 
   const deleting = (value) => {
-    fetch(`http://localhost:2000/category/delete/${value}`, {
+    fetch(`${import.meta.env.VITE_ADDR_API}/category/delete/${value}`, {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${auth.isAuthenticated()}`,
+      },
     })
       .then((res) => res.json())
-      .then((res) => alert(res.message));
+      .then(setResponse);
     setTimeout(() => {
       search(dataValue);
     }, 1000);
   };
+
+  useEffect(() => {
+    if (response.message) {
+      alert(response.message);
+      auth.logout();
+      navigate("/");
+    }
+    if (response.success) {
+      alert(response.success);
+    }
+    if (!connected) {
+      alert("database not conected...");
+      setConnected(true);
+    }
+  }, [response.message, response.success, connected]);
 
   return (
     <div className="w-full lg:w-[calc(100vw-220px)]">
@@ -54,7 +87,10 @@ export default function CategoryPage() {
             </button>
             <SearchCategory search={search} />
           </div>
-          <TableCategory categories={categories} deleteCategory={deleting} />
+          <TableCategory
+            categories={response.categories}
+            deleteCategory={deleting}
+          />
         </form>
       </div>
     </div>
