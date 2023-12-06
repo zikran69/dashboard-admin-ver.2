@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { global } from "../../assets/context";
+import { global } from "../../context/context";
 import auth from "../../utils/auth";
 
 export default function EditCategory() {

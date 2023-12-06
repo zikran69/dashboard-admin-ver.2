@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useContext } from "react";
-import { global } from "../../assets/context";
+import { global } from "../../context/context";
 import { useNavigate } from "react-router-dom";
 import auth from "../../utils/auth";
 import Slider from "react-slick";
