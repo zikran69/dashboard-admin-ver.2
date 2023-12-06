@@ -3,6 +3,9 @@ import { useContext } from "react";
 import { global } from "../../assets/context";
 import { useNavigate } from "react-router-dom";
 import auth from "../../utils/auth";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 export default function DetailCategory() {
   const [response, setResponse] = useState([]);
@@ -28,6 +31,16 @@ export default function DetailCategory() {
       navigate("/");
     }
   }, [response.message]);
+
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    prevArrow: <button className="slick-prev"></button>,
+    nextArrow: <button className="slick-next"></button>,
+  };
 
   return (
     response.category && (
@@ -71,21 +84,23 @@ export default function DetailCategory() {
                 </tr>
               </tbody>
             </table>
-            <div className="w-full flex mx-2 bg-primary-gray">
-              <img
-                src={`${import.meta.env.VITE_ADDR_API}/${
-                  response.category.image
-                }`}
-                className="h-80 mx-4"
-              />
-              {response.category.image2 && (
-                <img
-                  src={`${import.meta.env.VITE_ADDR_API}/${
-                    response.category.image2
-                  }`}
-                  className="h-80 mx-4"
-                />
-              )}
+            <div className="flex justify-center">
+              <div className="bg-slate-300 w-[650px] flex justify-center rounded-md">
+                <Slider {...sliderSettings} className="w-[600px]">
+                  <img
+                    src={`${import.meta.env.VITE_ADDR_API}/${
+                      response.category.image
+                    }`}
+                    className="h-80"
+                  />
+                  <img
+                    src={`${import.meta.env.VITE_ADDR_API}/${
+                      response.category.image2
+                    }`}
+                    className="h-80"
+                  />
+                </Slider>
+              </div>
             </div>
             <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
               <button
