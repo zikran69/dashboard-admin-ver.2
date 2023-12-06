@@ -9,12 +9,41 @@ const CustomerPage = () => {
       .catch((Error) => console.log(Error));
   }, [customer]);
 
+  const option = (el) => {
+    if (el.target.id) {
+      if (el.target.title) {
+        if (el.target.title == "delete") {
+          fetch(
+            `${import.meta.env.VITE_ADDR_API}/customer/delete/${el.target.id}`,
+            {
+              method: "DELETE",
+            }
+          )
+            .then((res) => res.json())
+            .then((res) => alert(res.message))
+            .catch((Error) => console.log(Error.message));
+        }
+        if (el.target.title == "edit") {
+          console.log(el.target.id);
+          console.log("edit");
+        }
+        if (el.target.title == "detail") {
+          console.log(el.target.id);
+          console.log("detail");
+        }
+      }
+    }
+  };
+
   return (
     <div className="w-full">
       <main className="bg-primary-gray grow overflow-y-auto h-[calc(100vh-67.33px)]">
         <h1 className="p-4 font-raleway text-2xl font-semibold">Customer</h1>
         <form className="font-roboto px-6 mx-4 border rounded-lg bg-white max-lg:px-4 overflow-auto shadow-xl">
-          <table className="mb-4 border-collapse text-sm text-left text-gray-500 w-full mt-[30px] rounded-xl">
+          <table
+            onClick={option}
+            className="mb-4 border-collapse text-sm text-left text-gray-500 w-full mt-[30px] rounded-xl"
+          >
             <thead className="text-xs text-gray-700 uppercase bg-gray-50">
               <tr>
                 <th className="border border-b-2 border-opacity-20 border-secondary-gray p-4 text-left">
@@ -75,25 +104,40 @@ const CustomerPage = () => {
 
                     <td className="p-4 border-secondary-gray border border-b-2 border-opacity-20">
                       <button
+                        id={item.idCustomer}
                         type="button"
                         title="detail"
                         className="mr-1 py-1 px-5 bg-green-400 rounded-md hover:bg-hover-green"
                       >
-                        <i className="ri-search-line text-white"></i>
+                        <i
+                          id={item.idCustomer}
+                          title="detail"
+                          className="ri-search-line text-white"
+                        ></i>
                       </button>
                       <button
+                        id={item.idCustomer}
                         type="button"
-                        title="hapus"
+                        title="delete"
                         className="mr-1 py-1 px-5 bg-red-400 rounded-md hover:bg-hover-red"
                       >
-                        <i className="ri-delete-bin-line text-white"></i>
+                        <i
+                          id={item.idCustomer}
+                          title="delete"
+                          className="ri-delete-bin-line text-white"
+                        ></i>
                       </button>
                       <button
+                        id={item.idCustomer}
                         type="button"
                         title="edit"
                         className="py-1 px-5 bg-yellow-400 rounded-md hover:bg-hover-yellow"
                       >
-                        <i className="ri-file-edit-line text-white"></i>
+                        <i
+                          id={item.idCustomer}
+                          title="edit"
+                          className="ri-file-edit-line text-white"
+                        ></i>
                       </button>
                     </td>
                   </tr>
