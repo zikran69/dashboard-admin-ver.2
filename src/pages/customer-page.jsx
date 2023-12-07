@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const CustomerPage = () => {
   const [customer, setCustomer] = useState([]);
+  const navigate = useNavigate();
   useEffect(() => {
     fetch(`${import.meta.env.VITE_ADDR_API}/customer`)
       .then((res) => res.json())
@@ -40,6 +42,15 @@ const CustomerPage = () => {
       <main className="bg-primary-gray grow overflow-y-auto h-[calc(100vh-67.33px)]">
         <h1 className="p-4 font-raleway text-2xl font-semibold">Customer</h1>
         <form className="font-roboto px-6 mx-4 border rounded-lg bg-white max-lg:px-4 overflow-auto shadow-xl">
+          <div className="grid gap-5 place-items-start sm:flex justify-between m-4">
+            <button
+              onClick={() => navigate("/add-customer")}
+              className="py-2 px-5 bg-blue-400 rounded-md text-xs text-white hover:bg-hover-blue"
+            >
+              <i className="ri-account-pin-circle-fill text-sm mr-2"></i>Add
+              Customer
+            </button>
+          </div>
           <table
             onClick={option}
             className="mb-4 border-collapse text-sm text-left text-gray-500 w-full mt-[30px] rounded-xl"
