@@ -47,8 +47,7 @@ export default function EditCategory() {
     }
     if (response.message) {
       alert(response.message);
-      auth.logout();
-      navigate("/");
+      navigate("/category");
     }
     if (getCategory.message) {
       alert(getCategory.message);
@@ -131,7 +130,7 @@ export default function EditCategory() {
                           required
                           type="text"
                           className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                          placeholder="name category"
+                          placeholder={category.nameCategory}
                         />
                       </div>
                       <div className="md:col-span-3">

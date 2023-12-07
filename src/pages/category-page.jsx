@@ -61,8 +61,7 @@ export default function CategoryPage() {
   useEffect(() => {
     if (response.message) {
       alert(response.message);
-      auth.logout();
-      navigate("/");
+      navigate("/category");
     }
     if (response.success) {
       alert(response.success);
