@@ -129,6 +129,6 @@ export default function TableCategory({ categories, deleteCategory }) {
 }
 
 TableCategory.propTypes = {
-  categories: PropTypes.object,
+  categories: PropTypes.array,
   deleteCategory: PropTypes.func,
 };
