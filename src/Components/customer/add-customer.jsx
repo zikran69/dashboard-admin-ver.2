@@ -1,45 +1,30 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { global } from "../../context/context";
 import auth from "../../utils/auth";
 
-export default function EditCategory() {
+export default function AddCustomer() {
+  const [AddCustomer, setAddCustomer] = useState(null);
   const [response, setResponse] = useState([]);
-  const [getCategory, setGetCategory] = useState([]);
-  const [editCategory, setEditCategory] = useState(null);
+  const [connected, setConnected] = useState(true);
   const [preview, setPreview] = useState(null);
-  const [preview2, setPreview2] = useState(null);
   const navigate = useNavigate();
-  const dataId = useContext(global).dataId;
-
-  if (!dataId) {
-    navigate("/category");
-  }
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_ADDR_API}/category/${dataId}`, {
-      headers: {
-        Authorization: `Bearer ${auth.isAuthenticated()}`,
-      },
-    })
-      .then((res) => res.json())
-      .then(setGetCategory);
-  }, []);
-  const { category } = getCategory;
-
-  useEffect(() => {
-    if (editCategory) {
-      fetch(`${import.meta.env.VITE_ADDR_API}/category/update/${dataId}`, {
-        method: "PUT",
-        headers: {
-          Authorization: `Bearer ${auth.isAuthenticated()}`,
-        },
-        body: editCategory,
+    if (AddCustomer) {
+      fetch(`${import.meta.env.VITE_ADDR_API}/customer/add`, {
+        method: "POST",
+        // headers: {
+        //   Authorization: `Bearer ${auth.isAuthenticated()}`,
+        // },
+        body: AddCustomer,
       })
         .then((res) => res.json())
-        .then(setResponse);
+        .then(setResponse)
+        .catch(() => {
+          setConnected(false);
+        });
     }
-  }, [editCategory]);
+  }, [AddCustomer]);
 
   useEffect(() => {
     if (response.success) {
@@ -47,53 +32,32 @@ export default function EditCategory() {
     }
     if (response.message) {
       alert(response.message);
-      auth.logout();
+      //   auth.logout();
       navigate("/");
     }
-    if (getCategory.message) {
-      alert(getCategory.message);
-      auth.logout();
-      navigate("/");
+    if (!connected) {
+      alert("database not conected...");
+      setConnected(true);
     }
-  }, [response.success, response.message, getCategory.message]);
+  }, [response.success, response.message, connected]);
 
   useEffect(() => {
     const upload = document.getElementById("upload");
-    const upload2 = document.getElementById("upload2");
     const show = document.getElementById("show");
     if (upload) {
       upload.addEventListener("change", (e) => {
         if (
           e.target.files[0].size < 5000000 &&
-          upload.value != upload2.value &&
           (e.target.files[0].type == "image/jpeg" ||
             e.target.files[0].type == "image/jpg")
         ) {
           setPreview(URL.createObjectURL(e.target.files[0]));
           show.classList.remove("hidden");
-          if (upload2) {
-            upload2.addEventListener("change", (e) => {
-              if (
-                e.target.files[0].size < 5000000 &&
-                upload.value != upload2.value &&
-                (e.target.files[0].type == "image/jpeg" ||
-                  e.target.files[0].type == "image/jpg")
-              ) {
-                setPreview2(URL.createObjectURL(e.target.files[0]));
-              } else {
-                alert("image not valid, select another image");
-                setPreview2(null);
-                e.target.value = "";
-              }
-            });
-          }
         } else {
           alert("image not valid, select another image");
           show.classList.add("hidden");
           setPreview(null);
-          setPreview2(null);
           e.target.value = "";
-          upload2.value = "";
         }
       });
     }
@@ -102,13 +66,19 @@ export default function EditCategory() {
   const handlesubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    setEditCategory(formData);
-    setTimeout(() => {
-      navigate("/category");
-    }, 1000);
+    const { password, verifyPassword } = Object.fromEntries(formData);
+    if (password === verifyPassword) {
+      formData.append("paswordCustomer", password);
+      formData.append("statusCustomer", parseInt("1"));
+      setAddCustomer(formData);
+      setTimeout(() => {
+        navigate("/customer");
+      }, 1000);
+    } else alert("password not match...");
   };
+
   return (
-    category && (
+    <>
       <div className="w-full">
         <main className="bg-primary-gray grow overflow-y-auto">
           <div
@@ -117,7 +87,7 @@ export default function EditCategory() {
           ></div>
           <div className="p-4 h-[calc(100vh-67.33px)]">
             <div>
-              <h1 className="text-2xl font-semibold">Form Edit Category</h1>
+              <h1 className="text-2xl font-semibold">Form Add Customer</h1>
             </div>
             <div className="p-4">
               <div className="p-6 bg-white border border-gray-200 rounded-lg shadow">
@@ -125,79 +95,99 @@ export default function EditCategory() {
                   <form onSubmit={handlesubmit}>
                     <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-6 m-5">
                       <div className="md:col-span-3">
-                        <label>Name Category</label>
+                        <label>Name</label>
                         <input
-                          name="nameCategory"
+                          name="nameCustomer"
                           required
                           type="text"
                           className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                          placeholder="name category"
+                          placeholder="name"
                         />
                       </div>
                       <div className="md:col-span-3">
-                        <label>Price ($/night)</label>
+                        <label>NIK</label>
                         <input
-                          name="price"
+                          name="nikCustomer"
                           required
                           type="text"
                           className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                          placeholder={category.price}
+                          placeholder="NIK"
                         />
                       </div>
                       <div className="md:col-span-3">
-                        <label>Facilities</label>
+                        <label>Address</label>
                         <input
-                          name="facilityCategory"
+                          name="addressCustomer"
                           required
                           type="text"
                           className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                          placeholder={category.facilityCategory}
+                          placeholder="Address"
                         />
                       </div>
                       <div className="md:col-span-3">
-                        <label>Description</label>
+                        <label>Telp</label>
                         <input
-                          name="descCategory"
+                          name="tlpnCustomer"
                           required
                           type="text"
                           className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                          placeholder={category.descCategory}
+                          placeholder="Telp"
+                        />
+                      </div>
+                      <div className="md:col-span-3">
+                        <label>E-mail</label>
+                        <input
+                          name="emailCustomer"
+                          required
+                          type="email"
+                          className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                          placeholder="e-mail"
+                        />
+                      </div>
+                      <div className="md:col-span-3">
+                        <label>Username</label>
+                        <input
+                          name="userName"
+                          required
+                          className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                          placeholder="username"
+                        />
+                      </div>
+                      <div className="md:col-span-3">
+                        <label>Password</label>
+                        <input
+                          name="password"
+                          required
+                          type="password"
+                          className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                          placeholder="password"
+                        />
+                      </div>
+                      <div className="md:col-span-3">
+                        <label>Verify Password</label>
+                        <input
+                          name="verifyPassword"
+                          required
+                          type="password"
+                          className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                          placeholder="re-password"
                         />
                       </div>
                       <div className="md:col-span-3">
                         <label>
-                          image <span className="text-[12px]">(max 5mb)</span>
+                          photo <span className="text-[12px]">(max 5mb)</span>
                         </label>
                         <input
                           id="upload"
-                          name="image"
+                          name="fotoCustomer"
                           required
                           type="file"
                           accept=".jpg, .jpeg"
                           className="py-[7px] h-10 pl-4 border mt-1 rounded px-4 w-full bg-gray-50"
                         />
-
                         <img
                           src={preview}
-                          className="mx-2 mt-2 mb-[-10px] w-56"
-                        />
-                      </div>
-                      <div className="md:col-span-3 hidden" id="show">
-                        <label>
-                          image <span className="text-[12px]">(max 5mb)</span>
-                        </label>
-                        <input
-                          id="upload2"
-                          name="image2"
-                          required
-                          type="file"
-                          accept=".jpg, .jpeg"
-                          className="py-[7px] h-10 pl-4 border mt-1 rounded px-4 w-full bg-gray-50"
-                        />
-
-                        <img
-                          src={preview2}
-                          className="mx-2 mt-2 mb-[-10px] w-56"
+                          className="mx-2 mt-2 mb-[-10px] w-24"
                         />
                       </div>
                     </div>
@@ -206,7 +196,7 @@ export default function EditCategory() {
                       <button
                         className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="button"
-                        onClick={() => navigate("/category")}
+                        onClick={() => navigate("/customer")}
                       >
                         Close
                       </button>
@@ -224,6 +214,6 @@ export default function EditCategory() {
           </div>
         </main>
       </div>
-    )
+    </>
   );
 }

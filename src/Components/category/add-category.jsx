@@ -112,18 +112,13 @@ export default function AddCategory() {
                     <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-6 m-5">
                       <div className="md:col-span-3">
                         <label>Name Category</label>
-                        <select
+                        <input
                           name="nameCategory"
                           required
-                          className="h-10 border mt-1 rounded px-4 w-full bg-gray-0"
-                        >
-                          <option value={""}>--select--</option>
-                          <option value={"Junior Suite"}>Junior Suite</option>
-                          <option value={"Executive Suite"}>
-                            Executive Suite
-                          </option>
-                          <option value={"Super Delux"}>Super Delux</option>
-                        </select>
+                          type="text"
+                          className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                          placeholder="name category"
+                        />
                       </div>
                       <div className="md:col-span-3">
                         <label>Price ($/night)</label>
