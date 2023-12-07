@@ -38,6 +38,8 @@ export default function AddCategory() {
     }
     if (!connected) {
       alert("database not conected...");
+      auth.logout();
+      navigate("/");
       setConnected(true);
     }
   }, [response.success, response.message, connected]);

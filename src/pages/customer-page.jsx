@@ -1,41 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import auth from "../utils/auth";
 
 const CustomerPage = () => {
   const [customer, setCustomer] = useState([]);
+  const [connected, setConnected] = useState(true);
   const navigate = useNavigate();
   useEffect(() => {
     fetch(`${import.meta.env.VITE_ADDR_API}/customer`)
       .then((res) => res.json())
       .then((res) => setCustomer(res.customer))
-      .catch((Error) => console.log(Error));
+      .catch(() => setConnected(false));
   }, [customer]);
 
-  const option = (el) => {
-    if (el.target.id) {
-      if (el.target.title) {
-        if (el.target.title == "delete") {
-          fetch(
-            `${import.meta.env.VITE_ADDR_API}/customer/delete/${el.target.id}`,
-            {
-              method: "DELETE",
-            }
-          )
-            .then((res) => res.json())
-            .then((res) => alert(res.message))
-            .catch((Error) => console.log(Error.message));
-        }
-        if (el.target.title == "edit") {
-          console.log(el.target.id);
-          console.log("edit");
-        }
-        if (el.target.title == "detail") {
-          console.log(el.target.id);
-          console.log("detail");
-        }
-      }
+  useEffect(() => {
+    if (!connected) {
+      alert("database not conected...");
+      auth.logout();
+      navigate("/");
+      setConnected(true);
     }
-  };
+  }, [connected]);
 
   return (
     <div className="w-full">
@@ -51,14 +36,14 @@ const CustomerPage = () => {
               Customer
             </button>
           </div>
-          <table
-            onClick={option}
-            className="mb-4 border-collapse text-sm text-left text-gray-500 w-full mt-[30px] rounded-xl"
-          >
+          <table className="mb-4 border-collapse text-sm text-left text-gray-500 w-full mt-[30px] rounded-xl">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50">
               <tr>
                 <th className="border border-b-2 border-opacity-20 border-secondary-gray p-4 text-left">
                   No
+                </th>
+                <th className="border border-b-2 border-opacity-20 border-secondary-gray p-4 text-left">
+                  NIK
                 </th>
                 <th className="border border-b-2 border-opacity-20 border-secondary-gray p-4 text-left">
                   Name
@@ -72,9 +57,6 @@ const CustomerPage = () => {
                 <th className="border border-b-2 border-opacity-20 border-secondary-gray p-4 text-left">
                   Status
                 </th>
-                <th className="border border-b-2 border-opacity-20 border-secondary-gray p-4 text-left w-[210px] min-w-[210px]">
-                  Option
-                </th>
               </tr>
             </thead>
             <tbody>
@@ -86,6 +68,12 @@ const CustomerPage = () => {
                       data-cell=""
                     >
                       {index + 1}
+                    </td>
+                    <td
+                      className="p-4 border-secondary-gray border border-b-2 border-opacity-20"
+                      data-cell=""
+                    >
+                      {item.nikCustomer}
                     </td>
                     <td
                       className="p-4 border-secondary-gray border border-b-2 border-opacity-20"
@@ -111,45 +99,6 @@ const CustomerPage = () => {
                       data-cell=""
                     >
                       {item.statusCustomer}
-                    </td>
-
-                    <td className="p-4 border-secondary-gray border border-b-2 border-opacity-20">
-                      <button
-                        id={item.idCustomer}
-                        type="button"
-                        title="detail"
-                        className="mr-1 py-1 px-5 bg-green-400 rounded-md hover:bg-hover-green"
-                      >
-                        <i
-                          id={item.idCustomer}
-                          title="detail"
-                          className="ri-search-line text-white"
-                        ></i>
-                      </button>
-                      <button
-                        id={item.idCustomer}
-                        type="button"
-                        title="delete"
-                        className="mr-1 py-1 px-5 bg-red-400 rounded-md hover:bg-hover-red"
-                      >
-                        <i
-                          id={item.idCustomer}
-                          title="delete"
-                          className="ri-delete-bin-line text-white"
-                        ></i>
-                      </button>
-                      <button
-                        id={item.idCustomer}
-                        type="button"
-                        title="edit"
-                        className="py-1 px-5 bg-yellow-400 rounded-md hover:bg-hover-yellow"
-                      >
-                        <i
-                          id={item.idCustomer}
-                          title="edit"
-                          className="ri-file-edit-line text-white"
-                        ></i>
-                      </button>
                     </td>
                   </tr>
                 ))}
