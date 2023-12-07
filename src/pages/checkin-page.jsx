@@ -2,6 +2,8 @@ import { useState } from 'react'
 import useGetDataCheck from '../hooks/useGetDataCheck'
 import TableRowCheckIn from '../Components/TableRowCheckIn'
 import toast, { Toaster } from 'react-hot-toast'
+import auth from '../utils/auth'
+
 
 export default function CheckinKamarPage() {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -306,7 +308,15 @@ export default function CheckinKamarPage() {
                       noKamar={item.room.numberRoom}
                       tanggalCheckin={item.checkIn}
                       btnDetail={() => handleDetail}
-                      btnCheck={() => toast.success("check in success")}
+                      btnCheck={() => {
+                        fetch(`${import.meta.env.VITE_ADDR_API}/check/in/${item.idTransaction}`, {
+                          headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${auth.isAuthenticated()}`,
+                          }
+                        })
+                        toast.success("check in success")
+                      }}
                     />
                   ))
                 ) : (
