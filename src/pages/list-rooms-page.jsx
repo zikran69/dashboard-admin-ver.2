@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
 
 import ListTable from "../Components/list-table";
-import TambahKamar from "../Components/tambah-kamar";
-import Cari from "../Components/Cari";
-import TambahKamarForm from "./tambah-kamar";
 import { Link } from "react-router-dom";
 import auth from "../utils/auth";
 
