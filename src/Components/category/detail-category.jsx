@@ -9,6 +9,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 export default function DetailCategory() {
   const [response, setResponse] = useState([]);
+  const [connected, setConnected] = useState(true);
   const navigate = useNavigate();
   const dataId = useContext(global).dataId;
   if (!dataId) {
@@ -21,7 +22,8 @@ export default function DetailCategory() {
       },
     })
       .then((res) => res.json())
-      .then(setResponse);
+      .then(setResponse)
+      .catch(() => setConnected(false));
   }, []);
 
   useEffect(() => {
@@ -30,7 +32,13 @@ export default function DetailCategory() {
       auth.logout();
       navigate("/");
     }
-  }, [response.message]);
+    if (!connected) {
+      alert("database not conected...");
+      auth.logout();
+      navigate("/");
+      setConnected(true);
+    }
+  }, [response.message, connected]);
 
   const sliderSettings = {
     dots: true,

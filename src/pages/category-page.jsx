@@ -32,7 +32,10 @@ export default function CategoryPage() {
         },
       })
         .then((res) => res.json())
-        .then(setResponse);
+        .then(setResponse)
+        .catch(() => {
+          setConnected(false);
+        });
     } else {
       fetch(`${import.meta.env.VITE_ADDR_API}/category/search/${value}`, {
         headers: {
@@ -40,7 +43,10 @@ export default function CategoryPage() {
         },
       })
         .then((res) => res.json())
-        .then(setResponse);
+        .then(setResponse)
+        .catch(() => {
+          setConnected(false);
+        });
     }
   };
 
@@ -61,14 +67,15 @@ export default function CategoryPage() {
   useEffect(() => {
     if (response.message) {
       alert(response.message);
-      auth.logout();
-      navigate("/");
+      navigate("/category");
     }
     if (response.success) {
       alert(response.success);
     }
     if (!connected) {
       alert("database not conected...");
+      auth.logout();
+      navigate("/");
       setConnected(true);
     }
   }, [response.message, response.success, connected]);

@@ -5,6 +5,7 @@ import auth from "../../utils/auth";
 
 export default function EditCategory() {
   const [response, setResponse] = useState([]);
+  const [connected, setConnected] = useState(true);
   const [getCategory, setGetCategory] = useState([]);
   const [editCategory, setEditCategory] = useState(null);
   const [preview, setPreview] = useState(null);
@@ -23,7 +24,8 @@ export default function EditCategory() {
       },
     })
       .then((res) => res.json())
-      .then(setGetCategory);
+      .then(setGetCategory)
+      .catch(() => setConnected(false));
   }, []);
   const { category } = getCategory;
 
@@ -37,7 +39,8 @@ export default function EditCategory() {
         body: editCategory,
       })
         .then((res) => res.json())
-        .then(setResponse);
+        .then(setResponse)
+        .catch(() => setConnected(false));
     }
   }, [editCategory]);
 
@@ -47,15 +50,20 @@ export default function EditCategory() {
     }
     if (response.message) {
       alert(response.message);
-      auth.logout();
-      navigate("/");
+      navigate("/category");
     }
     if (getCategory.message) {
       alert(getCategory.message);
       auth.logout();
       navigate("/");
     }
-  }, [response.success, response.message, getCategory.message]);
+    if (!connected) {
+      alert("database not conected...");
+      auth.logout();
+      navigate("/");
+      setConnected(true);
+    }
+  }, [response.success, response.message, getCategory.message, connected]);
 
   useEffect(() => {
     const upload = document.getElementById("upload");
@@ -131,7 +139,7 @@ export default function EditCategory() {
                           required
                           type="text"
                           className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                          placeholder="name category"
+                          placeholder={category.nameCategory}
                         />
                       </div>
                       <div className="md:col-span-3">
