@@ -9,6 +9,7 @@ const auth = {
   },
   logout: () => {
     Cookies.remove("user");
+    Cookies.remove("level");
     return Cookies.remove("token");
   },
   storeUser: (user) => {
@@ -16,6 +17,12 @@ const auth = {
   },
   isUser: () => {
     return Cookies.get("user");
+  },
+  storeLevel: (level) => {
+    return Cookies.set("level", level);
+  },
+  isLevel: () => {
+    return Cookies.get("level");
   },
 };
 
