@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 
 export default function DetailKamarForm() {
-    const { id } = useParams();
-    const navigate = useNavigate();
-    const [state, setState] = useState();
-    useEffect(() => {
-      fetch("http://localhost:2000/rooms/"+id)
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [state, setState] = useState();
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_ADDR_API}/rooms/${id}`)
       .then((res) => {
         return res.json();
       })
@@ -22,7 +22,7 @@ export default function DetailKamarForm() {
       .catch((err) => {
         console.log(err.message);
       });
-    }, []);
+  }, []);
 
   const [idRoom, setId] = useState("");
   const [categoryId, setCategory] = useState("");
@@ -43,14 +43,14 @@ export default function DetailKamarForm() {
       statusId,
     };
 
-    fetch("http://localhost:2000/rooms/"+id, {
+    fetch("http://localhost:2000/rooms/" + id, {
       method: "PUT",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(admData),
     })
       .then((res) => {
         alert("Saved successfully.");
-        navigate("/list-kamar");
+        navigate("/list-rooms");
       })
       .catch((err) => {
         console.log(err.message);
@@ -72,24 +72,26 @@ export default function DetailKamarForm() {
             <div className="p-4">
               <div className="p-6 bg-white border border-gray-200 rounded-lg shadow">
                 <div className="relative overflow-x-auto">
-                <form onSubmit={handlesubmit}>
+                  <form onSubmit={handlesubmit}>
                     <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-6 m-5">
                       <div className="md:col-span-3">
                         <label>Room Category</label>
-                        <select 
-                        onChange={(e) => setCategory(e.target.value)}
-                        required
-                        className="h-10 border mt-1 rounded px-4 w-full bg-gray-0">
-                        <option value={""}>--select--</option>
+                        <select
+                          onChange={(e) => setCategory(e.target.value)}
+                          required
+                          className="h-10 border mt-1 rounded px-4 w-full bg-gray-0"
+                        >
+                          <option value={""}>--select--</option>
                           <option value={1}>Admin</option>
                           <option value={2}>Superadmin</option>
                         </select>
                       </div>
                       <div className="md:col-span-3">
                         <label>Floor</label>
-                        <select 
-                        onChange={(e) => setFloor(e.target.value)}
-                        className="h-10 border mt-1 rounded px-4 w-full bg-gray-0">
+                        <select
+                          onChange={(e) => setFloor(e.target.value)}
+                          className="h-10 border mt-1 rounded px-4 w-full bg-gray-0"
+                        >
                           <option value={""}>--select--</option>
                           <option value={1}>1</option>
                           <option value={2}>2</option>
@@ -97,10 +99,10 @@ export default function DetailKamarForm() {
                       </div>
                       <div className="md:col-span-3">
                         <label>Name Room</label>
-                        <input 
-                        value={nameRoom}
-                        onChange={(e) => setName(e.target.value)}
-                        required
+                        <input
+                          value={nameRoom}
+                          onChange={(e) => setName(e.target.value)}
+                          required
                           type="text"
                           className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                           placeholder="Name Room"
@@ -108,10 +110,11 @@ export default function DetailKamarForm() {
                       </div>
                       <div className="md:col-span-3">
                         <label>Number Room</label>
-                        <select 
-                        onChange={(e) => setNumber(e.target.value)}
-                        required
-                        className="h-10 border mt-1 rounded px-4 w-full bg-gray-0">
+                        <select
+                          onChange={(e) => setNumber(e.target.value)}
+                          required
+                          className="h-10 border mt-1 rounded px-4 w-full bg-gray-0"
+                        >
                           <option value={""}>--select--</option>
                           <option value={1}>1</option>
                           <option value={2}>2</option>
@@ -121,9 +124,9 @@ export default function DetailKamarForm() {
                       <div className="md:col-span-3">
                         <label>Description</label>
                         <input
-                        value={descRoom}
-                        onChange={(e) => setDesc(e.target.value)}
-                        required
+                          value={descRoom}
+                          onChange={(e) => setDesc(e.target.value)}
+                          required
                           type="text"
                           className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                           placeholder="Desc"
@@ -132,10 +135,11 @@ export default function DetailKamarForm() {
                       <div className="md:col-span-3">
                         <label>Status</label>
                         <select
-                        onChange={(e) => setStatus(e.target.value)}
-                        required
-                        className="h-10 border mt-1 rounded px-4 w-full bg-gray-0">
-                        <option value={""}>--select--</option>
+                          onChange={(e) => setStatus(e.target.value)}
+                          required
+                          className="h-10 border mt-1 rounded px-4 w-full bg-gray-0"
+                        >
+                          <option value={""}>--select--</option>
                           <option value={1}>Empty</option>
                           <option value={2}>Booked</option>
                         </select>
@@ -143,7 +147,7 @@ export default function DetailKamarForm() {
                     </div>
                     {/*footer*/}
                     <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
-                      <Link to="/list-kamar">
+                      <Link to="/list-rooms">
                         <button
                           className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                           type="button"

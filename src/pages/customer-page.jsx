@@ -98,7 +98,7 @@ const CustomerPage = () => {
                       className="p-4 border-secondary-gray border border-b-2 border-opacity-20"
                       data-cell=""
                     >
-                      {item.statusCustomer}
+                      {item.statusId.nameStatus}
                     </td>
                   </tr>
                 ))}

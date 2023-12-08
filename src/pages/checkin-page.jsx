@@ -1,6 +1,6 @@
 import { useState } from "react";
 import useGetDataCheck from "../hooks/useGetDataCheck";
-import TableRowCheckIn from "../Components/TableRowCheckIn";
+import TableRowCheckIn from "../Components/check-in/TableRowCheckIn";
 
 export default function CheckinKamarPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);

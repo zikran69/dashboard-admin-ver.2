@@ -13,9 +13,9 @@ import CheckoutKamarpage from "../pages/checkout-page";
 import LaporanPage from "../pages/report-page";
 import AdministratorPage from "../Components/administrator/administrator-page";
 import ProfilAdmin from "../Components/ProfilAdmin/ProfilAdmin";
-import TambahKamarForm from "../pages/tambah-kamar";
-import UpdateKamarForm from "../pages/update-kamar";
-import DetailKamarForm from "../pages/detail-kamar";
+import TambahKamarForm from "../Components/list-rooms/tambah-kamar";
+import UpdateKamarForm from "../Components/list-rooms/update-kamar";
+import DetailKamarForm from "../Components/list-rooms/detail-kamar";
 import CustomerPage from "../pages/customer-page";
 
 import CategoryPage from "../pages/category-page";
