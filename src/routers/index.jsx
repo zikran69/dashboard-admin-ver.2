@@ -25,8 +25,6 @@ import EditCategory from "../Components/category/edit-category";
 import AdminAdd from "../Components/administrator/adminAdd";
 import AdminEdit from "../Components/administrator/adminEdit";
 
-import AddCustomer from "../Components/customer/add-customer";
-
 export default function Router() {
   return (
     <Routes>
@@ -50,7 +48,6 @@ export default function Router() {
           <Route path="/update-kamar/:id" element={<UpdateKamarForm />} />
           <Route path="/detail-kamar/:id" element={<DetailKamarForm />} />
           <Route path="/customer" element={<CustomerPage />} />
-          <Route path="/add-customer" element={<AddCustomer />} />
           <Route path="/order" element={<PesanKamarPage />} />
           <Route path="/checkin" element={<CheckinKamarPage />} />
           <Route path="/checkout" element={<CheckoutKamarpage />} />
