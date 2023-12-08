@@ -82,7 +82,7 @@ export default function CheckinKamarPage() {
                       nik={item.customer.nikCustomer}
                       nama={item.customer.nameCustomer}
                       noKamar={item.room.numberRoom}
-                      tanggalCheck={item.checkIn}
+                      tanggalCheck={item.checkOut}
                       btnDetail={() => handleDetail(item.idTransaction)}
                       btnCheck={() => handleCheck(item?.idTransaction)}
                       btnReBook={() => {}}
