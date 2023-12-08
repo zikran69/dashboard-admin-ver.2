@@ -1,39 +1,50 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
+import auth from "../../utils/auth";
 export default function TambahKamarForm() {
-  const [categoryId, setCategory] = useState("");
-  const [floorId, setFloor] = useState("");
-  const [nameRoom, setName] = useState("");
-  const [numberRoom, setNumber] = useState("");
-  const [descRoom, setDesc] = useState("");
-  const [statusId, setStatus] = useState("");
-
+  const [createRoom, setCreateRoom] = useState(null);
+  const [response, setResponse] = useState([]);
+  const [connected, setConnected] = useState(true);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (createRoom) {
+      fetch(`${import.meta.env.VITE_ADDR_API}/rooms/`, {
+        headers: {
+          Authorization: `Bearer ${auth.isAuthenticated()}`,
+        },
+        method: "POST",
+        body: createRoom,
+      })
+        .then((res) => res.json())
+        .then(setResponse)
+        .catch(() => {
+          setConnected(false);
+        });
+    }
+  }, [createRoom]);
+
+  useEffect(() => {
+    if (response.success) {
+      alert(response.success);
+    }
+    if (response.message) {
+      alert(response.message);
+      auth.logout();
+      navigate("/");
+    }
+    if (!connected) {
+      alert("database not conected...");
+      setConnected(true);
+    }
+  }, [response.success, response.message, connected]);
   const handlesubmit = (e) => {
     e.preventDefault();
-    const admData = {
-      categoryId,
-      nameRoom,
-      floorId,
-      numberRoom,
-      descRoom,
-      statusId,
-    };
-
-    fetch("http://localhost:2000/rooms", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(admData),
-    })
-      .then(() => {
-        alert("Saved successfully.");
-        navigate("/list-kamar");
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
+    const formData = new FormData(e.target);
+    setCreateRoom(formData);
+    setTimeout(() => {
+      navigate("/list-rooms");
+    }, 1000);
   };
 
   return (
@@ -56,7 +67,7 @@ export default function TambahKamarForm() {
                       <div className="md:col-span-3">
                         <label>Room Category</label>
                         <select
-                          onChange={(e) => setCategory(e.target.value)}
+                          name="categoryId"
                           required
                           className="h-10 border mt-1 rounded px-4 w-full bg-gray-0"
                         >
@@ -68,7 +79,7 @@ export default function TambahKamarForm() {
                       <div className="md:col-span-3">
                         <label>Floor</label>
                         <select
-                          onChange={(e) => setFloor(e.target.value)}
+                          name="floorId"
                           className="h-10 border mt-1 rounded px-4 w-full bg-gray-0"
                         >
                           <option value={""}>--select--</option>
@@ -79,7 +90,7 @@ export default function TambahKamarForm() {
                       <div className="md:col-span-3">
                         <label>Name Room</label>
                         <input
-                          onChange={(e) => setName(e.target.value)}
+                          name="nameRoom"
                           required
                           type="text"
                           className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
@@ -89,7 +100,7 @@ export default function TambahKamarForm() {
                       <div className="md:col-span-3">
                         <label>Number Room</label>
                         <select
-                          onChange={(e) => setNumber(e.target.value)}
+                          name="numberRoom"
                           required
                           className="h-10 border mt-1 rounded px-4 w-full bg-gray-0"
                         >
@@ -102,7 +113,7 @@ export default function TambahKamarForm() {
                       <div className="md:col-span-3">
                         <label>Description</label>
                         <input
-                          onChange={(e) => setDesc(e.target.value)}
+                          name="descRoom"
                           required
                           type="text"
                           className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
@@ -112,7 +123,7 @@ export default function TambahKamarForm() {
                       <div className="md:col-span-3">
                         <label>Status</label>
                         <select
-                          onChange={(e) => setStatus(e.target.value)}
+                          name="statusId"
                           required
                           className="h-10 border mt-1 rounded px-4 w-full bg-gray-0"
                         >
@@ -128,6 +139,7 @@ export default function TambahKamarForm() {
                         <button
                           className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                           type="button"
+                          onClick={() => navigate("/list-rooms")}
                         >
                           Close
                         </button>
