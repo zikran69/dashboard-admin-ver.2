@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import SelectCategory from "../Components/select-options/SelectCategory";
+import SelectFloor from "../Components/select-options/SelectFloor";
+import SelectRoom from "../Components/select-options/SelectRoom";
+import auth from "../utils/auth";
 
 export default function PesanKamarPage() {
   const navigate = useNavigate();
 
   const [roomId, setRoomid] = useState("");
+  const [idCategory, setCategory] = useState("");
+  const [idFloor, setFloor] = useState("");
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [day, setDay] = useState("");
@@ -38,12 +44,19 @@ export default function PesanKamarPage() {
 
     fetch("http://localhost:2000/booking", {
       method: "POST",
-      headers: { "content-type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${auth.isAuthenticated()}`,
+      },
       body: JSON.stringify(bookingData),
     })
       .then((res) => {
-        alert("Saved successfully.");
-        navigate("/checkin-kamar");
+        if (res.ok) {
+          alert("Saved successfully.");
+          navigate("/checkin");
+        } else {
+          throw new Error("Failed to save.");
+        }
       })
       .catch((err) => {
         console.log(err.message);
@@ -65,41 +78,40 @@ export default function PesanKamarPage() {
             <div className="flex flex-col">
               <label className="text-zinc-800 ">Category</label>
               <select
-                name="kategori"
-                id=""
+                onChange={(e) => setCategory(e.target.value)}
+                name="idCategory"
+                id="category"
+                required
                 className="focus:outline-secondary-gray outline-secondary-gray p-2.5 rounded-full border border-gray-300 text-secondary-gray"
               >
-                <option>--select category--</option>
-                <option>Executive Suite</option>
-                <option>Super Delux</option>
-                <option>Junior Suite</option>
+                <option value="">--select category--</option>
+                <SelectCategory />
               </select>
             </div>
             <div className="flex flex-col">
               <label className="text-zinc-800 text-primary-grey">Floor</label>
               <select
-                onChange={(e) => setRoomid(e.target.value)}
+                onChange={(e) => setFloor(e.target.value)}
                 required
-                name="Lantai"
+                name="idFloor"
                 id=""
                 className="focus:outline-secondary-gray p-2.5 rounded-full border border-gray-300 text-secondary-gray"
               >
-                <option>--select floor--</option>
-                <option value="1">1</option>
-                <option value="3">3</option>
-                <option>2</option>
+                <option value="">--select floor--</option>
+                <SelectFloor />
               </select>
             </div>
             <div className="flex flex-col text-secondary-gray">
               <label className="text-zinc-800">No Room</label>
               <select
-                name="No kamar"
+                name="idRoom"
+                required
+                onChange={(e) => setRoomid(e.target.value)}
                 id=""
                 className="focus:outline-secondary-gray p-2.5 rounded-full border border-gray-300 text-secondary-gray"
               >
-                <option>--select room--</option>
-                <option>1</option>
-                <option>2</option>
+                <option value="">--select room--</option>
+                <SelectRoom category={idCategory} floor={idFloor} />
               </select>
             </div>
             <div className="flex flex-col text-secondary-gray">

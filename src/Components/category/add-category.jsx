@@ -30,14 +30,16 @@ export default function AddCategory() {
   useEffect(() => {
     if (response.success) {
       alert(response.success);
+      navigate("/category");
     }
     if (response.message) {
       alert(response.message);
-      auth.logout();
-      navigate("/");
+      navigate("/category-add");
     }
     if (!connected) {
       alert("database not conected...");
+      auth.logout();
+      navigate("/");
       setConnected(true);
     }
   }, [response.success, response.message, connected]);
@@ -88,9 +90,6 @@ export default function AddCategory() {
     e.preventDefault();
     const formData = new FormData(e.target);
     setAddCategory(formData);
-    setTimeout(() => {
-      navigate("/category");
-    }, 1000);
   };
 
   return (

@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import useGetDataCheck from '../hooks/useGetDataCheck'
-import TableRowCheckIn from '../Components/TableRowCheckIn'
+import TableRowCheckIn from '../Components/check-in/TableRowCheckIn'
 import toast, { Toaster } from 'react-hot-toast'
 import auth from '../utils/auth'
 import { useNavigate } from 'react-router-dom'
@@ -29,7 +29,7 @@ export default function CheckinKamarPage() {
       })
   }
   return (
-    <div className='w-full'>
+    <div className="w-full">
       <Toaster />
       <main className='bg-primary-gray grow overflow-y-auto'>
         <div className='p-2 h-[calc(100vh-67.33px)]'>
@@ -41,34 +41,34 @@ export default function CheckinKamarPage() {
             <div className='flex p-2 mb-2 justify-end w-full'>
               <div>
                 <input
-                  type='search'
-                  placeholder='search'
-                  className='px-2 py-1 border border-secondary-gray rounded-full focus:outline-secondary-gray'
+                  type="search"
+                  placeholder="search"
+                  className="px-2 py-1 border border-secondary-gray rounded-full focus:outline-secondary-gray"
                 />
               </div>
             </div>
-            <table className='border-collapse  rounded-lg text-sm text-left text-gray-500 bg-white w-full'>
-              <thead className='text-xs text-gray-700 bg-gray-50 uppercase'>
-                <tr className='odd:bg-zinc-400 odd:bg-opacity-10 md:odd:bg-transparent'>
-                  <th className='hidden md:table-cell border-2 border-opacity-10 border-secondary-gray p-2 text-left'>
+            <table className="border-collapse  rounded-lg text-sm text-left text-gray-500 bg-white w-full">
+              <thead className="text-xs text-gray-700 bg-gray-50 uppercase">
+                <tr className="odd:bg-zinc-400 odd:bg-opacity-10 md:odd:bg-transparent">
+                  <th className="hidden md:table-cell border-2 border-opacity-10 border-secondary-gray p-2 text-left">
                     no
                   </th>
-                  <th className='hidden md:table-cell border-2 border-opacity-10 border-secondary-gray p-2 text-left'>
+                  <th className="hidden md:table-cell border-2 border-opacity-10 border-secondary-gray p-2 text-left">
                     registration id
                   </th>
-                  <th className='hidden md:table-cell border-2 border-opacity-10 border-secondary-gray p-2 text-left'>
+                  <th className="hidden md:table-cell border-2 border-opacity-10 border-secondary-gray p-2 text-left">
                     nik
                   </th>
-                  <th className='hidden md:table-cell border-2 border-opacity-10 border-secondary-gray p-2 text-left'>
+                  <th className="hidden md:table-cell border-2 border-opacity-10 border-secondary-gray p-2 text-left">
                     Full Name
                   </th>
-                  <th className='hidden md:table-cell border-2 border-opacity-10 border-secondary-gray p-2 text-left'>
+                  <th className="hidden md:table-cell border-2 border-opacity-10 border-secondary-gray p-2 text-left">
                     No Room
                   </th>
-                  <th className='hidden md:table-cell border-2 border-opacity-10 border-secondary-gray p-2 text-left'>
+                  <th className="hidden md:table-cell border-2 border-opacity-10 border-secondary-gray p-2 text-left">
                     check in date
                   </th>
-                  <th className='hidden md:table-cell border-2 border-opacity-10 border-secondary-gray p-2 text-left'>
+                  <th className="hidden md:table-cell border-2 border-opacity-10 border-secondary-gray p-2 text-left">
                     Option
                   </th>
                 </tr>
@@ -99,5 +99,5 @@ export default function CheckinKamarPage() {
         </div>
       </main>
     </div>
-  )
+  );
 }

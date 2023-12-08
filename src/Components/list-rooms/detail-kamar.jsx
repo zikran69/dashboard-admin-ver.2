@@ -1,15 +1,36 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 
-export default function TambahKamarForm() {
+export default function DetailKamarForm() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [state, setState] = useState();
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_ADDR_API}/rooms/${id}`)
+      .then((res) => {
+        return res.json();
+      })
+      .then((resp) => {
+        setId(resp.idRoom);
+        setCategory(resp.categoryId);
+        setFloor(resp.floorId);
+        setName(resp.nameRoom);
+        setNumber(resp.numberRoom);
+        setDesc(resp.descRoom);
+        setStatus(resp.statusId);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
+
+  const [idRoom, setId] = useState("");
   const [categoryId, setCategory] = useState("");
   const [floorId, setFloor] = useState("");
   const [nameRoom, setName] = useState("");
   const [numberRoom, setNumber] = useState("");
   const [descRoom, setDesc] = useState("");
   const [statusId, setStatus] = useState("");
-
-  const navigate = useNavigate();
 
   const handlesubmit = (e) => {
     e.preventDefault();
@@ -22,14 +43,14 @@ export default function TambahKamarForm() {
       statusId,
     };
 
-    fetch("http://localhost:2000/rooms", {
-      method: "POST",
+    fetch("http://localhost:2000/rooms/" + id, {
+      method: "PUT",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(admData),
     })
-      .then(() => {
+      .then((res) => {
         alert("Saved successfully.");
-        navigate("/list-kamar");
+        navigate("/list-rooms");
       })
       .catch((err) => {
         console.log(err.message);
@@ -46,7 +67,7 @@ export default function TambahKamarForm() {
           ></div>
           <div className="p-4 h-[calc(100vh-67.33px)]">
             <div>
-              <h1 className="text-2xl font-semibold">Form Add Room</h1>
+              <h1 className="text-2xl font-semibold">Detail Room</h1>
             </div>
             <div className="p-4">
               <div className="p-6 bg-white border border-gray-200 rounded-lg shadow">
@@ -79,6 +100,7 @@ export default function TambahKamarForm() {
                       <div className="md:col-span-3">
                         <label>Name Room</label>
                         <input
+                          value={nameRoom}
                           onChange={(e) => setName(e.target.value)}
                           required
                           type="text"
@@ -102,6 +124,7 @@ export default function TambahKamarForm() {
                       <div className="md:col-span-3">
                         <label>Description</label>
                         <input
+                          value={descRoom}
                           onChange={(e) => setDesc(e.target.value)}
                           required
                           type="text"
@@ -132,12 +155,6 @@ export default function TambahKamarForm() {
                           Close
                         </button>
                       </Link>
-                      <button
-                        className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                        type="submit"
-                      >
-                        Save
-                      </button>
                     </div>
                   </form>
                 </div>
