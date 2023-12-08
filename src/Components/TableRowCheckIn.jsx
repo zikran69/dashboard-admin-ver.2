@@ -1,4 +1,4 @@
-const TableRowCheckIn = ({ no, idRegistrasi, nik, nama, noKamar, tanggalCheckin, onBtnClick }) => {
+const TableRowCheckIn = ({ no, idRegistrasi, nik, nama, noKamar, tanggalCheckin, btnDetail, btnCheck }) => {
 
   return (
     <tr className='odd:bg-zinc-400 odd:bg-opacity-10 md:odd:bg-transparent'>
@@ -42,14 +42,25 @@ const TableRowCheckIn = ({ no, idRegistrasi, nik, nama, noKamar, tanggalCheckin,
                     className="md:before:content-none before:capitalize before:content-[attr(data-cell)':'] before:block before:font-semibold flex justify-between md:table-cell p-3 border-secondary-gray border-2 border-opacity-10 md:text-center"
                     data-cell='opsi'
                   >
+                    <div className='min-w-[220px] w-full flex justify-center'>
+
                     <button
-                      onClick={() => onBtnClick(idRegistrasi)}
+                      onClick={btnDetail(idRegistrasi)}
                       title='detail'
-                      className='px-5 py-1 rounded-md bg-green-400 hover:bg-hover-green'
+                      className='mr-1 px-5 py-1 rounded-md bg-blue-400 hover:bg-hover-blue'
                     >
                       {' '}
                       <i className='ri-search-line text-white'> </i>
                     </button>
+                    <button
+                      onClick={() => btnCheck()}
+                      title='done'
+                      className='px-5 py-1 rounded-md bg-green-400 hover:bg-hover-green'
+                    >
+                      {' '}
+                      <i className='ri-checkbox-circle-line text-white'> </i>
+                    </button>
+                    </div>
                   </td>
                 </tr>
   )

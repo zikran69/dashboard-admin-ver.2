@@ -1,4 +1,5 @@
 import { useReducer, useEffect } from 'react'
+import auth from '../utils/auth'
 
 const useGetDataCheck = (url) => {
   const initialState = {
@@ -32,7 +33,11 @@ const useGetDataCheck = (url) => {
   const [state, dispatch] = useReducer(reducer, initialState)
   useEffect(() => {
     dispatch({ type: 'LOADING' })
-    fetch(url)
+    fetch(url, {
+      headers: {
+        Authorization: `Bearer ${auth.isAuthenticated()}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         dispatch({ type: 'SUCCESS', payload: data })
