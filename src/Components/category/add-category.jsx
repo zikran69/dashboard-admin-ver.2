@@ -30,14 +30,16 @@ export default function AddCategory() {
   useEffect(() => {
     if (response.success) {
       alert(response.success);
+      navigate("/category");
     }
     if (response.message) {
       alert(response.message);
-      auth.logout();
-      navigate("/");
+      navigate("/category-add");
     }
     if (!connected) {
       alert("database not conected...");
+      auth.logout();
+      navigate("/");
       setConnected(true);
     }
   }, [response.success, response.message, connected]);
@@ -88,9 +90,6 @@ export default function AddCategory() {
     e.preventDefault();
     const formData = new FormData(e.target);
     setAddCategory(formData);
-    setTimeout(() => {
-      navigate("/category");
-    }, 1000);
   };
 
   return (
@@ -112,18 +111,13 @@ export default function AddCategory() {
                     <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-6 m-5">
                       <div className="md:col-span-3">
                         <label>Name Category</label>
-                        <select
+                        <input
                           name="nameCategory"
                           required
-                          className="h-10 border mt-1 rounded px-4 w-full bg-gray-0"
-                        >
-                          <option value={""}>--select--</option>
-                          <option value={"Junior Suite"}>Junior Suite</option>
-                          <option value={"Executive Suite"}>
-                            Executive Suite
-                          </option>
-                          <option value={"Super Delux"}>Super Delux</option>
-                        </select>
+                          type="text"
+                          className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                          placeholder="name category"
+                        />
                       </div>
                       <div className="md:col-span-3">
                         <label>Price ($/night)</label>

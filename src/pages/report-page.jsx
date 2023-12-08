@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import auth from "../utils/auth";
 
 const LaporanPage = () => {
   const [laporan, setLaporan] = useState([]);
@@ -6,7 +7,14 @@ const LaporanPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:2000/reports");
+        const response = await fetch(
+          `${import.meta.env.VITE_ADDR_API}/reports`,
+          {
+            headers: {
+              Authorization: `Bearer ${auth.isAuthenticated()}`,
+            },
+          }
+        );
         const data = await response.json();
         setLaporan(data.data);
       } catch (error) {
@@ -22,7 +30,7 @@ const LaporanPage = () => {
       <main className="bg-primary-gray grow overflow-y-auto h-[calc(100vh-67.33px)]">
         <h1 className="p-4 font-raleway text-2xl font-semibold">Report</h1>
         <form className="font-roboto px-6 mx-4 border rounded-lg bg-white max-lg:px-4 overflow-auto shadow-xl">
-          <table className="mb-4 border-collapse text-sm text-left text-gray-500 w-full mt-[30px] border-4 border-cyan-500 rounded-xl">
+          <table className="mb-4 border-collapse text-sm text-left text-gray-500 w-full mt-[30px] rounded-xl">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50">
               <tr>
                 <th className="border border-b-2 border-opacity-20 border-secondary-gray p-4 text-left">
