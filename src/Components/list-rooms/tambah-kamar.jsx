@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import auth from "../utils/auth";
+import auth from "../../utils/auth";
 export default function TambahKamarForm() {
   const [createRoom, setCreateRoom] = useState(null);
   const [response, setResponse] = useState([]);
