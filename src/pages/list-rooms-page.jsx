@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-
-import ListTable from "../Components/list-table";
+import ListTable from "../Components/list-rooms/list-table";
 import { Link } from "react-router-dom";
 import auth from "../utils/auth";
 
@@ -22,13 +21,11 @@ export default function ListKamarPage() {
         <h1 className="p-4 font-raleway text-2xl font-semibold">List Rooms</h1>
         <form className="font-roboto px-4 mx-4 border rounded-lg bg-white max-md:text-sm overflow-auto">
           <div className="grid gap-5 place-items-start sm:flex justify-between m-4 ">
-            {/* <TambahKamarForm /> */}
             <Link to="/tambah-kamar">
-              <button className="py-2 px-5 bg-blue-400 rounded-md text-sm text-white hover:bg-hover-blue">
-                <i className="ri-hotel-bed-line mr-2"></i>Add Room
+              <button className="py-2 px-5 bg-blue-400 rounded-md text-xs text-white hover:bg-hover-blue">
+                <i className="ri-hotel-bed-line text-sm mr-2"></i>Add Room
               </button>
             </Link>
-            {/* <Cari cari={cari} /> */}
           </div>
           <ListTable dataHotel={state} />
         </form>
