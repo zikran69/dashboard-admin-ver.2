@@ -27,7 +27,9 @@ export default function LoginPage() {
       if (login.token) {
         auth.storeAuthCredential(login.token);
         auth.storeUser(login.userData.nameUser);
-        navigate("/dashboard");
+        auth.storeLevel(login.userData.levelUser);
+        if (auth.isLevel() == 2) navigate("/administrator");
+        else navigate("/dashboard");
       } else {
         alert(login.message);
         navigate("/");
