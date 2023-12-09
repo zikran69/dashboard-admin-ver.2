@@ -9,6 +9,7 @@ import ProfilePage from "../pages/profile-page";
 import ListKamarPage from "../pages/list-rooms-page";
 import PesanKamarPage from "../pages/order-page";
 import CheckinKamarPage from "../pages/checkin-page";
+import DetailCheckin from "../pages/detail-checkin";
 import CheckoutKamarpage from "../pages/checkout-page";
 import LaporanPage from "../pages/report-page";
 import AdministratorPage from "../Components/administrator/administrator-page";
@@ -50,6 +51,7 @@ export default function Router() {
           <Route path="/customer" element={<CustomerPage />} />
           <Route path="/order" element={<PesanKamarPage />} />
           <Route path="/checkin" element={<CheckinKamarPage />} />
+          <Route path="/checkin/:id" element={<DetailCheckin />} />
           <Route path="/checkout" element={<CheckoutKamarpage />} />
           <Route path="/report" element={<LaporanPage />} />
         </Route>
