@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 import auth from "../../utils/auth";
 export default function ListTable({ dataHotel }) {
   const Removefunction = (id) => {
@@ -9,9 +10,11 @@ export default function ListTable({ dataHotel }) {
           Authorization: `Bearer ${auth.isAuthenticated()}`,
         },
       })
-        .then((res) => {
-          alert("Removed successfully.");
-          window.location.reload();
+        .then(() => {
+          toast.success("Successfully!");
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
         })
         .catch((err) => {
           console.log(err.message);

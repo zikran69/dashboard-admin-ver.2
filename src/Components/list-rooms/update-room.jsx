@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import toast from "react-hot-toast";
 import auth from "../../utils/auth";
 
-export default function UpdateKamarForm() {
+export default function UpdateRoomForm() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [state, setState] = useState();
   const [floorId, setFloorId] = useState(null);
   const [category, dataCategory] = useState(null);
   const [floor, dataFloor] = useState(null);
-  const [status, dataStatus] = useState(null);
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_ADDR_API}/rooms/${id}`, {
@@ -21,8 +20,8 @@ export default function UpdateKamarForm() {
         return res.json();
       })
       .then(setFloorId)
-      .catch((err) => {
-        console.log(err.message);
+      .catch(() => {
+        toast.error("error database or session expire");
       });
 
     fetch(`${import.meta.env.VITE_ADDR_API}/category`, {
@@ -40,14 +39,6 @@ export default function UpdateKamarForm() {
     })
       .then((res) => res.json())
       .then(dataFloor);
-
-    fetch(`${import.meta.env.VITE_ADDR_API}/status`, {
-      headers: {
-        Authorization: `Bearer ${auth.isAuthenticated()}`,
-      },
-    })
-      .then((res) => res.json())
-      .then(dataStatus);
   }, []);
 
   const handlesubmit = (e) => {
@@ -71,12 +62,12 @@ export default function UpdateKamarForm() {
         descRoom: descRoom,
       }),
     })
-      .then((res) => {
-        alert("Saved successfully.");
+      .then(() => {
+        toast.success("Successfully!");
         navigate("/list-rooms");
       })
-      .catch((err) => {
-        console.log(err.message);
+      .catch(() => {
+        toast.error("error database or session expire");
       });
   };
 
@@ -107,13 +98,15 @@ export default function UpdateKamarForm() {
                           >
                             <option value={""}>--select--</option>
                             {category &&
-                              category.map(({ idCategory, nameCategory }) => {
-                                return (
-                                  <option value={idCategory}>
-                                    {nameCategory}
-                                  </option>
-                                );
-                              })}
+                              category.map(
+                                ({ idCategory, nameCategory }, index) => {
+                                  return (
+                                    <option key={index} value={idCategory}>
+                                      {nameCategory}
+                                    </option>
+                                  );
+                                }
+                              )}
                           </select>
                         </div>
                         <div className="md:col-span-3">
@@ -124,9 +117,11 @@ export default function UpdateKamarForm() {
                           >
                             <option value={""}>--select--</option>
                             {floor &&
-                              floor.map(({ idFloor, nameFloor }) => {
+                              floor.map(({ idFloor, nameFloor }, index) => {
                                 return (
-                                  <option value={idFloor}>{nameFloor}</option>
+                                  <option key={index} value={idFloor}>
+                                    {nameFloor}
+                                  </option>
                                 );
                               })}
                           </select>

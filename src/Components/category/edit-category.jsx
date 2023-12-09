@@ -1,11 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
+import useGetDataCheck from "../../hooks/useGetDataCheck";
 import { global } from "../../context/context";
 import auth from "../../utils/auth";
 
 export default function EditCategory() {
   const [response, setResponse] = useState([]);
-  const [connected, setConnected] = useState(true);
   const [getCategory, setGetCategory] = useState([]);
   const [editCategory, setEditCategory] = useState(null);
   const [preview, setPreview] = useState(null);
@@ -17,6 +18,15 @@ export default function EditCategory() {
     navigate("/category");
   }
 
+  const { isLoading } = useGetDataCheck(
+    `${import.meta.env.VITE_ADDR_API}/category/${dataId}`
+  );
+  useEffect(() => {
+    isLoading
+      ? toast.loading("Loading...", { id: "loader" })
+      : toast.dismiss("loader");
+  }, [isLoading]);
+
   useEffect(() => {
     fetch(`${import.meta.env.VITE_ADDR_API}/category/${dataId}`, {
       headers: {
@@ -25,7 +35,9 @@ export default function EditCategory() {
     })
       .then((res) => res.json())
       .then(setGetCategory)
-      .catch(() => setConnected(false));
+      .catch(() => {
+        toast.error("error database or session expire");
+      });
   }, []);
   const { category } = getCategory;
 
@@ -40,30 +52,28 @@ export default function EditCategory() {
       })
         .then((res) => res.json())
         .then(setResponse)
-        .catch(() => setConnected(false));
+        .catch(() => {
+          toast.error("error database or session expire");
+        });
     }
   }, [editCategory]);
 
   useEffect(() => {
     if (response.success) {
-      alert(response.success);
+      toast.success("Successfully!");
+      setTimeout(() => {
+        navigate("/category");
+      }, 2000);
     }
     if (response.message) {
-      alert(response.message);
+      toast.error("This didn't work.");
       navigate("/category");
     }
     if (getCategory.message) {
-      alert(getCategory.message);
-      auth.logout();
+      toast.error("This didn't work.");
       navigate("/");
     }
-    if (!connected) {
-      alert("database not conected...");
-      auth.logout();
-      navigate("/");
-      setConnected(true);
-    }
-  }, [response.success, response.message, getCategory.message, connected]);
+  }, [response.success, response.message, getCategory.message]);
 
   useEffect(() => {
     const upload = document.getElementById("upload");
@@ -111,13 +121,11 @@ export default function EditCategory() {
     e.preventDefault();
     const formData = new FormData(e.target);
     setEditCategory(formData);
-    setTimeout(() => {
-      navigate("/category");
-    }, 1000);
   };
   return (
     category && (
       <div className="w-full">
+        <Toaster />
         <main className="bg-primary-gray grow overflow-y-auto">
           <div
             id="modal-overlay"

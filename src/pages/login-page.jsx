@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 import auth from "../utils/auth";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ export default function LoginPage() {
     })
       .then((res) => res.json())
       .then(setLogin)
-      .catch(() => alert("database not conected..."));
+      .catch(() => toast.error("database not conected..."));
   };
   useEffect(() => {
     if (login) {
@@ -39,6 +40,7 @@ export default function LoginPage() {
 
   return (
     <div className="flex items-center justify-center h-screen bg-[url('https://images.pexels.com/photos/1021066/pexels-photo-1021066.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')] bg-cover">
+      <Toaster />
       <div className="backdrop-blur-sm bg-white/20 p-6 rounded-xl shadow-xl w-[300px] text-sm sm:mx-3">
         <h1 className="text-3xl font-semibold mb-4 text-center font-roboto">
           Log In
