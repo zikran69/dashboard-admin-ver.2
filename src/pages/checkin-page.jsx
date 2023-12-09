@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import useGetDataCheck from '../hooks/useGetDataCheck'
-import TableRowCheckIn from '../Components/check-in/TableRowCheckIn'
+import TableRowCheck from '../Components/check/TableRowCheck'
 import toast, { Toaster } from 'react-hot-toast'
 import auth from '../utils/auth'
 import { useNavigate } from 'react-router-dom'
@@ -76,7 +76,7 @@ export default function CheckinKamarPage() {
               <tbody>
                 {data ? (
                   data.data.map((item, index) => (
-                    <TableRowCheckIn
+                    <TableRowCheck
                       key={item.idTransaction + index}
                       no={index + 1}
                       idRegistrasi={item.idTransaction}
