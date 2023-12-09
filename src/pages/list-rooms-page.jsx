@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ListTable from "../Components/list-rooms/list-table";
 import { Link } from "react-router-dom";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import useGetDataCheck from "../hooks/useGetDataCheck";
 import auth from "../utils/auth";
 
@@ -31,7 +31,6 @@ export default function ListKamarPage() {
 
   return (
     <div className="w-full lg:w-[calc(100vw-220px)]">
-      <Toaster />
       <div className="bg-primary-gray grow overflow-y-auto h-[calc(100vh-67.33px)]">
         <h1 className="p-4 font-raleway text-2xl font-semibold">List Rooms</h1>
         <form className="font-roboto px-4 mx-4 border rounded-lg bg-white max-md:text-sm overflow-auto">

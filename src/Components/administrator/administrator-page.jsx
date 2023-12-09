@@ -1,4 +1,4 @@
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import useGetDataCheck from "../../hooks/useGetDataCheck";
 import DataAdmin from "./dataAdmin";
 import { useEffect, useState } from "react";
@@ -27,7 +27,6 @@ export default function AdministratorPage() {
   }, []);
   return (
     <div className="w-full">
-      <Toaster />
       <main className="bg-primary-gray grow overflow-y-auto">
         <div
           id="modal-overlay"

@@ -3,6 +3,7 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import auth from "../utils/auth";
 import "remixicon/fonts/remixicon.css";
 import { useEffect, useState } from "react";
+import { Toaster } from "react-hot-toast";
 
 function PrivateRoute() {
   const user = useState(auth.isUser);
@@ -28,6 +29,7 @@ function PrivateRoute() {
   if (auth.isAuthenticated()) {
     return (
       <>
+        <Toaster />
         <div>
           <header className="flex justify-between items-center bg-primary-blue p-4 text-secondary-gray h-[67.33px] min-w-[270px]">
             <div className="flex flex-col sm:flex-row justify-between sm:w-11/12 lg:w-full">

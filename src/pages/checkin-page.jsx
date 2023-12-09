@@ -1,44 +1,46 @@
-import { useEffect } from 'react'
-import useGetDataCheck from '../hooks/useGetDataCheck'
-import TableRowCheck from '../Components/check/TableRowCheck'
-import toast, { Toaster } from 'react-hot-toast'
-import auth from '../utils/auth'
-import { useNavigate } from 'react-router-dom'
+import { useEffect } from "react";
+import useGetDataCheck from "../hooks/useGetDataCheck";
+import TableRowCheck from "../Components/check/TableRowCheck";
+import toast from "react-hot-toast";
+import auth from "../utils/auth";
+import { useNavigate } from "react-router-dom";
 
 export default function CheckinKamarPage() {
-  const navigate = useNavigate()
-  const { data, isLoading, refetch } = useGetDataCheck(`${import.meta.env.VITE_ADDR_API}/check/in`)
+  const navigate = useNavigate();
+  const { data, isLoading, refetch } = useGetDataCheck(
+    `${import.meta.env.VITE_ADDR_API}/check/in`
+  );
   const handleDetail = (id) => {
-    navigate(`/checkin/${id}`)
-  }
+    navigate(`/checkin/${id}`);
+  };
   useEffect(() => {
-    isLoading ? toast.loading('Loading...', { id: 'loader' }) : toast.dismiss('loader')
-  }, [isLoading])
+    isLoading
+      ? toast.loading("Loading...", { id: "loader" })
+      : toast.dismiss("loader");
+  }, [isLoading]);
   const handleCheck = (id) => {
     fetch(`${import.meta.env.VITE_ADDR_API}/check/in/${id}`, {
-      method: 'PATCH',
+      method: "PATCH",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         Authorization: `Bearer ${auth.isAuthenticated()}`,
       },
     })
       .then((res) => res.json())
       .then(() => {
-        toast.success('check in success')
-        refetch()
-      })
-  }
+        toast.success("check in success");
+        refetch();
+      });
+  };
   return (
     <div className="w-full">
-      <Toaster />
-      <main className='bg-primary-gray grow overflow-y-auto'>
-        <div className='p-2 h-[calc(100vh-67.33px)]'>
-          <div className='mb-4'>
-            <h1 className='text-2xl font-semibold'>Check In</h1>
+      <main className="bg-primary-gray grow overflow-y-auto">
+        <div className="p-2 h-[calc(100vh-67.33px)]">
+          <div className="mb-4">
+            <h1 className="text-2xl font-semibold">Check In</h1>
           </div>
-          <div className='p-6 m-3 bg-white'>
-
-            <div className='flex p-2 mb-2 justify-end w-full'>
+          <div className="p-6 m-3 bg-white">
+            <div className="flex p-2 mb-2 justify-end w-full">
               <div>
                 <input
                   type="search"
@@ -90,7 +92,7 @@ export default function CheckinKamarPage() {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan='6'>No check-in data available</td>
+                    <td colSpan="6">No check-in data available</td>
                   </tr>
                 )}
               </tbody>
