@@ -24,7 +24,7 @@ export default function TambahKamarForm() {
       statusId,
     };
 
-    fetch("http://localhost:2000/rooms", {
+    fetch("https://backendappmyhotel.vercel.app/rooms", {
       method: "POST",
       headers: {
         "content-type": "application/json",
