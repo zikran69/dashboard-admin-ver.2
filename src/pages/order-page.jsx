@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import SelectCategory from "../Components/select-options/SelectCategory";
 import SelectFloor from "../Components/select-options/SelectFloor";
+import SelectPayment from "../Components/select-options/SelectPayment";
+import SelectPrice from "../Components/select-options/SelectPrice";
 import SelectRoom from "../Components/select-options/SelectRoom";
 import auth from "../utils/auth";
 
@@ -13,15 +16,16 @@ export default function PesanKamarPage() {
   const [idFloor, setFloor] = useState("");
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
-  const [day, setDay] = useState("");
+  const [day, setDay] = useState(0);
   const [people, setPeople] = useState("");
   const [statusPayment, setStatusPayment] = useState("");
-  const [totalPayment, setTotalPayment] = useState("");
+  const [totalPayment, setTotalPayment] = useState(0);
   const [nikCustomer, setnikCustomer] = useState("");
   const [nameCustomer, setNamecustomer] = useState("");
   const [emailCustomer, setemailCustomer] = useState("");
   const [tlpnCustomer, settlpnCustomer] = useState("");
   const [addressCustomer, setaddressCustomer] = useState("");
+  const [price, setPrice] = useState(0);
   const [fotoCustomer, setfotoCustomer] = useState("photo.png");
 
   const handlesubmit = (e) => {
@@ -62,6 +66,14 @@ export default function PesanKamarPage() {
         console.log(err.message);
       });
   };
+
+  useEffect(() => {
+    setTotalPayment(day * price);
+  }, [price, day]);
+
+  console.log(totalPayment);
+  console.log(day);
+  console.log(price);
 
   return (
     <main className="bg-primary-gray grow overflow-y-auto h-[calc(100vh-67.33px)]">
@@ -116,14 +128,24 @@ export default function PesanKamarPage() {
             </div>
             <div className="flex flex-col text-secondary-gray">
               <label className="text-zinc-800">Price</label>
-              <input
+              <select
+                name="price"
+                required
+                onChange={(e) => setPrice(e.target.value)}
+                id=""
+                className="focus:outline-secondary-gray p-2.5 rounded-full border border-gray-300 text-secondary-gray"
+              >
+                <option value=""></option>
+                <SelectPrice category={idCategory} />
+              </select>
+              {/* <input
                 onChange={(e) => setCheckIn(e.target.value)}
                 required
                 type="text"
                 name="Harga kamar"
                 id="harga kamar"
                 className="focus:outline-secondary-gray p-2 rounded-full border border-gray-300"
-              />
+              /> */}
             </div>
             <div className="flex flex-col text-secondary-gray">
               <label className="text-zinc-800">Check In Date</label>
@@ -224,18 +246,22 @@ export default function PesanKamarPage() {
               />
             </div>
             <div className="flex flex-col text-secondary-gray">
-              <label className="text-zinc-800">Payment Status</label>
-              <input
+              <label className="text-zinc-800">Payment</label>
+              <select
                 onChange={(e) => setStatusPayment(e.target.value)}
-                type="text"
-                name="metode-pembayaran"
-                id="metode-pembayaran"
-                className="focus:outline-secondary-gray p-2 rounded-full border border-gray-300"
-              />
+                name="payment"
+                id="payment"
+                required
+                className="focus:outline-secondary-gray outline-secondary-gray p-2.5 rounded-full border border-gray-300 text-secondary-gray"
+              >
+                <option value="">--select payment--</option>
+                <SelectPayment />
+              </select>
             </div>
             <div className="flex flex-col text-secondary-gray">
               <label className="text-zinc-800">Total Payment</label>
               <input
+                value={totalPayment}
                 onChange={(e) => setTotalPayment(e.target.value)}
                 type="number"
                 name="jumlah-bayar"

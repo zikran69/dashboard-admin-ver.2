@@ -13,7 +13,7 @@ const LaporanPage = () => {
             headers: {
               Authorization: `Bearer ${auth.isAuthenticated()}`,
             },
-          }
+          },
         );
         const data = await response.json();
         setLaporan(data.data);
