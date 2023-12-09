@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import auth from "../../utils/auth";
 import SelectCategory from "../select-options/SelectCategory";
@@ -24,7 +24,9 @@ export default function TambahKamarForm() {
       statusId,
     };
 
+
     fetch("https://backendappmyhotel.vercel.app/rooms", {
+
       method: "POST",
       headers: {
         "content-type": "application/json",

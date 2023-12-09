@@ -1,4 +1,5 @@
-import Modal from "./modal";
+import toast from "react-hot-toast";
+import useGetDataCheck from "../../hooks/useGetDataCheck";
 import DataAdmin from "./dataAdmin";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -6,8 +7,19 @@ import auth from "../../utils/auth";
 
 export default function AdministratorPage() {
   const [state, setState] = useState();
+  const { isLoading } = useGetDataCheck(
+    `${import.meta.env.VITE_ADDR_API}/users`
+  );
   useEffect(() => {
+    isLoading
+      ? toast.loading("Loading...", { id: "loader" })
+      : toast.dismiss("loader");
+  }, [isLoading]);
+
+  useEffect(() => {
+
     fetch("https://backendappmyhotel.vercel.app/users/", {
+
       headers: {
         Authorization: `Bearer ${auth.isAuthenticated()}`,
       },

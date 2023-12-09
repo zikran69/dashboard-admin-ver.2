@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import useGetDataCheck from "../hooks/useGetDataCheck";
 import SelectCategory from "../Components/select-options/SelectCategory";
 import SelectFloor from "../Components/select-options/SelectFloor";
 import SelectPayment from "../Components/select-options/SelectPayment";
@@ -28,6 +30,15 @@ export default function PesanKamarPage() {
   const [price, setPrice] = useState(0);
   const [fotoCustomer, setfotoCustomer] = useState("photo.png");
 
+  const { isLoading } = useGetDataCheck(
+    `${import.meta.env.VITE_ADDR_API}/booking`
+  );
+  useEffect(() => {
+    isLoading
+      ? toast.loading("Loading...", { id: "loader" })
+      : toast.dismiss("loader");
+  }, [isLoading]);
+
   const handlesubmit = (e) => {
     e.preventDefault();
     const bookingData = {
@@ -46,7 +57,9 @@ export default function PesanKamarPage() {
       fotoCustomer,
     };
 
+
     fetch("https://backendappmyhotel.vercel.app/booking", {
+
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -62,8 +75,8 @@ export default function PesanKamarPage() {
           throw new Error("Failed to save.");
         }
       })
-      .catch((err) => {
-        console.log(err.message);
+      .catch(() => {
+        toast.error("error database or session expire");
       });
   };
 

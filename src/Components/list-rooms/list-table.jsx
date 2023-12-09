@@ -1,13 +1,22 @@
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+import auth from "../../utils/auth";
 export default function ListTable({ dataHotel }) {
   const Removefunction = (id) => {
     if (window.confirm("Do you want to remove?")) {
+
       fetch("https://backendappmyhotel.vercel.app/rooms/" + id, {
+
         method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${auth.isAuthenticated()}`,
+        },
       })
-        .then((res) => {
-          alert("Removed successfully.");
-          window.location.reload();
+        .then(() => {
+          toast.success("Successfully!");
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
         })
         .catch((err) => {
           console.log(err.message);
@@ -33,22 +42,22 @@ export default function ListTable({ dataHotel }) {
                 No
               </th>
               <th className="border border-b-2 border-opacity-10 border-secondary-blue p-4 text-left min-w-[150px]">
-                Nomor Kamar
+                Room
               </th>
               <th className="border border-b-2 border-opacity-10 border-secondary-blue p-4 text-left">
-                Lantai
+                Floor
               </th>
               <th className="border border-b-2 border-opacity-10 border-secondary-blue p-4 text-left min-w-[250px]">
-                Kategori
+                Category
               </th>
               <th className="border border-b-2 border-opacity-10 border-secondary-blue p-4 text-left">
-                Harga
+                Price
               </th>
               <th className="border border-b-2 border-opacity-10 border-secondary-blue p-4 text-left">
                 Status
               </th>
               <th className="border border-b-2 border-opacity-10 border-secondary-blue p-4 text-left">
-                Opsi
+                Option
               </th>
             </tr>
           </thead>
@@ -76,7 +85,7 @@ export default function ListTable({ dataHotel }) {
                   </td>
                   <td className="p-4 border-secondary-gray border border-b-2 border-opacity-10">
                     <div className="flex justify-center items-center flex-nowrap">
-                      <Link to={`/detail-kamar/${room.idRoom}`}>
+                      {/* <Link to={`/detail-kamar/${room.idRoom}`}>
                         <button
                           type="button"
                           title="detail"
@@ -87,7 +96,7 @@ export default function ListTable({ dataHotel }) {
                             className="ri-search-line text-white"
                           ></i>
                         </button>
-                      </Link>
+                      </Link> */}
                       <button
                         onClick={() => {
                           Removefunction(room.idRoom);

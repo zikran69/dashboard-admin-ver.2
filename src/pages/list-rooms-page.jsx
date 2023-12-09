@@ -1,10 +1,21 @@
 import { useEffect, useState } from "react";
 import ListTable from "../Components/list-rooms/list-table";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+import useGetDataCheck from "../hooks/useGetDataCheck";
 import auth from "../utils/auth";
 
 export default function ListKamarPage() {
   const [state, setState] = useState();
+  const { isLoading } = useGetDataCheck(
+    `${import.meta.env.VITE_ADDR_API}/rooms`
+  );
+  useEffect(() => {
+    isLoading
+      ? toast.loading("Loading...", { id: "loader" })
+      : toast.dismiss("loader");
+  }, [isLoading]);
+
   useEffect(() => {
     fetch(`${import.meta.env.VITE_ADDR_API}/rooms`, {
       headers: {
@@ -12,7 +23,10 @@ export default function ListKamarPage() {
       },
     })
       .then((res) => res.json())
-      .then(setState);
+      .then(setState)
+      .catch(() => {
+        toast.error("error database or session expire");
+      });
   }, []);
 
   return (

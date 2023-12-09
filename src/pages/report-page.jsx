@@ -1,8 +1,19 @@
 import React, { useState, useEffect } from "react";
+import toast from "react-hot-toast";
+import useGetDataCheck from "../hooks/useGetDataCheck";
 import auth from "../utils/auth";
 
 const LaporanPage = () => {
   const [laporan, setLaporan] = useState([]);
+
+  const { isLoading } = useGetDataCheck(
+    `${import.meta.env.VITE_ADDR_API}/reports`
+  );
+  useEffect(() => {
+    isLoading
+      ? toast.loading("Loading...", { id: "loader" })
+      : toast.dismiss("loader");
+  }, [isLoading]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -13,7 +24,7 @@ const LaporanPage = () => {
             headers: {
               Authorization: `Bearer ${auth.isAuthenticated()}`,
             },
-          },
+          }
         );
         const data = await response.json();
         setLaporan(data.data);
