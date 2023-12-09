@@ -12,7 +12,7 @@ export default function SelectPrice({ category }) {
   }
 
   useEffect(() => {
-    fetch(`http://localhost:2000/option/category/${cat}`)
+    fetch(`https://backendappmyhotel.vercel.app/option/category/${cat}`)
       .then((res) => res.json())
       .then(setState);
   }, [cat]);
