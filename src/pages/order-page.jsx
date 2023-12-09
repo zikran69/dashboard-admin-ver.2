@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import useGetDataCheck from "../hooks/useGetDataCheck";
 import SelectCategory from "../Components/select-options/SelectCategory";
 import SelectFloor from "../Components/select-options/SelectFloor";
@@ -88,7 +88,6 @@ export default function PesanKamarPage() {
 
   return (
     <main className="bg-primary-gray grow overflow-y-auto h-[calc(100vh-67.33px)]">
-      <Toaster />
       <h1 className="m-4 text-2xl font-semibold">Order</h1>
       <div
         id="modal"

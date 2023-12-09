@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import useGetDataCheck from "../hooks/useGetDataCheck";
 import auth from "../utils/auth";
 
@@ -30,7 +30,6 @@ const CustomerPage = () => {
 
   return (
     <div className="w-full">
-      <Toaster />
       <main className="bg-primary-gray grow overflow-y-auto h-[calc(100vh-67.33px)]">
         <h1 className="p-4 font-raleway text-2xl font-semibold">Customer</h1>
         <form className="font-roboto px-6 mx-4 border rounded-lg bg-white max-lg:px-4 overflow-auto shadow-xl">
