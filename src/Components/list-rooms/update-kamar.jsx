@@ -169,12 +169,8 @@ export default function UpdateKamarForm() {
                             className="h-10 border mt-1 rounded px-4 w-full bg-gray-0"
                           >
                             <option value={""}>--select--</option>
-                            {status &&
-                              status.map(({ idStatus, nameStatus }) => {
-                                return (
-                                  <option value={idStatus}>{nameStatus}</option>
-                                );
-                              })}
+                            <option value={6}>Empty</option>
+                            <option value={7}>Booked</option>
                           </select>
                         </div>
                       </div>
