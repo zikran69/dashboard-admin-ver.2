@@ -1,50 +1,44 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import auth from "../../utils/auth";
+import SelectCategory from "../select-options/SelectCategory";
+import SelectFloor from "../select-options/SelectFloor";
 export default function TambahKamarForm() {
-  const [createRoom, setCreateRoom] = useState(null);
-  const [response, setResponse] = useState([]);
-  const [connected, setConnected] = useState(true);
+  const [categoryId, setCategory] = useState("");
+  const [floorId, setFloor] = useState("");
+  const [nameRoom, setName] = useState("");
+  const [numberRoom, setNumber] = useState("");
+  const [descRoom, setDesc] = useState("");
+  const [statusId, setStatus] = useState("");
+
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (createRoom) {
-      fetch(`${import.meta.env.VITE_ADDR_API}/rooms/`, {
-        headers: {
-          Authorization: `Bearer ${auth.isAuthenticated()}`,
-        },
-        method: "POST",
-        body: createRoom,
-      })
-        .then((res) => res.json())
-        .then(setResponse)
-        .catch(() => {
-          setConnected(false);
-        });
-    }
-  }, [createRoom]);
-
-  useEffect(() => {
-    if (response.success) {
-      alert(response.success);
-    }
-    if (response.message) {
-      alert(response.message);
-      auth.logout();
-      navigate("/");
-    }
-    if (!connected) {
-      alert("database not conected...");
-      setConnected(true);
-    }
-  }, [response.success, response.message, connected]);
   const handlesubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    setCreateRoom(formData);
-    setTimeout(() => {
-      navigate("/list-rooms");
-    }, 1000);
+    const admData = {
+      categoryId,
+      nameRoom,
+      floorId,
+      numberRoom,
+      descRoom,
+      statusId,
+    };
+
+    fetch("http://localhost:2000/rooms", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${auth.isAuthenticated()}`,
+      },
+      body: JSON.stringify(admData),
+    })
+      .then(() => {
+        alert("Saved successfully.");
+        navigate("/list-rooms");
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
   };
 
   return (
@@ -69,22 +63,22 @@ export default function TambahKamarForm() {
                         <select
                           name="categoryId"
                           required
+                          onChange={(e) => setCategory(e.target.value)}
                           className="h-10 border mt-1 rounded px-4 w-full bg-gray-0"
                         >
                           <option value={""}>--select--</option>
-                          <option value={1}>Admin</option>
-                          <option value={2}>Superadmin</option>
+                          <SelectCategory />
                         </select>
                       </div>
                       <div className="md:col-span-3">
                         <label>Floor</label>
                         <select
                           name="floorId"
+                          onChange={(e) => setFloor(e.target.value)}
                           className="h-10 border mt-1 rounded px-4 w-full bg-gray-0"
                         >
                           <option value={""}>--select--</option>
-                          <option value={1}>1</option>
-                          <option value={2}>2</option>
+                          <SelectFloor />
                         </select>
                       </div>
                       <div className="md:col-span-3">
@@ -92,6 +86,7 @@ export default function TambahKamarForm() {
                         <input
                           name="nameRoom"
                           required
+                          onChange={(e) => setName(e.target.value)}
                           type="text"
                           className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                           placeholder="Name Room"
@@ -99,20 +94,19 @@ export default function TambahKamarForm() {
                       </div>
                       <div className="md:col-span-3">
                         <label>Number Room</label>
-                        <select
+
+                        <input
+                          onChange={(e) => setNumber(e.target.value)}
+                          type="number"
                           name="numberRoom"
                           required
                           className="h-10 border mt-1 rounded px-4 w-full bg-gray-0"
-                        >
-                          <option value={""}>--select--</option>
-                          <option value={1}>1</option>
-                          <option value={2}>2</option>
-                          <option value={3}>3</option>
-                        </select>
+                        />
                       </div>
                       <div className="md:col-span-3">
                         <label>Description</label>
                         <input
+                          onChange={(e) => setDesc(e.target.value)}
                           name="descRoom"
                           required
                           type="text"
@@ -123,13 +117,14 @@ export default function TambahKamarForm() {
                       <div className="md:col-span-3">
                         <label>Status</label>
                         <select
+                          onChange={(e) => setStatus(e.target.value)}
                           name="statusId"
                           required
                           className="h-10 border mt-1 rounded px-4 w-full bg-gray-0"
                         >
                           <option value={""}>--select--</option>
-                          <option value={1}>Empty</option>
-                          <option value={2}>Booked</option>
+                          <option value={6}>Empty</option>
+                          <option value={7}>Booked</option>
                         </select>
                       </div>
                     </div>
