@@ -1,4 +1,4 @@
-const TableRowCheckIn = ({ no, idRegistrasi, nik, nama, noKamar, tanggalCheckin, btnDetail, btnCheck }) => {
+const TableRowCheckIn = ({ no, idRegistrasi, nik, nama, noKamar, tanggalCheck, btnDetail, btnCheck }) => {
 
   return (
     <tr className='odd:bg-zinc-400 odd:bg-opacity-10 md:odd:bg-transparent'>
@@ -36,7 +36,7 @@ const TableRowCheckIn = ({ no, idRegistrasi, nik, nama, noKamar, tanggalCheckin,
                     className="md:before:content-none before:capitalize before:content-[attr(data-cell)':'] before:block before:font-semibold flex justify-between md:table-cell p-3 border-secondary-gray border-2 border-opacity-10"
                     data-cell='tanggal-checkin'
                   >
-                    {tanggalCheckin}
+                    {tanggalCheck}
                   </td>
                   <td
                     className="md:before:content-none before:capitalize before:content-[attr(data-cell)':'] before:block before:font-semibold flex justify-between md:table-cell p-3 border-secondary-gray border-2 border-opacity-10 md:text-center"
@@ -45,7 +45,7 @@ const TableRowCheckIn = ({ no, idRegistrasi, nik, nama, noKamar, tanggalCheckin,
                     <div className='min-w-[220px] w-full flex justify-center'>
 
                     <button
-                      onClick={btnDetail(idRegistrasi)}
+                      onClick={btnDetail}
                       title='detail'
                       className='mr-1 px-5 py-1 rounded-md bg-blue-400 hover:bg-hover-blue'
                     >
@@ -53,7 +53,7 @@ const TableRowCheckIn = ({ no, idRegistrasi, nik, nama, noKamar, tanggalCheckin,
                       <i className='ri-search-line text-white'> </i>
                     </button>
                     <button
-                      onClick={() => btnCheck()}
+                      onClick={btnCheck}
                       title='done'
                       className='px-5 py-1 rounded-md bg-green-400 hover:bg-hover-green'
                     >

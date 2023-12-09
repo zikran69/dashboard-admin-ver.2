@@ -7,6 +7,7 @@ const useGetDataCheck = (url) => {
     data: null,
     error: false,
   }
+
   const reducer = (state, action) => {
     switch (action.type) {
       case 'LOADING':
@@ -30,8 +31,10 @@ const useGetDataCheck = (url) => {
         return state
     }
   }
+
   const [state, dispatch] = useReducer(reducer, initialState)
-  useEffect(() => {
+
+  const fetchData = () => {
     dispatch({ type: 'LOADING' })
     fetch(url, {
       headers: {
@@ -45,11 +48,24 @@ const useGetDataCheck = (url) => {
       .catch((err) => {
         dispatch({ type: 'ERROR', payload: err.message })
       })
+  }
+
+  // Initial fetch on component mount
+  useEffect(() => {
+    fetchData()
   }, [])
+
+  // Refetch function
+  const refetch = () => {
+    fetchData()
+  }
+
   return {
     isLoading: state.isLoading,
     data: state.data,
     error: state.error,
+    refetch, // expose the refetch function
   }
 }
+
 export default useGetDataCheck
