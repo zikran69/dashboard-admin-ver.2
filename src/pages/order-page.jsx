@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
+import useGetDataCheck from "../hooks/useGetDataCheck";
 import SelectCategory from "../Components/select-options/SelectCategory";
 import SelectFloor from "../Components/select-options/SelectFloor";
 import SelectPayment from "../Components/select-options/SelectPayment";
@@ -28,6 +30,15 @@ export default function PesanKamarPage() {
   const [price, setPrice] = useState(0);
   const [fotoCustomer, setfotoCustomer] = useState("photo.png");
 
+  const { isLoading } = useGetDataCheck(
+    `${import.meta.env.VITE_ADDR_API}/booking`
+  );
+  useEffect(() => {
+    isLoading
+      ? toast.loading("Loading...", { id: "loader" })
+      : toast.dismiss("loader");
+  }, [isLoading]);
+
   const handlesubmit = (e) => {
     e.preventDefault();
     const bookingData = {
@@ -46,7 +57,7 @@ export default function PesanKamarPage() {
       fotoCustomer,
     };
 
-    fetch("http://localhost:2000/booking", {
+    fetch(`${import.meta.env.VITE_ADDR_API}/booking`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -77,6 +88,7 @@ export default function PesanKamarPage() {
 
   return (
     <main className="bg-primary-gray grow overflow-y-auto h-[calc(100vh-67.33px)]">
+      <Toaster />
       <h1 className="m-4 text-2xl font-semibold">Order</h1>
       <div
         id="modal"

@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
+import useGetDataCheck from "../../hooks/useGetDataCheck";
 import auth from "../../utils/auth";
 
 export default function AddCategory() {
@@ -9,6 +11,15 @@ export default function AddCategory() {
   const [preview, setPreview] = useState(null);
   const [preview2, setPreview2] = useState(null);
   const navigate = useNavigate();
+
+  const { isLoading } = useGetDataCheck(
+    `${import.meta.env.VITE_ADDR_API}/category/add`
+  );
+  useEffect(() => {
+    isLoading
+      ? toast.loading("Loading...", { id: "loader" })
+      : toast.dismiss("loader");
+  }, [isLoading]);
 
   useEffect(() => {
     if (addCategory) {
@@ -95,6 +106,7 @@ export default function AddCategory() {
   return (
     <>
       <div className="w-full">
+        <Toaster />
         <main className="bg-primary-gray grow overflow-y-auto">
           <div
             id="modal-overlay"

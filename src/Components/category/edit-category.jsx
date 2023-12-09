@@ -1,5 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
+import useGetDataCheck from "../../hooks/useGetDataCheck";
 import { global } from "../../context/context";
 import auth from "../../utils/auth";
 
@@ -16,6 +18,15 @@ export default function EditCategory() {
   if (!dataId) {
     navigate("/category");
   }
+
+  const { isLoading } = useGetDataCheck(
+    `${import.meta.env.VITE_ADDR_API}/category/${dataId}`
+  );
+  useEffect(() => {
+    isLoading
+      ? toast.loading("Loading...", { id: "loader" })
+      : toast.dismiss("loader");
+  }, [isLoading]);
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_ADDR_API}/category/${dataId}`, {
@@ -118,6 +129,7 @@ export default function EditCategory() {
   return (
     category && (
       <div className="w-full">
+        <Toaster />
         <main className="bg-primary-gray grow overflow-y-auto">
           <div
             id="modal-overlay"

@@ -5,7 +5,6 @@ import auth from "../../utils/auth";
 export default function UpdateKamarForm() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [state, setState] = useState();
   const [floorId, setFloorId] = useState(null);
   const [category, dataCategory] = useState(null);
   const [floor, dataFloor] = useState(null);
@@ -71,7 +70,7 @@ export default function UpdateKamarForm() {
         descRoom: descRoom,
       }),
     })
-      .then((res) => {
+      .then(() => {
         alert("Saved successfully.");
         navigate("/list-rooms");
       })
@@ -107,13 +106,15 @@ export default function UpdateKamarForm() {
                           >
                             <option value={""}>--select--</option>
                             {category &&
-                              category.map(({ idCategory, nameCategory }) => {
-                                return (
-                                  <option value={idCategory}>
-                                    {nameCategory}
-                                  </option>
-                                );
-                              })}
+                              category.map(
+                                ({ idCategory, nameCategory }, index) => {
+                                  return (
+                                    <option key={index} value={idCategory}>
+                                      {nameCategory}
+                                    </option>
+                                  );
+                                }
+                              )}
                           </select>
                         </div>
                         <div className="md:col-span-3">
@@ -124,9 +125,11 @@ export default function UpdateKamarForm() {
                           >
                             <option value={""}>--select--</option>
                             {floor &&
-                              floor.map(({ idFloor, nameFloor }) => {
+                              floor.map(({ idFloor, nameFloor }, index) => {
                                 return (
-                                  <option value={idFloor}>{nameFloor}</option>
+                                  <option key={index} value={idFloor}>
+                                    {nameFloor}
+                                  </option>
                                 );
                               })}
                           </select>
@@ -170,9 +173,11 @@ export default function UpdateKamarForm() {
                           >
                             <option value={""}>--select--</option>
                             {status &&
-                              status.map(({ idStatus, nameStatus }) => {
+                              status.map(({ idStatus, nameStatus }, index) => {
                                 return (
-                                  <option value={idStatus}>{nameStatus}</option>
+                                  <option key={index} value={idStatus}>
+                                    {nameStatus}
+                                  </option>
                                 );
                               })}
                           </select>

@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import auth from "../utils/auth";
+import toast, { Toaster } from "react-hot-toast";
+import useGetDataCheck from "../hooks/useGetDataCheck";
 import TableCategory from "../Components/category/table-category";
 import SearchCategory from "../Components/category/search-category";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +11,15 @@ export default function CategoryPage() {
   const [dataValue, setDataValue] = useState("all");
   const [connected, setConnected] = useState(true);
   const navigate = useNavigate();
+
+  const { isLoading } = useGetDataCheck(
+    `${import.meta.env.VITE_ADDR_API}/category`
+  );
+  useEffect(() => {
+    isLoading
+      ? toast.loading("Loading...", { id: "loader" })
+      : toast.dismiss("loader");
+  }, [isLoading]);
 
   useState(() => {
     fetch(`${import.meta.env.VITE_ADDR_API}/category`, {
@@ -66,22 +77,25 @@ export default function CategoryPage() {
 
   useEffect(() => {
     if (response.message) {
-      alert(response.message);
+      toast.error("This didn't work.");
       navigate("/category");
     }
     if (response.success) {
-      alert(response.success);
+      toast.success("Successfully!");
     }
     if (!connected) {
-      alert("database not conected...");
-      auth.logout();
-      navigate("/");
-      setConnected(true);
+      toast.error("database not conected...");
+      setTimeout(() => {
+        auth.logout();
+        navigate("/");
+        setConnected(true);
+      }, 2000);
     }
   }, [response.message, response.success, connected]);
 
   return (
     <div className="w-full lg:w-[calc(100vw-220px)]">
+      <Toaster />
       <div className="bg-primary-gray grow overflow-y-auto h-[calc(100vh-67.33px)]">
         <h1 className="p-4 font-raleway text-2xl font-semibold">Category</h1>
         <form className="font-roboto px-4 mx-4 border rounded-lg bg-white max-md:text-sm overflow-auto">
