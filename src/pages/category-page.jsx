@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 export default function CategoryPage() {
   const [response, setResponse] = useState([]);
   const [dataValue, setDataValue] = useState("all");
-  const [connected, setConnected] = useState(true);
   const navigate = useNavigate();
 
   const { isLoading } = useGetDataCheck(
@@ -30,7 +29,7 @@ export default function CategoryPage() {
       .then((res) => res.json())
       .then(setResponse)
       .catch(() => {
-        setConnected(false);
+        toast.error("error database");
       });
   }, [response]);
 
@@ -45,7 +44,7 @@ export default function CategoryPage() {
         .then((res) => res.json())
         .then(setResponse)
         .catch(() => {
-          setConnected(false);
+          toast.error("error database");
         });
     } else {
       fetch(`${import.meta.env.VITE_ADDR_API}/category/search/${value}`, {
@@ -56,7 +55,7 @@ export default function CategoryPage() {
         .then((res) => res.json())
         .then(setResponse)
         .catch(() => {
-          setConnected(false);
+          toast.error("error database");
         });
     }
   };
@@ -69,7 +68,10 @@ export default function CategoryPage() {
       },
     })
       .then((res) => res.json())
-      .then(setResponse);
+      .then(setResponse)
+      .catch(() => {
+        toast.error("error database");
+      });
     setTimeout(() => {
       search(dataValue);
     }, 1000);
@@ -78,20 +80,13 @@ export default function CategoryPage() {
   useEffect(() => {
     if (response.message) {
       toast.error("This didn't work.");
-      navigate("/category");
     }
     if (response.success) {
-      toast.success("Successfully!");
-    }
-    if (!connected) {
-      toast.error("database not conected...");
       setTimeout(() => {
-        auth.logout();
-        navigate("/");
-        setConnected(true);
-      }, 2000);
+        toast.success("Successfully!");
+      }, 1000);
     }
-  }, [response.message, response.success, connected]);
+  }, [response.message, response.success]);
 
   return (
     <div className="w-full lg:w-[calc(100vw-220px)]">

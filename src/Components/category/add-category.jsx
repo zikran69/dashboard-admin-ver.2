@@ -7,7 +7,6 @@ import auth from "../../utils/auth";
 export default function AddCategory() {
   const [addCategory, setAddCategory] = useState(null);
   const [response, setResponse] = useState([]);
-  const [connected, setConnected] = useState(true);
   const [preview, setPreview] = useState(null);
   const [preview2, setPreview2] = useState(null);
   const navigate = useNavigate();
@@ -33,27 +32,23 @@ export default function AddCategory() {
         .then((res) => res.json())
         .then(setResponse)
         .catch(() => {
-          setConnected(false);
+          toast.error("error database or session expire");
         });
     }
   }, [addCategory]);
 
   useEffect(() => {
     if (response.success) {
-      alert(response.success);
-      navigate("/category");
+      toast.success("Successfully!");
+      setTimeout(() => {
+        navigate("/category");
+      }, 2000);
     }
     if (response.message) {
-      alert(response.message);
+      toast.error("This didn't work.");
       navigate("/category-add");
     }
-    if (!connected) {
-      alert("database not conected...");
-      auth.logout();
-      navigate("/");
-      setConnected(true);
-    }
-  }, [response.success, response.message, connected]);
+  }, [response.success, response.message]);
 
   useEffect(() => {
     const upload = document.getElementById("upload");

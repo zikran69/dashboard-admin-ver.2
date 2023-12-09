@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import useGetDataCheck from "../hooks/useGetDataCheck";
 import auth from "../utils/auth";
 
 const CustomerPage = () => {
   const [customer, setCustomer] = useState([]);
-  const [connected, setConnected] = useState(true);
-  const navigate = useNavigate();
 
   const { isLoading } = useGetDataCheck(
     `${import.meta.env.VITE_ADDR_API}/customer`
@@ -19,20 +16,17 @@ const CustomerPage = () => {
   }, [isLoading]);
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_ADDR_API}/customer`)
+    fetch(`${import.meta.env.VITE_ADDR_API}/customer`, {
+      headers: {
+        Authorization: `Bearer ${auth.isAuthenticated()}`,
+      },
+    })
       .then((res) => res.json())
       .then((res) => setCustomer(res.customer))
-      .catch(() => setConnected(false));
+      .catch(() => {
+        toast.error("error database or session expire");
+      });
   }, [customer]);
-
-  useEffect(() => {
-    if (!connected) {
-      alert("database not conected...");
-      auth.logout();
-      navigate("/");
-      setConnected(true);
-    }
-  }, [connected]);
 
   return (
     <div className="w-full">

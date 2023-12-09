@@ -1,13 +1,16 @@
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 export default function ListTable({ dataHotel }) {
   const Removefunction = (id) => {
     if (window.confirm("Do you want to remove?")) {
       fetch("http://localhost:2000/rooms/" + id, {
         method: "DELETE",
       })
-        .then((res) => {
-          alert("Removed successfully.");
-          window.location.reload();
+        .then(() => {
+          toast.success("Successfully!");
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
         })
         .catch((err) => {
           console.log(err.message);
@@ -76,18 +79,6 @@ export default function ListTable({ dataHotel }) {
                   </td>
                   <td className="p-4 border-secondary-gray border border-b-2 border-opacity-10">
                     <div className="flex justify-center items-center flex-nowrap">
-                      <Link to={`/detail-kamar/${room.idRoom}`}>
-                        <button
-                          type="button"
-                          title="detail"
-                          className="detail mr-1 py-1 px-5 bg-green-400 rounded-md hover:bg-hover-green"
-                        >
-                          <i
-                            title="icon detail"
-                            className="ri-search-line text-white"
-                          ></i>
-                        </button>
-                      </Link>
                       <button
                         onClick={() => {
                           Removefunction(room.idRoom);

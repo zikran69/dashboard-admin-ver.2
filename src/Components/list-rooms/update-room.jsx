@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import toast from "react-hot-toast";
 import auth from "../../utils/auth";
 
-export default function UpdateKamarForm() {
+export default function UpdateRoomForm() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [floorId, setFloorId] = useState(null);
   const [category, dataCategory] = useState(null);
   const [floor, dataFloor] = useState(null);
-  const [status, dataStatus] = useState(null);
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_ADDR_API}/rooms/${id}`, {
@@ -20,8 +20,8 @@ export default function UpdateKamarForm() {
         return res.json();
       })
       .then(setFloorId)
-      .catch((err) => {
-        console.log(err.message);
+      .catch(() => {
+        toast.error("error database or session expire");
       });
 
     fetch(`${import.meta.env.VITE_ADDR_API}/category`, {
@@ -39,14 +39,6 @@ export default function UpdateKamarForm() {
     })
       .then((res) => res.json())
       .then(dataFloor);
-
-    fetch(`${import.meta.env.VITE_ADDR_API}/status`, {
-      headers: {
-        Authorization: `Bearer ${auth.isAuthenticated()}`,
-      },
-    })
-      .then((res) => res.json())
-      .then(dataStatus);
   }, []);
 
   const handlesubmit = (e) => {
@@ -71,11 +63,11 @@ export default function UpdateKamarForm() {
       }),
     })
       .then(() => {
-        alert("Saved successfully.");
+        toast.success("Successfully!");
         navigate("/list-rooms");
       })
-      .catch((err) => {
-        console.log(err.message);
+      .catch(() => {
+        toast.error("error database or session expire");
       });
   };
 
@@ -172,14 +164,8 @@ export default function UpdateKamarForm() {
                             className="h-10 border mt-1 rounded px-4 w-full bg-gray-0"
                           >
                             <option value={""}>--select--</option>
-                            {status &&
-                              status.map(({ idStatus, nameStatus }, index) => {
-                                return (
-                                  <option key={index} value={idStatus}>
-                                    {nameStatus}
-                                  </option>
-                                );
-                              })}
+                            <option value={6}>Empty</option>
+                            <option value={7}>Booked</option>
                           </select>
                         </div>
                       </div>

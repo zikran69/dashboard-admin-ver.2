@@ -73,8 +73,8 @@ export default function PesanKamarPage() {
           throw new Error("Failed to save.");
         }
       })
-      .catch((err) => {
-        console.log(err.message);
+      .catch(() => {
+        toast.error("error database or session expire");
       });
   };
 

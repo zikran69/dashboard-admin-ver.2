@@ -23,7 +23,10 @@ export default function ListKamarPage() {
       },
     })
       .then((res) => res.json())
-      .then(setState);
+      .then(setState)
+      .catch(() => {
+        toast.error("error database or session expire");
+      });
   }, []);
 
   return (
