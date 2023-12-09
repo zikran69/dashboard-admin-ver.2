@@ -141,7 +141,7 @@ export default function UpdateRoomForm() {
                           <input
                             required
                             name="numberRoom"
-                            type="text"
+                            type="number"
                             className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                             placeholder={floorId.numberRoom}
                           />
