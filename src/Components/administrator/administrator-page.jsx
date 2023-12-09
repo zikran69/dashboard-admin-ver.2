@@ -7,7 +7,7 @@ import auth from "../../utils/auth";
 export default function AdministratorPage() {
   const [state, setState] = useState();
   useEffect(() => {
-    fetch("http://localhost:2000/users/", {
+    fetch("https://backendappmyhotel.vercel.app/users/", {
       headers: {
         Authorization: `Bearer ${auth.isAuthenticated()}`,
       },

@@ -4,7 +4,7 @@ import auth from "../../utils/auth";
 export default function SelectCategory({}) {
   const [state, setState] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:2000/option`)
+    fetch(`https://backendappmyhotel.vercel.app/option`)
       .then((res) => res.json())
       .then(setState);
   }, []);

@@ -62,7 +62,7 @@ export default function Dashboard() {
   const [kamar, setKamar] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:2000/dashboard/information")
+    fetch("https://backendappmyhotel.vercel.app/dashboard/information")
       .then((res) => {
         return res.json();
       })
