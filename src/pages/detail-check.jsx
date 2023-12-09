@@ -1,24 +1,26 @@
-import { Link, useParams } from 'react-router-dom'
+import { Link, useLocation, useParams } from 'react-router-dom'
 import useGetDataCheck from '../hooks/useGetDataCheck'
 
 const DetailCheckin = () => {
   const param = useParams()
   const id = param.id
-  const { data } = useGetDataCheck(`${import.meta.env.VITE_ADDR_API}/check/in/${id}`)
-  console.log(data)
+  const location = useLocation().pathname
+  const out = location.includes('out')
+  const { data } = useGetDataCheck(`${import.meta.env.VITE_ADDR_API}/check/${out ? 'out' : 'in'}/${id}`)
+
   return (
     <div className='w-full'>
       <main className='bg-primary-gray grow overflow-y-auto'>
         <div className='p-2 h-[calc(100vh-67.33px)]'>
           <div className='mb-4 flex'>
             <div>
-              <Link to={'/checkin'}>
+              <Link to={out ? '/checkout' : '/checkin'}>
                 <button className='block mr-5'>
                   <i className='ri-arrow-left-line text-xl'></i>
                 </button>
               </Link>
             </div>
-            <h1 className='text-2xl font-semibold'>detail Check In</h1>
+            <h1 className='text-2xl font-semibold'>detail Check {out ? 'Out' : 'In'}</h1>
           </div>
           {data && (
             <>

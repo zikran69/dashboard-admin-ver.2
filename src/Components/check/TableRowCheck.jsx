@@ -1,4 +1,4 @@
-const TableRowCheckIn = ({ no, idRegistrasi, nik, nama, noKamar, tanggalCheck, btnDetail, btnCheck }) => {
+const TableRowCheck = ({ no, idRegistrasi, nik, nama, noKamar, tanggalCheck, btnDetail, btnCheck, btnReBook }) => {
 
   return (
     <tr className='odd:bg-zinc-400 odd:bg-opacity-10 md:odd:bg-transparent'>
@@ -60,9 +60,21 @@ const TableRowCheckIn = ({ no, idRegistrasi, nik, nama, noKamar, tanggalCheck, b
                       {' '}
                       <i className='ri-checkbox-circle-line text-white'> </i>
                     </button>
+                    {
+                      btnReBook && (
+                        <button
+                          onClick={btnReBook}
+                          title='rebook'
+                          className='ml-1 px-5 py-1 rounded-md bg-red-400 hover:bg-hover-red'
+                        >
+                          {' '}
+                          <i className='ri-repeat-line text-white'> </i>
+                        </button>
+                      )
+                    }
                     </div>
                   </td>
                 </tr>
   )
 }
-export default TableRowCheckIn
+export default TableRowCheck
