@@ -65,35 +65,12 @@ export default function LoginPage() {
               className="bg-sky-100 mt-1 px-4 py-2 w-full border rounded-md focus:ring focus:ring-indigo-300"
             />
           </div>
-          <div className="flex justify-between items-center my-4 p-2">
-            <div className="flex items-center">
-              <input type="checkbox" id="remember" />
-              <label className="ml-2">Remember Me</label>
-            </div>
-            <a
-              href="#"
-              className="text-primary-blue font-semibold hover:underline"
-            >
-              Forgot Password?
-            </a>
-          </div>
           <button
             type="submit"
             className="w-full bg-gradient-to-r from-blue-600 to-green-200 hover:from-green-500 hover:to-yellow-500 text-white py-2 rounded-md "
           >
             Log In
           </button>
-          <div className="my-4 text-center">
-            <span>
-              Not an admin?
-              <a
-                href="src/pages/login/register.html"
-                className="text-primary-blue font-semibold hover:text-pink-400 hover:underline"
-              >
-                Sign Up
-              </a>
-            </span>
-          </div>
         </form>
       </div>
     </div>
